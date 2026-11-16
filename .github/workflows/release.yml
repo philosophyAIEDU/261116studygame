@@ -1,8 +1,8 @@
 name: Release
 
-# v* 태그를 push 하면: ① 테스트 ② PWA 를 GitHub Pages 에 배포 ③ PC 설치 파일(Windows·macOS) 빌드
-# ④ GitHub Release 에 설치 파일과 업데이트 매니페스트(latest.json) 업로드.
-# 자세한 준비 과정은 docs/RELEASE.md 참고.
+# v* 태그를 push 하면: ① 테스트 ② (업데이트 서명 키가 등록된 경우) 서명된 PC 설치 파일을 빌드해
+# GitHub Release 에 설치 파일과 PC 앱 자동 업데이트 정보(latest.json)를 올린다.
+# 웹 게임·안내 페이지·설치 파일의 Netlify 배포는 package.yml 이 한다. 자세한 내용은 docs/NETLIFY.md, docs/RELEASE.md.
 
 on:
   push:
@@ -10,8 +10,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: release-${{ github.ref }}
@@ -38,27 +36,6 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run audio:check
-
-  pwa:
-    needs: test
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-      - id: deploy
-        uses: actions/deploy-pages@v4
 
   desktop:
     needs: test
