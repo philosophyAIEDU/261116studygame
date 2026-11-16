@@ -374,7 +374,6 @@ function Player({ look, shadows }: { look: CharacterLook; shadows: boolean }) {
     const zone = zoneById(teleport);
     if (!zone || !group.current) return;
     group.current.position.set(zone.pos[0], 0, zone.pos[1] + 3.6);
-    moveTarget.point = null;
     useUi.getState().requestTeleport(null);
   }, [teleport]);
 

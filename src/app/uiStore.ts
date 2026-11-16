@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { resetInput } from '@/world/input';
 import type { Skill } from '@/types';
 
 // 화면 상태(저장하지 않음): 지금 어떤 창이 떠 있는가.
@@ -44,5 +45,9 @@ export const useUi = create<UiState>((set) => ({
   nearZone: null,
   setNearZone: (id) => set((s) => (s.nearZone === id ? s : { nearZone: id })),
   teleport: null,
-  requestTeleport: (zoneId) => set({ teleport: zoneId }),
+  requestTeleport: (zoneId) => {
+    // 요청 시점의 이동만 취소한다. 월드 로딩 중 새로 누른 목표는 보존한다.
+    if (zoneId) resetInput();
+    set({ teleport: zoneId });
+  },
 }));
