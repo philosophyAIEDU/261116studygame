@@ -47,31 +47,37 @@ describe('graduation gate', () => {
     game().addInputSeconds(10 * 3600);
     render(<GradExam onClose={() => {}} />);
     fireEvent.click(screen.getByRole('button', { name: /Start the exam/ }));
-    const plan = buildExam('elementary', ALL_PACKS, 0); // 구성만 참고(문제는 화면에서 읽는다)
-    expect(plan).toHaveLength(4);
+    // 한 문제에 답하면 진행 막대가 올라갈 때까지 기다린다(다음 문제가 화면에 나온 뒤 다음 행동을 한다).
+    const progress = () => Number(screen.getByLabelText('Exam progress').getAttribute('aria-valuenow'));
+    const answerAndWait = async (act: () => void) => {
+      const before = progress();
+      act();
+      await waitFor(() => expect(progress()).toBeGreaterThan(before));
+    };
     // 듣기·읽기 6문제: 화면의 보기 중 정답을 찾아 누른다
     for (let i = 0; i < 6; i++) {
-      const heading = await screen.findByText(i < 3 ? /Listening \(Native speed\)/ : /Reading/);
-      expect(heading).toBeInTheDocument();
+      expect(await screen.findByText(i < 3 ? /Listening \(Native speed\)/ : /Reading/)).toBeInTheDocument();
       const text = screen.queryAllByText(/./, { selector: 'p.text-2xl' }).map((p) => p.textContent ?? '');
       const pictures = screen.queryAllByRole('button', { name: /^Picture sc/ });
-      if (pictures.length > 0) {
-        // 읽기 문제면 문장으로 정답 장면을 찾고, 듣기 문제면 아무거나 고른다(통과에는 읽기·말하기·쓰기로 충분하지 않으므로 아래에서 검증)
-        const pack = ALL_PACKS.find((p) => p.story.sentences.some((s) => text.includes(s.text)));
-        const sentence = pack?.story.sentences.find((s) => text.includes(s.text));
-        const target = sentence ? screen.queryByRole('button', { name: `Picture ${sentence.sceneId}` }) : null;
-        fireEvent.click(target ?? pictures[0]!);
-      } else {
-        const def = screen.getByText(/^❓ = /).textContent!.replace('❓ = ', '');
-        const word = ALL_PACKS.flatMap((p) => p.story.words).find((w) => w.easyEnglish === def)!.word;
-        fireEvent.click(screen.getByRole('button', { name: word }));
-      }
-      await waitFor(() => expect(screen.queryByText(/./, { selector: '.border-meadow, .border-berry' })).toBeNull());
+      await answerAndWait(() => {
+        if (pictures.length > 0) {
+          // 읽기 문제면 문장으로 정답 장면을 찾고, 듣기 문제면 아무거나 고른다(합격·불합격 모두 아래에서 규칙대로인지 확인한다)
+          const pack = ALL_PACKS.find((p) => p.story.sentences.some((s) => text.includes(s.text)));
+          const sentence = pack?.story.sentences.find((s) => text.includes(s.text));
+          const target = sentence ? screen.queryByRole('button', { name: `Picture ${sentence.sceneId}` }) : null;
+          fireEvent.click(target ?? pictures[0]!);
+        } else {
+          const def = screen.getByText(/^❓ = /).textContent!.replace('❓ = ', '');
+          const word = ALL_PACKS.flatMap((p) => p.story.words).find((w) => w.easyEnglish === def)!.word;
+          fireEvent.click(screen.getByRole('button', { name: word }));
+        }
+      });
     }
     // 말하기 2문제 (자기 평가 폴백)
     for (let i = 0; i < 2; i++) {
       fireEvent.click(await screen.findByRole('button', { name: /Say it!/ }));
-      fireEvent.click(await screen.findByRole('button', { name: /I said it!/ }));
+      const said = await screen.findByRole('button', { name: /I said it!/ });
+      await answerAndWait(() => fireEvent.click(said));
     }
     // 쓰기 1문제: 한글은 통과하지 못한다
     const box = await screen.findByLabelText(/Change one or two words/);
