@@ -1,17 +1,19 @@
 # 배포와 업데이트 — 릴리스 안내
 
+> **배포는 Netlify 로 합니다.** 처음 설정과 매 버전 배포 절차는 [`docs/NETLIFY.md`](NETLIFY.md) 를 먼저 보세요.
+> 이 문서는 PC 앱 자동 업데이트(서명 키) 같은 추가 내용을 다룹니다.
+
 사용자가 받는 경로는 두 가지입니다.
 
-| 경로 | 대상 | 설치 | 자동 업데이트 |
+| 경로 | 대상 | 설치 | 업데이트 |
 |---|---|---|---|
-| **PWA** (웹 주소) | PC · 안드로이드 · 아이폰 | 주소를 열고 "설치 / 홈 화면에 추가" | 서비스 워커가 새 버전을 받아 두고, 마을 화면에서 "✨ New update!" 배너로 알림 |
-| **PC 설치형** (Tauri) | Windows · macOS | GitHub Releases 의 설치 파일 | 앱이 `latest.json` 을 확인 → 앱 안에서 내려받고 다시 시작 |
+| **PWA** (웹 주소) | PC · 안드로이드 · 아이폰 | Netlify 주소를 열고 "설치 / 홈 화면에 추가" | 서비스 워커가 새 버전을 받아 두고, 마을 화면에서 "✨ New update!" 배너로 알림 |
+| **PC 설치형** (Tauri) | Windows · macOS | Netlify 안내 페이지(`/guide/`)의 설치 파일 | 기본: 새 설치 파일을 받아 다시 설치 / 서명 키를 준비하면: 앱이 `latest.json` 을 확인해 스스로 업데이트 |
 
 ## 처음 한 번만 하는 준비
 
-### 1. GitHub Pages 켜기 (PWA)
-저장소 **Settings → Pages → Build and deployment → Source** 를 **GitHub Actions** 로 바꿉니다.
-배포 주소는 `https://<계정>.github.io/<저장소>/` 입니다. (Cloudflare Pages 를 쓰려면 `dist/` 를 그대로 올리면 됩니다)
+### 1. Netlify 사이트 (PWA · 안내 페이지 · 설치 파일)
+[`docs/NETLIFY.md`](NETLIFY.md) 의 1~4단계를 따릅니다.
 
 ### 2. 업데이트 서명 키 만들기 (PC 설치형)
 PC 앱은 서명이 맞는 업데이트만 설치합니다. 키쌍을 한 번 만들어 둡니다.
@@ -25,7 +27,7 @@ npm run tauri signer generate -- -w ~/.tauri/school-quest.key
 > ⚠️ 개인 키는 GitHub Secrets 와 안전한 백업 장소에만 둡니다. 저장소에 커밋하지 마세요.
 > 개인 키를 잃어버리면 이미 설치된 앱에 업데이트를 보낼 수 없습니다(사용자가 새로 설치해야 함).
 
-`TAURI_UPDATER_PUBKEY` 변수를 등록하지 않으면 PC 설치 파일 단계는 건너뛰고 PWA 만 배포됩니다.
+`TAURI_UPDATER_PUBKEY` 변수를 등록하지 않으면 `release.yml` 의 서명된 PC 빌드(GitHub Release) 단계는 건너뜁니다. Netlify 배포(`package.yml`)는 이 키와 상관없이 동작합니다.
 
 ### 3. (선택) 코드 서명 인증서
 인증서가 없어도 설치는 됩니다. 다만
@@ -51,14 +53,14 @@ git commit -am "Release v0.2.0"
 git tag v0.2.0
 ```
 ```bash
-git push origin main --tags
+git push origin HEAD --tags
 ```
 
-태그가 올라가면 `.github/workflows/release.yml` 이 실행됩니다.
-1. 테스트 (태그와 package.json 버전이 다르면 여기서 멈춥니다)
-2. PWA 빌드 → GitHub Pages 배포
-3. Windows · macOS 설치 파일 빌드
-4. GitHub Release 생성 + 설치 파일 + `latest.json` 업로드
+태그가 올라가면 두 워크플로가 실행됩니다.
+- `package.yml` (**Netlify 배포**, 항상): 테스트 → Windows·Mac 설치 파일 빌드 → 웹 게임·안내 페이지·설치 파일을 Netlify 에 업로드
+- `release.yml` (서명 키가 등록된 경우만): 테스트 → 서명된 설치 파일 빌드 → GitHub Release 생성 + `latest.json` 업로드 (PC 앱 자동 업데이트용)
+
+두 워크플로 모두 태그와 package.json 버전이 다르면 테스트 단계에서 멈춥니다.
 
 ## 사용자에게 일어나는 일
 - **PWA**: 다음에 앱을 열면(또는 켜 둔 채 1시간마다) 새 버전을 백그라운드로 받습니다. 퀘스트나 Bedtime Listening 중에는 방해하지 않고, 마을 화면에 돌아왔을 때 배너가 뜹니다. "Update now" 를 누르면 새 버전으로 바뀝니다.

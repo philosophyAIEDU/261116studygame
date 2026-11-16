@@ -68,6 +68,10 @@ src-tauri/        PC 설치형 (Tauri 2 + updater)
 `/make-audio <packId>` → `audio:todo` → 로컬 TTS(`scripts/audio/tts.config.json`) → `audio:import` → `audio:check`.
 자세한 내용은 `docs/AUDIO_PIPELINE.md`. 앱은 특정 TTS 엔진에 의존하지 않고, 파일이 없으면 Web Speech 로 대체한다.
 
-## 릴리스
-`npm run version:set -- x.y.z` → `CHANGELOG.md` 수정 → 커밋 → `git tag vx.y.z && git push --tags`.
-자세한 내용은 `docs/RELEASE.md`.
+## 릴리스 (Netlify)
+`npm run version:set -- x.y.z` → `CHANGELOG.md` 수정 → 커밋 → `git tag vx.y.z && git push origin HEAD --tags`.
+태그를 push 하면 `.github/workflows/package.yml` 이 설치 파일을 빌드해 게임·`/guide/`(보호자 안내)·`/downloads/` 를 Netlify 에 올린다.
+처음 설정은 `docs/NETLIFY.md`, PC 앱 자동 업데이트(서명 키)는 `docs/RELEASE.md`.
+- `public/guide/index.html` 은 보호자용 한국어 정적 페이지다(게임 화면이 아니므로 한글 허용). `/downloads/index.json` 을 읽는다.
+- 서비스 워커의 `navigateFallbackDenylist`(vite.config.ts)에서 `/guide`, `/downloads` 를 빼면 안 된다(게임 화면으로 바뀐다).
+- Netlify 사이트를 Git 저장소에 연결하지 않는다(연결하면 push 때마다 설치 파일이 사라진다).
