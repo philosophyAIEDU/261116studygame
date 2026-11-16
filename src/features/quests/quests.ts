@@ -80,6 +80,13 @@ export function buildQuests(save: SaveData, packs: readonly StoryPack[], today: 
       zoneId: s.zoneId, overlay: lock.unlocked ? { type: 'skills', skill: s.skill } : null, done: false, locked: !lock.unlocked,
     });
   }
+  if (save.career) {
+    // 커리어 단계: 직업별 인터뷰·발표 연습과 직업 글쓰기
+    quests.push(
+      { id: 'career-interview', kind: 'sub', icon: '🤝', title: 'Interview practice', detail: 'Talk about your job in English.', zoneId: 'teacher', overlay: { type: 'talk', packId: '', career: true }, done: false, locked: false },
+      { id: 'career-writing', kind: 'sub', icon: '📧', title: 'Work email', detail: 'Write an email or a short essay.', zoneId: 'library', overlay: { type: 'skills', skill: 'writing' }, done: false, locked: false },
+    );
+  }
   quests.push({ id: 'real-talk', kind: 'sub', icon: '⚡', title: 'Real Talk', detail: 'Catch the words in a fast chat.', zoneId: 'cafeteria', overlay: { type: 'realTalk' }, done: save.badges.includes('real-talk'), locked: false });
 
   const daily = save.daily.day === today ? save.daily : { listens: 0, words: 0 };
