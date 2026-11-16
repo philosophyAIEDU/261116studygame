@@ -81,3 +81,25 @@ test('speaking and writing are playable missions, preserve input gates, and comp
   const stored = await page.evaluate(() => localStorage.getItem('asq-save'));
   expect(stored).not.toContain('Come and play with us at the school festival!');
 });
+
+test('the guided adventure also works on devices without WebGL', async ({ page }) => {
+  await page.addInitScript((data) => {
+    localStorage.setItem('asq-save', JSON.stringify({ state: { save: data }, version: 3 }));
+    localStorage.setItem('asq-e2e', '1');
+    const original = HTMLCanvasElement.prototype.getContext as (this: HTMLCanvasElement, contextId: string) => RenderingContext | null;
+    HTMLCanvasElement.prototype.getContext = function(this: HTMLCanvasElement, contextId: string) {
+      if (contextId === 'webgl' || contextId === 'webgl2') return null;
+      return original.call(this, contextId);
+    } as typeof HTMLCanvasElement.prototype.getContext;
+  }, readySave());
+  await page.goto('/');
+  await page.getByRole('button', { name: /Meet Leo/ }).click();
+  await page.getByRole('button', { name: /Find the glowing stars/ }).click();
+  await page.getByRole('button', { name: /Follow the stars/ }).click();
+  const map = page.getByRole('dialog', { name: 'School Map' });
+  await expect(map).toBeVisible();
+  await map.getByRole('button', { name: 'Visit sun star parcel', exact: true }).click();
+  await page.getByRole('button', { name: /Hear the clue/ }).click();
+  await page.getByRole('button', { name: 'Choose ☀️', exact: true }).click();
+  await expect(page.getByText('Star sticker found!', { exact: true })).toBeVisible();
+});
