@@ -69,7 +69,7 @@ describe('guardian settings (Korean)', () => {
     fireEvent.click(screen.getByRole('radio', { name: '낮음' }));
     expect(game().save.settings.quality).toBe('low');
     fireEvent.click(screen.getByRole('tab', { name: '데이터 · 앱' }));
-    expect(screen.getByText(/현재 버전/)).toHaveTextContent('v0.1.0');
+    expect(screen.getByText(/현재 버전/)).toHaveTextContent(`v${__APP_VERSION__}`);
     expect(screen.getByText('0.1.0 — 첫 버전')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', { name: '오디오 팩' }));
     expect(screen.getAllByText('녹음 파일 없음 (기기 음성 사용)')).toHaveLength(6);
@@ -141,7 +141,7 @@ describe('backup (export / import)', () => {
   it('migrates old saves on import and rejects junk', () => {
     const v1 = { schemaVersion: 1, xp: 55, character: { nickname: 'A', mbti: 'ISTJ' }, vocab: [{ word: 'dog', meaningKo: '개' }] };
     const fromBare = parseBackup(JSON.stringify(v1))!;
-    expect(fromBare.save).toMatchObject({ schemaVersion: 2, xp: 55 });
+    expect(fromBare.save).toMatchObject({ schemaVersion: 3, xp: 55 });
     expect(JSON.stringify(fromBare.save)).not.toContain('개');
     const wrapped = parseBackup(JSON.stringify({ app: 'my-american-school-quest', save: v1, drawings: { x: 'javascript:alert(1)' } }))!;
     expect(wrapped.save.xp).toBe(55);

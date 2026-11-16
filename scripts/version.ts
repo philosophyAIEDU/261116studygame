@@ -20,4 +20,5 @@ edit('package.json', (t) => t.replace(/"version": "[^"]+"/, `"version": "${versi
 edit('package-lock.json', (t) => t.replace(/("name": "my-american-school-quest",\s+"version": )"[^"]+"/g, `$1"${version}"`));
 edit('src-tauri/tauri.conf.json', (t) => t.replace(/"version": "[^"]+"/, `"version": "${version}"`));
 edit('src-tauri/Cargo.toml', (t) => t.replace(/^version = "[^"]+"/m, `version = "${version}"`));
+edit('src-tauri/Cargo.lock', (t) => t.replace(/(\[\[package\]\]\nname = "my-american-school-quest"\nversion = )"[^"]+"/, `$1"${version}"`));
 console.log(`\nVersion set to ${version}. Next: update CHANGELOG.md, commit, then: git tag v${version} && git push --tags`);

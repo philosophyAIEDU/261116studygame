@@ -10,6 +10,8 @@ export default defineConfig({
   testDir: 'tests/e2e',
   timeout: 90_000,
   retries: 0,
+  // 소프트웨어 3D 렌더러를 쓰는 CI에서는 여러 월드를 동시에 돌리지 않는다.
+  workers: process.env.CI ? 1 : undefined,
   use: {
     baseURL: 'http://localhost:5173',
     viewport: { width: 1100, height: 720 },

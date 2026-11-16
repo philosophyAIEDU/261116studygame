@@ -1,9 +1,11 @@
 import { create } from 'zustand';
+import { resetInput } from '@/world/input';
 import type { Skill } from '@/types';
 
 // 화면 상태(저장하지 않음): 지금 어떤 창이 떠 있는가.
 
 export type Overlay =
+  | { type: 'adventure'; nodeId?: string }
   | { type: 'storyList' }
   | { type: 'story'; packId: string }
   | { type: 'bedtime'; packId?: string }
@@ -23,6 +25,7 @@ export type Overlay =
 
 interface UiState {
   overlay: Overlay | null;
+  storyReturnToAdventure: boolean;
   /** 창을 열고 닫는다. 창을 열면 플레이어 이동 입력은 멈춘다. */
   open: (overlay: Overlay) => void;
   close: () => void;
@@ -36,10 +39,15 @@ interface UiState {
 
 export const useUi = create<UiState>((set) => ({
   overlay: null,
-  open: (overlay) => set({ overlay }),
-  close: () => set({ overlay: null }),
+  storyReturnToAdventure: false,
+  open: (overlay) => set((s) => ({ overlay, storyReturnToAdventure: (s.overlay?.type === 'adventure' && overlay.type === 'story') || (s.storyReturnToAdventure && ['story', 'bedtime', 'talk'].includes(overlay.type)) })),
+  close: () => set({ overlay: null, storyReturnToAdventure: false }),
   nearZone: null,
   setNearZone: (id) => set((s) => (s.nearZone === id ? s : { nearZone: id })),
   teleport: null,
-  requestTeleport: (zoneId) => set({ teleport: zoneId }),
+  requestTeleport: (zoneId) => {
+    // 요청 시점의 이동만 취소한다. 월드 로딩 중 새로 누른 목표는 보존한다.
+    if (zoneId) resetInput();
+    set({ teleport: zoneId });
+  },
 }));

@@ -1,4 +1,4 @@
-import { Component, lazy, Suspense, useEffect, useMemo, type ReactNode } from 'react';
+import { Component, lazy, Suspense, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useUi } from './uiStore';
 import { Overlays } from './Overlays';
 import { useGame } from '@/save/store';
@@ -11,6 +11,7 @@ import { resolveQuality } from '@/world/quality';
 import { WorldMap2D } from '@/world/WorldMap2D';
 import { Hud } from '@/ui/Hud';
 import { FxLayer } from '@/ui/FxLayer';
+import { AdventureHud } from '@/features/adventure/AdventureHud';
 import { UpdateBanner } from './UpdateBanner';
 
 const World3D = lazy(() => import('@/world/World3D'));
@@ -25,9 +26,10 @@ function webglAvailable(): boolean {
 }
 
 /** 3D 가 실패하면(오래된 기기 등) 2D 지도로 바꿔서 게임은 계속되게 한다. */
-class WorldBoundary extends Component<{ fallback: ReactNode; children: ReactNode }, { failed: boolean }> {
+class WorldBoundary extends Component<{ fallback: ReactNode; children: ReactNode; onFallback: () => void }, { failed: boolean }> {
   override state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
+  override componentDidCatch() { this.props.onFallback(); }
   override render() { return this.state.failed ? this.props.fallback : this.props.children; }
 }
 
@@ -40,6 +42,7 @@ export function Game() {
   const mbti = save.profile?.mbti ?? null;
   const quality = useMemo(() => resolveQuality(save.settings.quality), [save.settings.quality]);
   const canWebgl = useMemo(webglAvailable, []);
+  const [worldFailed, setWorldFailed] = useState(false);
   const touch = useMemo(() => typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0), []);
   const packs = useMemo(() => recommendedPacks(stage, mbti), [stage, mbti]);
   const zones = useMemo(() => questZones(buildQuests(save, packs, localDayKey(new Date()))), [save, packs]);
@@ -61,7 +64,7 @@ export function Game() {
     <div className="relative h-full overflow-hidden">
       <div className="absolute inset-0" aria-hidden={overlay ? true : undefined}>
         {canWebgl && save.profile ? (
-          <WorldBoundary fallback={map2d}>
+          <WorldBoundary fallback={map2d} onFallback={() => setWorldFailed(true)}>
             <Suspense fallback={<div className="flex h-full items-center justify-center text-6xl" aria-busy="true">🏫</div>}>
               <World3D
                 phase={phase}
@@ -76,6 +79,7 @@ export function Game() {
           </WorldBoundary>
         ) : map2d}
         <Hud touch={touch} />
+        <AdventureHud mapMode={!canWebgl || worldFailed} />
       </div>
       <Overlays />
       <FxLayer />

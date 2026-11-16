@@ -44,6 +44,16 @@ export function EchoPractice({ text, speed, voice, mode = 'echo', hideText, onRe
   }, [text, voice, speed]);
   useEffect(() => () => { if (clipUrl) URL.revokeObjectURL(clipUrl); }, [clipUrl]);
 
+  const startRecording = () => {
+    stopAll();
+    setPhase('listening');
+    const handle = recordClip(10);
+    recorder.current = handle;
+    void handle.clip.then((blob) => {
+      setClipUrl(blob ? URL.createObjectURL(blob) : null);
+      setPhase('review');
+    });
+  };
   const startSpeaking = () => {
     setHeard('');
     setPhase('listening');
@@ -60,12 +70,7 @@ export function EchoPractice({ text, speed, voice, mode = 'echo', hideText, onRe
         playSfx(acc >= 0.6 ? 'correct' : 'wrong');
       });
     } else if (canRecord) {
-      const handle = recordClip(10);
-      recorder.current = handle;
-      void handle.clip.then((blob) => {
-        setClipUrl(blob ? URL.createObjectURL(blob) : null);
-        setPhase('review');
-      });
+      startRecording();
     } else {
       setPhase('review');
     }
@@ -91,19 +96,22 @@ export function EchoPractice({ text, speed, voice, mode = 'echo', hideText, onRe
 
       {phase === 'scored' && (
         <div className="space-y-2 text-center">
+          {heard ? <p className="text-sm font-bold">Words matched</p> : <p className="text-base font-bold">I could not hear you. Try again, or record and listen.</p>}
           <p className="emoji text-4xl" aria-label={`${Math.round(accuracy * 100)} percent`}>{stars(accuracy)}</p>
           <p className="rounded-xl bg-white p-2 text-lg">🎙️ {heard || '...'}</p>
           <div className="flex gap-2">
             <Btn tone="paper" icon="🔁" className="flex-1" onClick={startSpeaking}>Again</Btn>
-            <Btn tone="meadow" icon="➡️" className="flex-1" onClick={() => onResult(accuracy)}>Next</Btn>
+            <Btn tone="meadow" icon="➡️" className="flex-1" disabled={!heard} onClick={() => onResult(accuracy)}>Next</Btn>
           </div>
+          {!heard && canRecord ? <Btn tone="sky" icon="🎙️" className="w-full" onClick={startRecording}>Record and listen</Btn> : null}
         </div>
       )}
 
       {phase === 'review' && (
         <div className="space-y-2">
           {clipUrl ? <audio src={clipUrl} controls className="w-full" aria-label="My voice" /> : null}
-          <p className="text-center text-lg font-bold">How was it?</p>
+          <p className="text-center text-lg font-bold">{clipUrl ? 'Listen to your voice. How was it?' : 'Say the line aloud. How was it?'}</p>
+          <p className="text-center text-sm">Self-check · No automatic score</p>
           <div className="flex gap-2">
             <Btn tone="paper" icon="🔁" className="flex-1" onClick={startSpeaking}>Again</Btn>
             <Btn tone="meadow" icon="👍" className="flex-1" onClick={() => onResult(0.8)}>I said it!</Btn>
