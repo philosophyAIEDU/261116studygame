@@ -27,6 +27,7 @@ export const EARS_HINT = 'Your ears are still collecting words! 👂';
 export function StoryQuest({ packId, onClose }: { packId: string; onClose: () => void }) {
   const pack = getPack(packId);
   const progress = useGame((s) => s.save.stories[packId]) ?? EMPTY_PROGRESS;
+  const returnToAdventure = useUi((s) => s.storyReturnToAdventure);
   const settingsSpeed = useGame((s) => s.save.settings.speed);
   const game = useGame.getState;
   const open = useUi((s) => s.open);
@@ -35,6 +36,8 @@ export function StoryQuest({ packId, onClose }: { packId: string; onClose: () =>
 
   if (!pack) return null;
   const tier = pack.meta.level as Tier;
+  const next = STEPS.find((step) => !progress.steps[step.id] && isStepAvailable(progress, step.id)) ?? (progress.listenCount < USE_IT_MIN_LISTENS ? STEPS[0] : undefined);
+  const begin = (step: StoryStep) => step === 'bedtime' ? goToBed() : setView(step);
 
   const finishListen = (step: 'look' | 'read', speed: Speed) => {
     game().completeStep(packId, step);
@@ -86,6 +89,7 @@ export function StoryQuest({ packId, onClose }: { packId: string; onClose: () =>
             <span aria-label="Phrase Pocket">💬 {progress.phrases.length}/{pack.story.phrasePocket.length}</span>
             {progress.medal !== 'none' ? <span className="emoji text-2xl" aria-label={`${progress.medal} speed medal`}>{medalIcon(progress.medal)}</span> : null}
           </div>
+          {returnToAdventure && isUseItUnlocked(progress) ? <Btn big className="w-full" onClick={onClose}>🏮 My lantern is ready! Return to Mr. Page</Btn> : next ? <div className="rounded-2xl bg-paper p-4 text-ink"><p className="mb-2 text-xs font-black tracking-widest text-[#76618d]">YOUR NEXT STEP</p><Btn big className="w-full" onClick={() => begin(next.id)}>{next.icon} {next.id === 'look' && progress.steps.look ? 'Hear my story again' : `Start ${next.name}`}</Btn></div> : null}
           <ol className="space-y-2">
             {STEPS.map((step) => {
               const done = progress.steps[step.id];

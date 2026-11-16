@@ -11,6 +11,7 @@ import { resolveQuality } from '@/world/quality';
 import { WorldMap2D } from '@/world/WorldMap2D';
 import { Hud } from '@/ui/Hud';
 import { FxLayer } from '@/ui/FxLayer';
+import { AdventureHud } from '@/features/adventure/AdventureHud';
 import { UpdateBanner } from './UpdateBanner';
 
 const World3D = lazy(() => import('@/world/World3D'));
@@ -76,6 +77,7 @@ export function Game() {
           </WorldBoundary>
         ) : map2d}
         <Hud touch={touch} />
+        <AdventureHud mapMode={!canWebgl} />
       </div>
       <Overlays />
       <FxLayer />

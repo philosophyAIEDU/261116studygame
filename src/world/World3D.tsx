@@ -1,14 +1,17 @@
 import { Component, lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
+import { RoundedBox, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import type { DayPhase, LifeStage, Profile } from '@/types';
 import { LIGHT_PRESETS, STAGE_THEMES, type StageTheme } from '@/config/theme';
 import { SPAWN, ZONES, zoneById, type ZoneDef } from '@/config/zones';
 import { useUi } from '@/app/uiStore';
 import { Character, type CharacterLook } from './Character';
+import { CHARACTER_DESIGNS } from '@/config/characters';
 import { emojiTexture, toonGradient, windowMaterial } from './materials';
 import { attachKeyboard, cameraYaw, inputVector, moveTarget, playerPos, resetInput } from './input';
+import { useGame } from '@/save/store';
+import { CampusDetails, FestivalWorld } from './FestivalWorld';
 import { qualityConfig, type Quality } from './quality';
 
 // 3D 학교 월드 (React Three Fiber).
@@ -21,12 +24,7 @@ const MAP_RADIUS = 34;
 const NEAR_DISTANCE = 5;
 const WALK_SPEED = 7.5;
 
-const NPC_LOOKS: Record<string, CharacterLook> = {
-  harper: { hair: 1, hairColor: 1, outfitColor: 3 },
-  leo: { hair: 0, hairColor: 2, outfitColor: 1 },
-  ava: { hair: 2, hairColor: 3, outfitColor: 2 },
-  mrbooks: { hair: 0, hairColor: 0, outfitColor: 4 },
-};
+const NPC_LOOKS = CHARACTER_DESIGNS;
 
 // ── 하늘·조명 (낮/밤 순환) ─────────────────────────────────────
 function Atmosphere({ phase, shadows, stars }: { phase: DayPhase; shadows: boolean; stars: number }) {
@@ -269,32 +267,40 @@ function ZoneBuilding({ zone, theme, shadows, quest, models }: { zone: ZoneDef; 
       </mesh>
       <OptionalModel name={`zone-${zone.id}`} names={models}>
         <group position={[0, 0, -2.4]}>
-          <mesh position={[0, h / 2, 0]} castShadow={shadows} receiveShadow>
-            <boxGeometry args={[6.4, h, 3]} />
-            <meshToonMaterial color={isHome ? '#fce3d0' : theme.wall} gradientMap={toonGradient()} />
-          </mesh>
+          <RoundedBox args={[6.4, h, 3]} position={[0, h / 2, 0]} radius={0.16} smoothness={2} castShadow={shadows} receiveShadow>
+            <meshStandardMaterial color={isHome ? '#fce3d0' : theme.wall} roughness={0.85} />
+          </RoundedBox>
           {isHome ? (
             <mesh position={[0, h + 1, 0]} rotation={[0, Math.PI / 4, 0]} castShadow={shadows}>
               <coneGeometry args={[4.9, 2.2, 4]} />
               <meshToonMaterial color={zone.color} gradientMap={toonGradient()} />
             </mesh>
           ) : (
-            <mesh position={[0, h + 0.25, 0]} castShadow={shadows}>
-              <boxGeometry args={[7, 0.5, 3.6]} />
-              <meshToonMaterial color={zone.color} gradientMap={toonGradient()} />
-            </mesh>
+            <RoundedBox args={[7, 0.5, 3.6]} position={[0, h + 0.25, 0]} radius={0.18} smoothness={2} castShadow={shadows}>
+              <meshStandardMaterial color={zone.color} roughness={0.7} />
+            </RoundedBox>
           )}
           <mesh position={[0, 1, 1.52]}><boxGeometry args={[1.3, 2, 0.08]} /><meshToonMaterial color="#9b6b4a" gradientMap={toonGradient()} /></mesh>
           {[-2.1, 2.1].map((x) => (
             <mesh key={x} position={[x, Math.min(h - 1, 1.9), 1.52]} material={windowMaterial}><boxGeometry args={[1.2, 1.1, 0.08]} /></mesh>
           ))}
+          {[-2.1, 2.1].map((x) => <group key={`frame-${x}`} position={[x, Math.min(h - 1, 1.9), 1.59]}>
+            <mesh><boxGeometry args={[1.35, 0.07, 0.06]} /><meshStandardMaterial color="#fff9ec" /></mesh>
+            <mesh><boxGeometry args={[0.07, 1.2, 0.06]} /><meshStandardMaterial color="#fff9ec" /></mesh>
+            <RoundedBox args={[1.5, 0.12, 0.25]} position={[0, -0.64, 0]} radius={0.04} smoothness={1}><meshStandardMaterial color="#d5af86" /></RoundedBox>
+          </group>)}
           {theme.height > 1.4 ? [-2.1, 0, 2.1].map((x) => (
             <mesh key={`u${x}`} position={[x, h - 1, 1.52]} material={windowMaterial}><boxGeometry args={[1.2, 1, 0.08]} /></mesh>
           )) : null}
         </group>
       </OptionalModel>
+      <group position={[0, 0, -0.65]}>
+        <RoundedBox args={[2.1, 0.22, 0.8]} position={[0, 2.2, 0]} radius={0.1} smoothness={2}><meshStandardMaterial color={zone.color} /></RoundedBox>
+        <RoundedBox args={[2.3, 0.16, 0.9]} position={[0, 0.14, 0.15]} radius={0.06} smoothness={2}><meshStandardMaterial color="#ead7bb" /></RoundedBox>
+        {[-2.5, 2.5].map((x) => <group key={x} position={[x, 0.4, 0.35]}><mesh><sphereGeometry args={[0.55, 12, 10]} /><meshStandardMaterial color="#91b891" /></mesh><mesh position={[0, 0.35, 0]}><sphereGeometry args={[0.35, 12, 10]} /><meshStandardMaterial color="#b2c99c" /></mesh></group>)}
+      </group>
       <ZoneProps id={zone.id} />
-      <Sign emoji={zone.icon} y={h + (isHome ? 3.4 : 2)} />
+      <Sign emoji={zone.id === 'teacher' ? '🌼' : zone.icon} y={h + (isHome ? 3.4 : 2)} scale={1.5} />
       {quest ? <group position={[2.6, 0, 1.2]}><Sign emoji="❗" y={3.1} scale={1.3} /></group> : null}
       {near ? (
         <mesh ref={ring} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.2, 0.6]}>
@@ -304,7 +310,9 @@ function ZoneBuilding({ zone, theme, shadows, quest, models }: { zone: ZoneDef; 
       ) : null}
       {zone.npcId && NPC_LOOKS[zone.npcId] ? (
         <group position={[2.6, 0, 1.2]} rotation={[0, -0.5, 0]}>
-          <Character look={NPC_LOOKS[zone.npcId] as CharacterLook} shadow={shadows} />
+          <group onClick={(event) => { event.stopPropagation(); useUi.getState().open({ type: 'adventure' }); }}>
+            <Character look={NPC_LOOKS[zone.npcId] as CharacterLook} shadow={shadows} />
+          </group>
         </group>
       ) : null}
     </group>
@@ -341,7 +349,7 @@ function Trees({ count, shadows }: { count: number; shadows: boolean }) {
         <meshToonMaterial color="#9b6b4a" gradientMap={toonGradient()} />
       </instancedMesh>
       <instancedMesh ref={crowns} args={[undefined, undefined, count]} castShadow={shadows}>
-        <icosahedronGeometry args={[1.35, 1]} />
+        <sphereGeometry args={[1.35, 12, 10]} />
         <meshToonMaterial color="#5fae58" gradientMap={toonGradient()} />
       </instancedMesh>
     </>
@@ -397,8 +405,11 @@ function Player({ look, shadows }: { look: CharacterLook; shadows: boolean }) {
     }
     moving.current = dx !== 0 || dz !== 0;
     if (moving.current) {
-      g.position.x += dx * WALK_SPEED * dt;
-      g.position.z += dz * WALK_SPEED * dt;
+      const blockedAt = (x: number, z: number) => ZONES.some((zone) => Math.abs(x - zone.pos[0]) < 3.5 && Math.abs(z - (zone.pos[1] - 2.4)) < 1.9) || Math.hypot(x, z) < 1.85;
+      const nextX = g.position.x + dx * WALK_SPEED * dt;
+      const nextZ = g.position.z + dz * WALK_SPEED * dt;
+      if (!blockedAt(nextX, g.position.z)) g.position.x = nextX;
+      if (!blockedAt(g.position.x, nextZ)) g.position.z = nextZ;
       const r = Math.hypot(g.position.x, g.position.z);
       if (r > MAP_RADIUS) { g.position.x *= MAP_RADIUS / r; g.position.z *= MAP_RADIUS / r; }
       const targetAngle = Math.atan2(dx, dz);
@@ -418,7 +429,7 @@ function Player({ look, shadows }: { look: CharacterLook; shadows: boolean }) {
 
     // 3인칭 카메라: 플레이어 뒤·위에서 부드럽게 따라간다.
     const yaw = cameraYaw.value;
-    camTarget.set(g.position.x + Math.sin(yaw) * 15, 11, g.position.z + Math.cos(yaw) * 15);
+    camTarget.set(g.position.x + Math.sin(yaw) * 12, 8.5, g.position.z + Math.cos(yaw) * 12);
     camera.position.lerp(camTarget, 1 - Math.exp(-dt * 6));
     camera.lookAt(g.position.x, 1.4, g.position.z);
   });
@@ -454,6 +465,8 @@ export interface World3DProps {
 }
 
 export default function World3D({ phase, stage, quality, profile, questZones, surprise, onSurprise }: World3DProps) {
+  const overlay = useUi((state) => state.overlay);
+  const adventure = useGame((state) => state.save.adventure);
   const cfg = qualityConfig(quality, typeof window === 'undefined' ? 1 : window.devicePixelRatio);
   const theme = STAGE_THEMES[stage];
   const [models, setModels] = useState<readonly string[]>([]);
@@ -472,18 +485,23 @@ export default function World3D({ phase, stage, quality, profile, questZones, su
       onPointerUp={() => { drag.current = null; }}
     >
       <Canvas
+        frameloop={overlay ? 'demand' : 'always'}
         shadows={cfg.shadows}
         dpr={cfg.dpr}
         gl={{ antialias: cfg.antialias, powerPreference: 'high-performance' }}
         camera={{ fov: 48, near: 0.5, far: 320, position: [SPAWN[0], 11, SPAWN[1] + 15] }}
       >
         <Atmosphere phase={phase} shadows={cfg.shadows} stars={cfg.stars} />
+        <ambientLight intensity={phase === 'night' ? 0.35 : 0.8} color="#fff3df" />
+        <directionalLight position={[-6, 5, -8]} intensity={0.55} color="#dfe8ff" />
         <Ground theme={theme} />
         {ZONES.map((z) => (
           <ZoneBuilding key={z.id} zone={z} theme={theme} shadows={cfg.shadows} quest={questZones.includes(z.id)} models={models} />
         ))}
         <Trees count={Math.round(cfg.trees * theme.trees)} shadows={cfg.shadows} />
-        <Player look={profile} shadows={cfg.shadows} />
+        <CampusDetails complete={adventure.claimed.length === 5} />
+        <FestivalWorld />
+        <Player look={{ ...profile, accessory: adventure.equipped ?? undefined }} shadows={cfg.shadows} />
         {surprise ? <Surprise onFound={onSurprise} /> : null}
         {cfg.bloom ? <Suspense fallback={null}><Effects /></Suspense> : null}
       </Canvas>

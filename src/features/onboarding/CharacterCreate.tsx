@@ -4,6 +4,7 @@ import { HAIR_COLORS, HAIR_STYLES, OUTFIT_COLORS } from '@/config/appearance';
 import { containsHangul } from '@/features/dictionary/hangul';
 import { MBTI_QUESTIONS, mbtiFromAnswers } from '@/features/mbti/style';
 import { Avatar2D } from '@/ui/Avatar2D';
+import { CHARACTER_DESIGNS } from '@/config/characters';
 import { Btn, Paper } from '@/ui/kit';
 import { playSfx } from '@/audio/sfx';
 
@@ -53,10 +54,24 @@ export function CharacterCreate({ onDone }: { onDone: (p: Profile) => void }) {
   const question = quiz ? MBTI_QUESTIONS[quiz.length] : undefined;
 
   return (
-    <div className="scroll-y flex h-full items-start justify-center bg-gradient-to-b from-sky to-paper p-4 sm:items-center">
-      <Paper className="w-full max-w-xl">
-        <h1 className="mb-3 text-center text-2xl font-extrabold">✨ Make Your Hero</h1>
-        <div className="mb-3 flex justify-center"><Avatar2D look={look} size={130} /></div>
+    <div className="hero-creator scroll-y h-full p-4 sm:p-8">
+      <div className="relative mx-auto grid min-h-full max-w-5xl items-center gap-6 md:grid-cols-2 md:gap-12">
+        <aside className="hero-showcase text-center">
+          <p className="mb-3 text-xs font-extrabold tracking-[0.28em] text-[#76618d]">MAPLE GROVE · YOUR STORY BEGINS</p>
+          <h1 className="text-4xl font-black tracking-tight text-ink sm:text-5xl">A little hero.<br /><span className="text-[#a95b65]">A big adventure.</span></h1>
+          <div className="hero-stage relative mx-auto mt-5 flex h-64 max-w-sm items-end justify-center sm:h-80">
+            <span className="hero-spark hero-spark-one" aria-hidden="true">✦</span><span className="hero-spark hero-spark-two" aria-hidden="true">✧</span>
+            <div className="hero-figure relative z-10"><Avatar2D look={look} size={210} /></div>
+            <span className="hero-nameplate">{name || 'Your next adventure'}</span>
+          </div>
+          <div className="mt-8 flex items-center justify-center gap-2">
+            {['leo', 'ava', 'harper'].map((id) => <div key={id} className="character-portrait h-12 w-12 overflow-hidden rounded-full border-2 border-white"><Avatar2D look={CHARACTER_DESIGNS[id]!} size={48} bust /></div>)}
+            <p className="ml-2 text-left text-sm font-bold text-[#76618d]">New friends.<br />A place to belong.</p>
+          </div>
+        </aside>
+        <Paper className="hero-customizer w-full">
+          <div className="mb-5 flex items-center justify-between"><h2 className="text-2xl font-extrabold">Make Your Hero</h2><span className="text-sm font-bold text-[#76618d]">0{step + 1} / 03</span></div>
+          <div className="mb-6 flex gap-2" aria-hidden="true">{[0, 1, 2].map((i) => <span key={i} className={`h-1.5 flex-1 rounded-full ${i <= step ? 'bg-[#b18bc5]' : 'bg-[#ede4ef]'}`} />)}</div>
 
         {step === 0 && (
           <div className="space-y-3">
@@ -138,7 +153,8 @@ export function CharacterCreate({ onDone }: { onDone: (p: Profile) => void }) {
             </div>
           </div>
         )}
-      </Paper>
+        </Paper>
+      </div>
     </div>
   );
 }

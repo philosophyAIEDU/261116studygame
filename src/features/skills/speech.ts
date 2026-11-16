@@ -54,7 +54,7 @@ export function listenOnce(opts: { onInterim?: (text: string) => void; silenceMs
   let silenceTimer: ReturnType<typeof setTimeout> | null = null;
   let resolveResult: (text: string) => void = () => {};
   const result = new Promise<string>((resolve) => { resolveResult = resolve; });
-  const maxTimer = setTimeout(() => rec.stop(), opts.maxMs ?? 15000);
+  const maxTimer = setTimeout(() => { try { rec.stop(); } catch { finish(); } }, opts.maxMs ?? 15000);
 
   rec.onresult = (e) => {
     interim = '';
@@ -67,21 +67,22 @@ export function listenOnce(opts: { onInterim?: (text: string) => void; silenceMs
     opts.onInterim?.(`${finalText}${interim}`.trim());
     if (opts.silenceMs && opts.silenceMs > 0) {
       if (silenceTimer) clearTimeout(silenceTimer);
-      silenceTimer = setTimeout(() => rec.stop(), opts.silenceMs);
+      silenceTimer = setTimeout(() => { try { rec.stop(); } catch { finish(); } }, opts.silenceMs);
     }
   };
-  rec.onerror = () => { /* onend 에서 정리한다 */ };
-  rec.onend = () => {
+  const finish = () => {
     clearTimeout(maxTimer);
     if (silenceTimer) clearTimeout(silenceTimer);
     resolveResult(`${finalText}${interim}`.trim());
   };
+  rec.onerror = () => { finish(); try { rec.abort(); } catch { /* 이미 끝남 */ } };
+  rec.onend = finish;
   try {
     rec.start();
   } catch {
-    resolveResult('');
+    finish();
   }
-  return { result, stop: () => { try { rec.stop(); } catch { resolveResult(finalText.trim()); } } };
+  return { result, stop: () => { try { rec.stop(); } catch { finish(); } } };
 }
 
 export function recorderSupported(): boolean {
@@ -105,16 +106,23 @@ export function recordClip(maxSeconds: number): RecordHandle {
       (stream) =>
         new Promise<Blob | null>((resolve) => {
           const chunks: Blob[] = [];
-          recorder = new MediaRecorder(stream);
-          const timer = setTimeout(() => recorder?.state === 'recording' && recorder.stop(), maxSeconds * 1000);
-          recorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
-          recorder.onstop = () => {
-            clearTimeout(timer);
-            stream.getTracks().forEach((t) => t.stop());
-            resolve(chunks.length > 0 ? new Blob(chunks, { type: recorder?.mimeType || 'audio/webm' }) : null);
+          let timer: ReturnType<typeof setTimeout> | undefined;
+          const finish = (blob: Blob | null) => {
+            if (timer) clearTimeout(timer);
+            stream.getTracks().forEach((track) => track.stop());
+            resolve(blob);
           };
-          recorder.start();
-          if (stopped) recorder.stop();
+          try {
+            recorder = new MediaRecorder(stream);
+            timer = setTimeout(() => { if (recorder?.state === 'recording') recorder.stop(); }, maxSeconds * 1000);
+            recorder.ondataavailable = (event) => { if (event.data.size > 0) chunks.push(event.data); };
+            recorder.onstop = () => finish(chunks.length > 0 ? new Blob(chunks, { type: recorder?.mimeType || 'audio/webm' }) : null);
+            recorder.onerror = () => { finish(null); if (recorder?.state === 'recording') recorder.stop(); };
+            recorder.start();
+            if (stopped) recorder.stop();
+          } catch {
+            finish(null);
+          }
         }),
     )
     .catch(() => null);

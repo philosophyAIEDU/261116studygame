@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { playSfx } from '@/audio/sfx';
+import { Avatar2D } from './Avatar2D';
+import { CHARACTER_DESIGNS, PORTRAIT_CHARACTERS } from '@/config/characters';
 
 // RPG 풍 UI 부품 모음 (아트 바이블 5절).
 // 글을 못 읽는 아이도 쓸 수 있게: 큰 아이콘 + 짧은 영어 한두 단어, 최소 48px 터치 영역.
@@ -84,6 +86,8 @@ export function Bar({ value, max, tone = 'honey', label }: { value: number; max:
 }
 
 export function Portrait({ emoji, size = 64 }: { emoji: string; size?: number }) {
+  const design = CHARACTER_DESIGNS[PORTRAIT_CHARACTERS[emoji] ?? ''];
+  if (design) return <div className="character-portrait shrink-0 overflow-hidden rounded-full" style={{ width: size, height: size }} aria-hidden="true"><Avatar2D look={design} bust size={size} /></div>;
   return (
     <div className="emoji flex shrink-0 items-center justify-center rounded-full border-4 border-honey bg-paper" style={{ width: size, height: size, fontSize: size * 0.56 }} aria-hidden="true">
       {emoji}

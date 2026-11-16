@@ -12,6 +12,9 @@ import type { ModelKey } from '@/config/geminiLimits';
 import { CURRENT_SCHEMA_VERSION, defaultSave, type SaveData, type Settings } from './schema';
 import { migrateSave } from './migrations';
 
+import { activeFestivalQuest, buyFestivalItem, claimFestivalQuest, collectParcel, completeFestivalTask, storyOutputReady } from '@/features/adventure/rules';
+import type { CharacterAccessory } from '@/config/characters';
+
 // 게임 상태 저장소(Zustand + localStorage).
 // 규칙 계산은 모두 features/ 의 순수 함수가 하고, 여기서는 그 결과를 상태에 반영만 한다.
 
@@ -28,6 +31,11 @@ interface GameState {
   shiftFx: () => void;
   pushFx: (fx: GameFx) => void;
 
+  beginAdventure: () => void;
+  collectAdventureParcel: (id: string, answer: string, position: { x: number; z: number }) => boolean;
+  finishAdventureTask: (task: string, answer: string) => boolean;
+  claimAdventureQuest: (id: string, zone: string | null) => boolean;
+  buyAdventureItem: (id: CharacterAccessory) => boolean;
   createProfile: (p: Profile) => void;
   updateProfile: (patch: Partial<Profile>) => void;
   setFlag: (flag: 'guardianIntroSeen' | 'prologueSeen') => void;
@@ -132,6 +140,40 @@ export const useGame = create<GameState>()(
         shiftFx: () => set((s) => ({ fx: s.fx.slice(1) })),
         pushFx: (fx) => set((s) => ({ fx: [...s.fx, fx] })),
 
+        beginAdventure: () => apply((s) => ({ ...s, adventure: { ...s.adventure, started: true } })),
+        collectAdventureParcel: (id, answer, position) => {
+          const prev = get().save.adventure;
+          const next = collectParcel(prev, id, answer, position);
+          if (next === prev) return false;
+          apply((s) => ({ ...s, adventure: next }));
+          return true;
+        },
+        finishAdventureTask: (task, answer) => {
+          const prev = get().save;
+          const next = completeFestivalTask(prev.adventure, task, answer, storyOutputReady(prev.stories));
+          if (next === prev.adventure) return false;
+          apply((s) => ({ ...s, adventure: next }));
+          return true;
+        },
+        claimAdventureQuest: (id, zone) => {
+          const prev = get().save;
+          const quest = activeFestivalQuest(prev.adventure);
+          const next = claimFestivalQuest(prev.adventure, id, storyOutputReady(prev.stories), zone);
+          if (next === prev.adventure || !quest) return false;
+          const finished = next.claimed.length === 5;
+          apply((s) => ({ ...s, adventure: next, xp: s.xp + quest.xp,
+            badges: finished ? [...new Set([...s.badges, 'festival-friend'])] : s.badges,
+            output: { ...s.output, spokenTurns: s.output.spokenTurns + (id === 'friendly-voice' ? 2 : 0), writtenPieces: s.output.writtenPieces + (id === 'festival-card' ? 1 : 0) },
+          }), [{ kind: 'questDone', title: quest.title }, { kind: 'xp', amount: quest.xp }]);
+          return true;
+        },
+        buyAdventureItem: (id) => {
+          const prev = get().save.adventure;
+          const next = buyFestivalItem(prev, id);
+          if (prev === next) return false;
+          apply((s) => ({ ...s, adventure: next }));
+          return true;
+        },
         createProfile: (p) => apply((s) => ({ ...s, profile: p })),
         updateProfile: (patch) => apply((s) => (s.profile ? { ...s, profile: { ...s.profile, ...patch } } : s)),
         setFlag: (flag) => apply((s) => ({ ...s, [flag]: true })),

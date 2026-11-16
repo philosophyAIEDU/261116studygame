@@ -141,7 +141,7 @@ describe('backup (export / import)', () => {
   it('migrates old saves on import and rejects junk', () => {
     const v1 = { schemaVersion: 1, xp: 55, character: { nickname: 'A', mbti: 'ISTJ' }, vocab: [{ word: 'dog', meaningKo: '개' }] };
     const fromBare = parseBackup(JSON.stringify(v1))!;
-    expect(fromBare.save).toMatchObject({ schemaVersion: 2, xp: 55 });
+    expect(fromBare.save).toMatchObject({ schemaVersion: 3, xp: 55 });
     expect(JSON.stringify(fromBare.save)).not.toContain('개');
     const wrapped = parseBackup(JSON.stringify({ app: 'my-american-school-quest', save: v1, drawings: { x: 'javascript:alert(1)' } }))!;
     expect(wrapped.save.xp).toBe(55);

@@ -49,3 +49,32 @@ button:disabled { cursor: not-allowed; }
 @media (prefers-reduced-motion: reduce) {
   .kenburns, .twinkle, .beam { animation: none; }
 }
+
+/* 캐릭터 스튜디오: 종이와 부드러운 장난감의 따뜻한 질감 */
+.hero-creator { background: radial-gradient(ellipse at 16% 20%, #f4dce5 0, transparent 45%), radial-gradient(ellipse at 90% 85%, #d3ece4 0, transparent 45%), #fcf8ef; color: var(--color-ink); }
+.hero-customizer { padding: clamp(24px, 4vw, 40px); border-radius: 30px; background: #ffffffd9; border: 1px solid #ffffff; box-shadow: 0 24px 80px #66517614, inset 0 1px white; backdrop-filter: blur(12px); }
+.hero-stage::before { content: ''; position: absolute; width: 270px; height: 270px; border-radius: 50%; bottom: 12px; background: radial-gradient(circle at 35% 25%, #fff9ed, #e9d9ed); box-shadow: inset 0 0 0 12px #ffffff50, 0 20px 55px #8b6f9b15; }
+.hero-stage::after { content: ''; position: absolute; width: 230px; height: 30px; border-radius: 50%; bottom: 0; background: #f9f3ff; box-shadow: 0 9px 0 #e3d5e8, 0 18px 24px #8e759026; }
+.hero-nameplate { position: absolute; z-index: 12; bottom: -22px; border: 1px solid white; border-radius: 99px; padding: 8px 23px; background: #fffaf0; box-shadow: 0 7px 20px #69507315; font-size: 14px; font-weight: 800; letter-spacing: .03em; }
+.hero-figure { filter: drop-shadow(0 12px 8px #67507920); animation: hero-float 4s ease-in-out infinite; transform-origin: bottom center; }
+.hero-spark { position: absolute; z-index: 2; color: #cba85d; font-size: 36px; }
+.hero-spark-one { top: 35px; left: 25px; transform: rotate(-15deg); }
+.hero-spark-two { top: 110px; right: 22px; font-size: 27px; }
+.character-portrait { background: radial-gradient(circle at 35% 20%, #fffbef, #e8dce9); box-shadow: inset 0 0 0 2px #fff9ed, 0 4px 12px #30253c22; }
+.character-eyes { transform-box: fill-box; transform-origin: center; animation: portrait-blink 6s infinite; }
+@keyframes portrait-blink { 0%, 44%, 48%, 100% { transform: scaleY(1); } 46% { transform: scaleY(.08); } }
+@keyframes hero-float { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-7px) rotate(1deg); } }
+@media (max-width: 767px) { .hero-showcase h1 { font-size: 30px; } .hero-stage { height: 220px; } .hero-stage::before { width: 200px; height: 200px; } .hero-figure .character-art { width: 165px; height: auto; } .hero-showcase > div:last-child { display: none; } .hero-customizer { margin-top: 18px; } }
+@media (prefers-reduced-motion: reduce) { .hero-figure, .character-eyes { animation: none; } }
+
+/* 다음 목표는 항상 같은 위치에: 큰 행동 하나, 짧은 음성 안내 하나 */
+.adventure-tracker { position: absolute; z-index: 12; top: 112px; left: 14px; width: 286px; padding: 18px; border: 1px solid #e8cd9b65; border-radius: 22px; background: linear-gradient(135deg, #30304bed, #24273ee8); box-shadow: 0 12px 40px #17152630, inset 0 1px #ffffff12; backdrop-filter: blur(16px); }
+.adventure-next { min-height: 48px; padding: 10px 12px; border-radius: 13px; background: linear-gradient(#ffe0a0, #efb860); color: #352b44; font-size: 15px; font-weight: 900; box-shadow: 0 3px 0 #b78248, 0 5px 14px #eeb35920; transition: transform .18s; }
+.adventure-next:hover { transform: translateY(-2px); }
+.adventure-next:active { transform: translateY(2px); }
+.festival-banner { background: linear-gradient(110deg, #ffedce, #f0dded 65%, #ddecdf); }
+.festival-letter { background: repeating-linear-gradient(#fff7e8, #fff7e8 31px, #d8c5aa44 32px); box-shadow: inset 0 0 0 1px #e5d7bf; }
+.parcel-choice { min-height: 125px; border: 3px solid #f1d19e; border-radius: 24px; background: linear-gradient(#fffdf6, #f3e7db); font-size: 60px; box-shadow: 0 5px 0 #bd9d7e; transition: transform .15s; }
+.parcel-choice:hover { transform: translateY(-5px) rotate(-3deg); }
+.festival-found { background: radial-gradient(ellipse at center, #f3bd6133, transparent 75%); }
+@media (max-width: 640px) { .adventure-tracker { top: 102px; left: 8px; width: 242px; padding: 12px; } .adventure-tracker h2 { font-size: 16px; } .adventure-next { font-size: 14px; } }

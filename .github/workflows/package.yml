@@ -3,7 +3,7 @@ name: Package installers and website
 on:
   workflow_dispatch:
   push:
-    branches: ['codex/package-release']
+    branches: ['codex/package-release', 'codex/festival-adventure']
 
 permissions:
   contents: read

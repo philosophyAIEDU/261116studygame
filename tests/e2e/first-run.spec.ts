@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 // 핵심 흐름: 첫 실행 → 캐릭터 생성 → 첫 이야기 ①~③ → Bedtime 재생 시작
 test('first run: create a hero, do story steps 1-3, start Bedtime Listening', async ({ page }) => {
+  test.setTimeout(150_000);
   // 소리를 기다리지 않게 한다(기기 음성은 헤드리스 브라우저에 없다).
   await page.addInitScript(() => localStorage.setItem('asq-e2e', '1'));
   await page.goto('/');

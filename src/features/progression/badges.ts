@@ -10,6 +10,7 @@ export interface BadgeDef {
 }
 
 export const BADGES: readonly BadgeDef[] = [
+  { id: 'festival-friend', icon: '🎪', name: 'Festival Friend', hint: 'Bring the Maple Festival to life with all four skills.' },
   { id: 'input-10h', icon: '👂', name: '10 Input Hours', hint: 'Listen for 10 hours.' },
   { id: 'input-50h', icon: '🎧', name: '50 Input Hours', hint: 'Listen for 50 hours.' },
   { id: 'input-100h', icon: '📻', name: '100 Input Hours', hint: 'Listen for 100 hours.' },

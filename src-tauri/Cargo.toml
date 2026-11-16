@@ -1,6 +1,6 @@
 [package]
 name = "my-american-school-quest"
-version = "0.1.0"
+version = "0.2.0"
 description = "My American School Quest - learn English like a first language"
 edition = "2021"
 publish = false

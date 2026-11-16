@@ -117,7 +117,7 @@ export default defineConfig(({ mode }) => ({
       include: [
         'src/features/progression/**', 'src/features/gemini/**', 'src/features/talktime/*.ts',
         'src/features/dictionary/*.ts', 'src/features/story/*.ts', 'src/save/**', 'src/audio/speedLadder.ts',
-        'src/features/mbti/*.ts',
+        'src/features/mbti/*.ts', 'src/features/adventure/rules.ts',
       ],
       exclude: ['**/*.test.*', '**/*.tsx'],
       thresholds: { lines: 80 },

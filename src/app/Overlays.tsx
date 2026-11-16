@@ -6,6 +6,7 @@ import { StoryQuest } from '@/features/story/StoryQuest';
 import { Bedtime } from '@/features/bedtime/Bedtime';
 
 // 떠 있는 창을 그린다. 자주 쓰지 않는 창은 필요할 때 내려받는다(lazy) → 첫 화면이 빨리 뜬다.
+const Adventure = lazy(() => import('@/features/adventure/Adventure').then((m) => ({ default: m.Adventure })));
 const Bag = lazy(() => import('@/features/quests/Bag').then((m) => ({ default: m.Bag })));
 const QuestLog = lazy(() => import('@/features/quests/QuestLog').then((m) => ({ default: m.QuestLog })));
 const MapOverlay = lazy(() => import('@/features/quests/MapOverlay').then((m) => ({ default: m.MapOverlay })));
@@ -27,8 +28,9 @@ export function Overlays() {
 
   const content = (() => {
     switch (overlay.type) {
+      case 'adventure': return <Adventure key={overlay.nodeId ?? 'board'} nodeId={overlay.nodeId} onClose={close} />;
       case 'storyList': return <StoryList onClose={close} />;
-      case 'story': return <StoryQuest key={overlay.packId} packId={overlay.packId} onClose={() => open({ type: 'storyList' })} />;
+      case 'story': return <StoryQuest key={overlay.packId} packId={overlay.packId} onClose={() => open({ type: useUi.getState().storyReturnToAdventure ? 'adventure' : 'storyList' })} />;
       case 'bedtime':
         return (
           <Bedtime
