@@ -18,15 +18,11 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# 설치 파일과 업데이트 정보는 새 버전이 나오면 바로 바뀌어야 한다.
+# 설치 파일과 PC 앱 업데이트 정보는 새 버전이 나오면 바로 바뀌어야 한다.
 /downloads/*
   Cache-Control: no-cache
-  Content-Disposition: attachment
-/downloads/downloads.json
-  Cache-Control: no-cache
-  Content-Disposition: inline
-/updates/*
-  Cache-Control: no-cache
+/downloads/latest.json
+  Cache-Control: no-store
 
 /content/packs/*
   Cache-Control: public, max-age=3600

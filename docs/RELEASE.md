@@ -87,3 +87,45 @@ npm run tauri build
 
 ## 안드로이드 APK (선택)
 기본 모바일 경로는 PWA 입니다. APK 가 꼭 필요하면 Tauri 2 mobile 로 만들 수 있습니다(`npm run tauri android init` → `npm run tauri android build`). Android Studio·NDK 설정이 필요하며, 이 저장소의 CI 에는 포함되어 있지 않습니다.
+
+## Netlify에서 웹 게임과 PC 설치 파일 함께 제공하기
+
+`netlify.toml`은 `npm run build` 결과인 `dist/`를 배포합니다. 웹 게임만 제공할 때는 이 설정 그대로 사용합니다.
+
+PC 앱의 업데이트 주소도 Netlify로 옮기려면 **PC 앱을 빌드하기 전에** 실제 운영 주소를 지정합니다.
+
+```bash
+npm run updater:url -- https://your-site.netlify.app
+```
+
+이 명령은 공개 키를 유지하고 업데이트 주소를 `/downloads/latest.json`으로 바꿉니다. 서명 키 준비는 위 안내와 같습니다. 이미 배포된 앱은 기존 주소를 계속 사용하므로 기존 업데이트 경로도 유지해야 합니다.
+
+Windows/macOS 빌드 파일과 GitHub Release의 `latest.json`을 `work/desktop-artifacts/`에 모읍니다. 원래 파일명을 유지하고, 현재 버전에 해당하는 파일만 넣습니다. 각 OS 빌드는 해당 운영체제나 기존 GitHub Actions에서 수행합니다.
+
+```bash
+npm run build
+npm run release:downloads -- work/desktop-artifacts https://your-site.netlify.app
+```
+
+- `dist/downloads/`에 설치 파일, 서명 파일, 다운로드 페이지, 업데이트 매니페스트가 만들어집니다.
+- 사용자는 `https://your-site.netlify.app/downloads/`에서 설치 파일을 고릅니다.
+- 파일 내용과 서명은 유지하며, 매니페스트의 다운로드 주소만 Netlify로 바꿉니다. 파일 누락·이름 충돌·버전 불일치 시 중단합니다.
+- 주소 인자를 생략하면 설치 파일 다운로드만 준비하고 업데이트 매니페스트는 만들지 않습니다.
+- **완성된 `dist/`를 그대로 배포해야 합니다.** 이후 `npm run build`를 다시 실행하면 다운로드 파일이 지워집니다. Netlify의 기본 Git 빌드는 웹 게임만 만들므로, PC 파일까지 제공할 때는 위 명령으로 준비한 `dist/`를 수동 배포하거나 같은 과정을 CI에 추가하세요.
+- PC 파일은 PWA 오프라인 캐시에 포함하지 않습니다. `latest.json`은 캐시하지 않아 새 버전을 확인할 수 있습니다.
+
+이 명령들은 파일 준비와 주소 설정만 수행합니다. 실제 업로드·설치 파일 빌드·서명 키 생성은 별도로 진행합니다.
+
+## 서명 키가 없을 때 설치 파일부터 만들기
+
+GitHub Actions의 **Package installers and website → Run workflow**에서 실행합니다.
+`codex/package-release` 브랜치에 push해도 실행됩니다.
+
+1. 테스트·빌드가 성공하면 Windows x64 EXE/MSI와 macOS Universal DMG를 각 OS에서 빌드합니다.
+2. `desktop-windows-latest`, `desktop-macos-latest` 아티팩트로 설치 파일을 받습니다.
+3. `school-quest-netlify-site` 아티팩트에는 웹 게임과 `/downloads/` 설치 페이지가 함께 들어 있습니다.
+4. 이 아티팩트를 풀어 Netlify에 업로드하면 웹 게임과 설치 파일을 함께 제공합니다.
+
+이 경로는 **수동 설치용**이며 자동 업데이트 서명 파일은 만들지 않습니다. 서명 키를 준비한 뒤 기존 Release 워크플로로 업데이트를 배포하세요. 운영체제 코드 서명도 별도 준비가 필요합니다.
+
+자동 Netlify 배포를 쓰려면 저장소 Actions 설정에 Secret `NETLIFY_AUTH_TOKEN`과 Variable `NETLIFY_SITE_ID`를 등록합니다. 토큰을 코드나 채팅에 붙여넣지 마세요. 설정되어 있지 않으면 업로드할 아티팩트까지만 만듭니다. Git 연속 배포가 연결된 사이트에서는 이후 운영 브랜치 push가 이 배포를 대체할 수 있으므로, 설치 파일을 유지하려면 같은 패키징 과정을 연속 배포에도 사용하세요.

@@ -19,7 +19,8 @@
     "pack:art": "tsx scripts/pack-art.ts",
     "version:set": "tsx scripts/version.ts",
     "tauri": "tauri",
-    "netlify:prepare": "tsx scripts/netlify/prepare-downloads.ts"
+    "release:downloads": "tsx scripts/release/downloads.ts",
+    "updater:url": "tsx scripts/release/configure-updater.ts"
   },
   "dependencies": {
     "@google/genai": "^3.3.0",

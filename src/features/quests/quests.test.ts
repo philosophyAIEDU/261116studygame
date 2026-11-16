@@ -4,7 +4,7 @@ import { defaultSave } from '@/save/schema';
 import { ALL_PACKS } from '@/content/loader';
 import { totalXpForLevel } from '@/features/progression/levels';
 import { detectQuality, qualityConfig, resolveQuality } from '@/world/quality';
-import { shouldShowUpdateBanner } from '@/app/updateBanner';
+import { shouldShowUpdateBanner } from '@/app/updateBannerVisibility';
 
 describe('quest log', () => {
   it('starts with the first story and locked output skills', () => {
