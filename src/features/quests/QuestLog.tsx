@@ -6,7 +6,7 @@ import { useUi } from '@/app/uiStore';
 import { zoneById } from '@/config/zones';
 import { playSfx } from '@/audio/sfx';
 import { Modal } from '@/ui/kit';
-import { buildQuests, listeningPlan, questStyle, type Quest } from './quests';
+import { buildQuests, listeningPlan, questStyle, recommendForStyle, type Quest } from './quests';
 
 // 퀘스트 로그: 메인 / 서브 / 일일. 퀘스트를 누르면 그 장소로 이동해 바로 시작한다.
 // J 성향은 "오늘의 체크리스트 + 듣기 계획표"가 먼저, P 성향은 메인 퀘스트가 먼저 보인다.
@@ -44,7 +44,7 @@ function Section({ title, quests }: { title: string; quests: Quest[] }) {
 export function QuestLog({ onClose }: { onClose: () => void }) {
   const save = useGame((s) => s.save);
   const mbti = save.profile?.mbti ?? null;
-  const quests = buildQuests(save, recommendedPacks(currentStage(save.graduated).id, mbti), localDayKey(new Date()));
+  const quests = recommendForStyle(buildQuests(save, recommendedPacks(currentStage(save.graduated).id, mbti), localDayKey(new Date())), mbti);
   const style = questStyle(mbti);
   const plan = listeningPlan(save);
   const main = <Section key="main" title="⭐ Main Quests" quests={quests.filter((q) => q.kind === 'main')} />;

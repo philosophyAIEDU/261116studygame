@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildQuests, currentStoryPack, listeningPlan, questStyle, questZones } from './quests';
+import { buildQuests, currentStoryPack, listeningPlan, questStyle, questZones, recommendForStyle } from './quests';
 import { defaultSave } from '@/save/schema';
 import { ALL_PACKS } from '@/content/loader';
 import { totalXpForLevel } from '@/features/progression/levels';
@@ -49,6 +49,21 @@ describe('quest log', () => {
     career.graduated = ['elementary', 'middle', 'high', 'college'];
     expect(listeningPlan(career)).toBeNull();
     expect(buildQuests(career, ALL_PACKS, 'd').some((q) => q.id === 'career')).toBe(true);
+  });
+});
+
+describe('E / I recommendations', () => {
+  it('puts talk quests first for E and library quests first for I, without unlocking anything', () => {
+    const save = defaultSave();
+    save.skills.listening.done = 1;
+    const quests = buildQuests(save, ALL_PACKS, 'd');
+    const subs = (mbti: 'ENFP' | 'ISTJ') => recommendForStyle(quests, mbti).filter((q) => q.kind === 'sub');
+    expect(subs('ENFP')[0]).toMatchObject({ id: 'real-talk', title: 'Real Talk ⭐' });
+    expect(subs('ISTJ')[0]).toMatchObject({ id: 'skill-reading', title: 'Reading practice ⭐' });
+    // 잠긴 말하기·쓰기는 추천되어도 여전히 잠겨 있다
+    expect(subs('ENFP').find((q) => q.id === 'skill-speaking')).toMatchObject({ locked: true, title: 'Speaking practice' });
+    expect(recommendForStyle(quests, null)).toEqual(quests);
+    expect(recommendForStyle(quests, 'ISTJ').filter((q) => q.kind !== 'sub')).toEqual(quests.filter((q) => q.kind !== 'sub'));
   });
 });
 

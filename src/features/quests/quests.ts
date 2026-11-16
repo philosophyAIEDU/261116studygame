@@ -103,6 +103,19 @@ export function buildQuests(save: SaveData, packs: readonly StoryPack[], today: 
   return quests;
 }
 
+/**
+ * E/I 성향에 맞는 서브 퀘스트를 앞에 추천한다(⭐).
+ *  E: 친구들과의 대화 — Real Talk, 말하기 / I: 도서관 — 읽기, 쓰기(그림 일기)
+ * 추천일 뿐 잠금은 바뀌지 않는다(입력 → 출력 순서는 누구에게나 같다).
+ */
+export function recommendForStyle(quests: readonly Quest[], mbti: Mbti | null): Quest[] {
+  if (!mbti) return [...quests];
+  const favorites = learningStyle(mbti).social === 'E' ? ['real-talk', 'skill-speaking'] : ['skill-reading', 'skill-writing'];
+  const star = (q: Quest): Quest => (favorites.includes(q.id) && !q.locked ? { ...q, title: `${q.title} ⭐` } : q);
+  const rank = (q: Quest) => (favorites.includes(q.id) ? favorites.indexOf(q.id) : favorites.length);
+  return quests.map(star).sort((x, y) => (x.kind === 'sub' && y.kind === 'sub' ? rank(x) - rank(y) : 0));
+}
+
 /** J 성향용 주간 듣기 계획: 졸업 목표까지 남은 시간을 하루 20분으로 나눈다. */
 export function listeningPlan(save: SaveData): { minutesPerDay: number; daysLeft: number; hoursLeft: number } | null {
   const goal = currentStage(save.graduated).inputHoursGoal;
