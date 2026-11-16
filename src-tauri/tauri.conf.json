@@ -38,14 +38,15 @@
       "icons/icon.ico"
     ],
     "macOS": {
-      "infoPlist": "Info.plist"
+      "infoPlist": "Info.plist",
+      "signingIdentity": "-"
     }
   },
   "plugins": {
     "updater": {
       "pubkey": "REPLACE_WITH_YOUR_UPDATER_PUBLIC_KEY",
       "endpoints": [
-        "https://github.com/philosophyAIEDU/261116studygame/releases/latest/download/latest.json"
+        "https://REPLACE_WITH_YOUR_SITE.netlify.app/updates/latest.json"
       ]
     }
   }

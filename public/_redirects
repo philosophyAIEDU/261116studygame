@@ -1,0 +1,4 @@
+# 짧은 주소: /install, /download → 안내 페이지
+/install    /guide/       301
+/download   /guide/#pc    301
+/help       /guide/#faq   301

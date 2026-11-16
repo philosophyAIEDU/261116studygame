@@ -1,0 +1,32 @@
+# Netlify 응답 헤더 (빌드 결과 dist/ 에 그대로 복사된다)
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: microphone=(self), camera=(), geolocation=(), interest-cohort=()
+
+# 서비스 워커와 앱 입구는 항상 새로 확인해야 업데이트가 바로 전달된다.
+/sw.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: no-cache
+
+# 해시가 붙은 빌드 파일은 오래 캐시해도 된다.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 설치 파일과 업데이트 정보는 새 버전이 나오면 바로 바뀌어야 한다.
+/downloads/*
+  Cache-Control: no-cache
+  Content-Disposition: attachment
+/downloads/downloads.json
+  Cache-Control: no-cache
+  Content-Disposition: inline
+/updates/*
+  Cache-Control: no-cache
+
+/content/packs/*
+  Cache-Control: public, max-age=3600

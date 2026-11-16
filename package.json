@@ -18,7 +18,8 @@
     "pack:new": "tsx scripts/pack-new.ts",
     "pack:art": "tsx scripts/pack-art.ts",
     "version:set": "tsx scripts/version.ts",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "netlify:prepare": "tsx scripts/netlify/prepare-downloads.ts"
   },
   "dependencies": {
     "@google/genai": "^3.3.0",

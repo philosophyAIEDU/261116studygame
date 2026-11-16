@@ -87,7 +87,10 @@ export default defineConfig(({ mode }) => ({
             workbox: {
               // 앱 셸과 3D 코드는 미리 캐시(precache)한다.
               globPatterns: ['**/*.{js,css,html,svg,png,webp,woff2,glb,json}'],
-              globIgnores: ['content/packs/**/audio/**'],
+              globIgnores: ['content/packs/**/audio/**', 'downloads/**', 'updates/**'],
+              // 서비스 워커는 앱 안의 페이지 이동을 게임 화면(index.html)으로 돌린다.
+              // 안내 페이지·설치 파일·업데이트 파일·이야기 파일은 그 대상에서 빼야 제대로 열리고 내려받아진다.
+              navigateFallbackDenylist: [/\/guide(\/|$)/, /\/downloads\//, /\/updates\//, /\/content\//],
               maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
               // 오디오 팩은 필요할 때 내려받아 캐시(runtime cache)한다.
               runtimeCaching: [
