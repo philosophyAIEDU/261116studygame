@@ -1,0 +1,45 @@
+import { create } from 'zustand';
+import type { Skill } from '@/types';
+
+// 화면 상태(저장하지 않음): 지금 어떤 창이 떠 있는가.
+
+export type Overlay =
+  | { type: 'storyList' }
+  | { type: 'story'; packId: string }
+  | { type: 'bedtime'; packId?: string }
+  | { type: 'bag'; tab?: 'dictionary' | 'phrases' | 'badges' | 'outfit' }
+  | { type: 'quests' }
+  | { type: 'mentor' }
+  | { type: 'talk'; packId: string; npcId?: string; career?: boolean }
+  | { type: 'skills'; skill: Skill }
+  | { type: 'realTalk' }
+  | { type: 'exam' }
+  | { type: 'graduation' }
+  | { type: 'settings' }
+  | { type: 'report' }
+  | { type: 'install' }
+  | { type: 'career' }
+  | { type: 'map' };
+
+interface UiState {
+  overlay: Overlay | null;
+  /** 창을 열고 닫는다. 창을 열면 플레이어 이동 입력은 멈춘다. */
+  open: (overlay: Overlay) => void;
+  close: () => void;
+  /** 3D 월드에서 가까이 있는 장소 id */
+  nearZone: string | null;
+  setNearZone: (id: string | null) => void;
+  /** 순간 이동 요청 (퀘스트 로그·미니맵 → 3D 월드) */
+  teleport: string | null;
+  requestTeleport: (zoneId: string | null) => void;
+}
+
+export const useUi = create<UiState>((set) => ({
+  overlay: null,
+  open: (overlay) => set({ overlay }),
+  close: () => set({ overlay: null }),
+  nearZone: null,
+  setNearZone: (id) => set((s) => (s.nearZone === id ? s : { nearZone: id })),
+  teleport: null,
+  requestTeleport: (zoneId) => set({ teleport: zoneId }),
+}));

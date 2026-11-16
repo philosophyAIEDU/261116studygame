@@ -24,6 +24,10 @@ export function emptyStoryProgress(): StoryProgress {
   };
 }
 
+/** 선택자에서 쓰는 고정된 빈 값 (매번 새 객체를 만들면 React 가 무한히 다시 그린다) */
+export const EMPTY_PROGRESS: StoryProgress = Object.freeze(emptyStoryProgress()) as StoryProgress;
+export const EMPTY_LIST: string[] = [];
+
 /** ⑤ Use It! 을 열기 위한 최소 청취 횟수 */
 export const USE_IT_MIN_LISTENS = 3;
 /** ③ 그림 사전 단계 완료에 필요한 단어 수 */

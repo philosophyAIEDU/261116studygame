@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CareerId, DayPhase, DictKind, LifeStage, Profile, Speed, StoryStep, Tier } from '@/types';
-import { calcXp, DICT_XP, mbtiBonus, storyListenXp, type XpInput } from '@/features/progression/xp';
+import { calcXp, deepListenerBonus, DICT_XP, mbtiBonus, storyListenXp, type XpInput } from '@/features/progression/xp';
 import { playerLevel, gradeForLevel, currentStage } from '@/features/progression/lifeStages';
 import { addBedtimeSeconds } from '@/features/progression/inputHours';
 import { localDayKey, touchStreak } from '@/features/progression/time';
@@ -40,7 +40,7 @@ interface GameState {
 
   storyProgress: (packId: string) => StoryProgress;
   completeStep: (packId: string, step: StoryStep, storyWordCount?: number) => boolean;
-  recordListen: (packId: string, speed: Speed, tier: Tier) => number;
+  recordListen: (packId: string, speed: Speed, tier: Tier, silent?: boolean) => number;
   collectPhrase: (packId: string, phrase: string) => void;
 
   addDictCard: (args: { word: string; packId: string; kind: DictKind; value: string }) => void;
@@ -174,10 +174,13 @@ export const useGame = create<GameState>()(
           return true;
         },
 
-        recordListen: (packId, speed, tier) => {
+        recordListen: (packId, speed, tier, silent = false) => {
           const s0 = get().save;
           const count = (s0.stories[packId]?.listenCount ?? 0) + 1;
-          const xp = storyListenXp({ tier, speed, mbti: s0.profile?.mbti ?? null, streakDays: s0.streak.days, listenCountAfter: count });
+          // silent(Bedtime): 시간 기반 XP 를 따로 받으므로 여기서는 반복 보너스만 조용히 준다.
+          const xp = silent
+            ? deepListenerBonus(count)
+            : storyListenXp({ tier, speed, mbti: s0.profile?.mbti ?? null, streakDays: s0.streak.days, listenCountAfter: count });
           apply(
             (s) => ({
               ...withStory(s, packId, (sp) => ({ ...sp, listenCount: count, medal: upgradeMedal(sp.medal, speed) })),
@@ -185,7 +188,7 @@ export const useGame = create<GameState>()(
               streak: touchStreak(s.streak, today()),
               skills: { ...s.skills, listening: { done: s.skills.listening.done + 1 } },
             }),
-            [{ kind: 'xp', amount: xp }],
+            silent || xp <= 0 ? [] : [{ kind: 'xp', amount: xp }],
           );
           return xp;
         },

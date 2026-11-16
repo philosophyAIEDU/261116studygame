@@ -125,3 +125,29 @@ export function playWord(pack: StoryPack | null, word: string, speed: Speed = 's
 export function speakLine(text: string, voice: VoiceProfile, speed: Speed, countAsInput = true): PlayHandle {
   return start(() => speak(text, { rate: TTS_RATE[speed], volume: voiceVolume, voice }), countAsInput);
 }
+
+/**
+ * Bedtime Listening 용 전체 낭독 파일(full.natural.mp3) 재생.
+ * 실제 오디오 파일이므로 화면이 꺼져도 이어서 재생된다. 파일이 없으면 null.
+ */
+export function playFullStory(pack: StoryPack): PlayHandle | null {
+  const full = pack.manifest?.full;
+  if (!full || !audioSupported()) return null;
+  current?.stop();
+  const started = Date.now();
+  const inner = playFile(`${pack.baseUrl}audio/${full.file}?v=${pack.meta.version}`, 1);
+  const done = inner.done.then((ok) => {
+    // 탭이 잠들어 시간이 부풀려지지 않도록 파일 길이를 넘지 않게 한다.
+    const seconds = Math.min((Date.now() - started) / 1000, full.duration + 2);
+    if (seconds > 0.2) inputListener(seconds);
+    return ok;
+  });
+  const handle = { done, stop: inner.stop };
+  current = handle;
+  return handle;
+}
+
+/** 전체 낭독 재생 중 현재 위치(초) */
+export function fullStoryTime(): number {
+  return sharedAudio?.currentTime ?? 0;
+}

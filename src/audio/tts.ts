@@ -6,7 +6,14 @@ import type { VoiceProfile } from '@/config/npcVoices';
 const FEMALE = /(female|samantha|zira|aria|jenny|ava|allison|susan|karen|moira|google us english|michelle|emma)/i;
 const MALE = /(male|alex|david|guy|daniel|fred|tom|aaron|mark|james|ryan)/i;
 
+/** 자동 테스트(단위·E2E)에서는 소리를 기다리지 않는다. E2E 는 localStorage 'asq-e2e' = '1' 로 켠다. */
+function instant(): boolean {
+  if (import.meta.env.MODE === 'test') return true;
+  try { return localStorage.getItem('asq-e2e') === '1'; } catch { return false; }
+}
+
 export function ttsAvailable(): boolean {
+  if (instant()) return false;
   return typeof window !== 'undefined' && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
 }
 
@@ -27,7 +34,7 @@ export interface SpeakHandle {
 
 /** 음성이 없을 때 기다리는 시간: 단어당 약 0.38초 */
 function readingTimeMs(text: string, rate: number): number {
-  if (import.meta.env.MODE === 'test') return 0;
+  if (instant()) return 0;
   const words = text.split(/\s+/).filter(Boolean).length;
   return Math.max(600, (words * 380) / Math.max(0.5, rate));
 }
