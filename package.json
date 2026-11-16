@@ -18,7 +18,9 @@
     "pack:new": "tsx scripts/pack-new.ts",
     "pack:art": "tsx scripts/pack-art.ts",
     "version:set": "tsx scripts/version.ts",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "release:downloads": "tsx scripts/release/downloads.ts",
+    "updater:url": "tsx scripts/release/configure-updater.ts"
   },
   "dependencies": {
     "@google/genai": "^3.3.0",

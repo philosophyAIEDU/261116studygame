@@ -11,3 +11,8 @@ src-tauri/gen
 scripts/audio/audio-todo.json
 scripts/audio/tts.config.json
 scripts/audio/.tmp
+
+# Local build artifacts and browser test tools
+work/
+
+.netlify/

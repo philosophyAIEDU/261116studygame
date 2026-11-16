@@ -37,6 +37,8 @@ npm run dev
 | `npm run pack:new` / `pack:art` | 새 이야기 팩 / placeholder 장면 그림 |
 | `npm run version:set -- 0.2.0` | 버전 한 번에 맞추기 |
 | `npm run tauri dev` / `npm run tauri build` | PC 설치형 앱 (Rust 필요) |
+| `npm run updater:url -- https://your-site.netlify.app` | PC 업데이트 주소 설정 (빌드 전) |
+| `npm run release:downloads -- <설치파일 폴더> [사이트주소]` | dist/downloads 설치 파일·다운로드 페이지 준비 |
 
 ## 사용자에게 배포하는 방법
 자세한 준비 과정은 [`docs/RELEASE.md`](docs/RELEASE.md) 에 있습니다.
@@ -46,6 +48,8 @@ npm run dev
 - **안드로이드 · PC(Chrome/Edge)**: 주소를 열고 브라우저의 "앱 설치" 또는 게임 안 ⚙️ → 데이터 · 앱 → "설치 방법 보기" → "지금 설치하기"
 - **아이폰 · 아이패드(Safari)**: 공유 버튼 → "홈 화면에 추가"
 - 설치하면 인터넷 없이도 플레이할 수 있습니다(이야기 그림 포함, 녹음 오디오는 ⚙️ → 오디오 팩에서 내려받기).
+
+Netlify에서 웹 게임과 설치 파일을 함께 제공하는 절차도 [`docs/RELEASE.md`](docs/RELEASE.md)에 있습니다.
 
 ### 2) PC 설치 파일 (Windows · macOS)
 GitHub Releases 페이지에서 `.exe`/`.msi`(Windows), `.dmg`(macOS)를 내려받게 안내합니다.

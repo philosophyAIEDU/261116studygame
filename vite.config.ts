@@ -87,7 +87,7 @@ export default defineConfig(({ mode }) => ({
             workbox: {
               // 앱 셸과 3D 코드는 미리 캐시(precache)한다.
               globPatterns: ['**/*.{js,css,html,svg,png,webp,woff2,glb,json}'],
-              globIgnores: ['content/packs/**/audio/**'],
+              globIgnores: ['content/packs/**/audio/**', 'downloads/**'],
               maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
               // 오디오 팩은 필요할 때 내려받아 캐시(runtime cache)한다.
               runtimeCaching: [
