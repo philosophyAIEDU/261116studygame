@@ -55,6 +55,8 @@ export interface SaveData {
   /** 대화 원문은 저장하지 않는다. 통계만 둔다. */
   talk: { day: string; sessionsToday: number; totalSessions: number; phraseUses: number };
   world: { phase: DayPhase; activitiesToday: number };
+  /** 오늘의 퀘스트용 하루 카운터 */
+  daily: { day: string; listens: number; words: number };
   settings: Settings;
 }
 
@@ -95,6 +97,7 @@ export function defaultSave(): SaveData {
     },
     talk: { day: '', sessionsToday: 0, totalSessions: 0, phraseUses: 0 },
     world: { phase: 'morning', activitiesToday: 0 },
+    daily: { day: '', listens: 0, words: 0 },
     settings: defaultSettings(),
   };
 }

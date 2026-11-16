@@ -22,46 +22,46 @@ export interface ZoneDef {
 
 export const ZONES: readonly ZoneDef[] = [
   {
-    id: 'classroom', name: 'Classroom', icon: '📖', pos: [0, -14], color: '#f6b352',
+    id: 'classroom', name: 'Classroom', icon: '📖', pos: [0, -21], color: '#f6b352',
     actions: [
       { icon: '📚', label: 'Story Quest', overlay: { type: 'storyList' } },
       { icon: '📖', label: 'Reading', overlay: { type: 'skills', skill: 'reading' } },
     ],
   },
   {
-    id: 'music', name: 'Music Room', icon: '🎧', pos: [-16, -8], color: '#8e7cc3',
+    id: 'music', name: 'Music Room', icon: '🎧', pos: [-18, -12], color: '#8e7cc3',
     actions: [{ icon: '🎧', label: 'Listening', overlay: { type: 'skills', skill: 'listening' } }],
   },
   {
-    id: 'cafeteria', name: 'Cafeteria', icon: '🍕', pos: [16, -8], color: '#e8743b', npcId: 'leo',
+    id: 'cafeteria', name: 'Cafeteria', icon: '🍕', pos: [18, -12], color: '#e8743b', npcId: 'leo',
     actions: [
       { icon: '⚡', label: 'Real Talk', overlay: { type: 'realTalk' } },
       { icon: '💬', label: 'Talk Time', overlay: { type: 'talk', packId: '', npcId: 'leo' } },
     ],
   },
   {
-    id: 'playground', name: 'Playground', icon: '⚽', pos: [14, 10], color: '#7cc36a', npcId: 'ava',
+    id: 'playground', name: 'Playground', icon: '⚽', pos: [16, 12], color: '#7cc36a', npcId: 'ava',
     actions: [
       { icon: '🎤', label: 'Speaking', overlay: { type: 'skills', skill: 'speaking' } },
       { icon: '💬', label: 'Talk Time', overlay: { type: 'talk', packId: '', npcId: 'ava' } },
     ],
   },
   {
-    id: 'library', name: 'Library', icon: '✏️', pos: [-14, 10], color: '#7ec8e3', npcId: 'mrbooks',
+    id: 'library', name: 'Library', icon: '✏️', pos: [-16, 12], color: '#7ec8e3', npcId: 'mrbooks',
     actions: [
       { icon: '✏️', label: 'Writing', overlay: { type: 'skills', skill: 'writing' } },
       { icon: '🖍️', label: 'My Dictionary', overlay: { type: 'bag', tab: 'dictionary' } },
     ],
   },
   {
-    id: 'teacher', name: "Teacher's Desk", icon: '👩‍🏫', pos: [0, -2], color: '#e0526b', npcId: 'harper',
+    id: 'teacher', name: "Teacher's Desk", icon: '👩‍🏫', pos: [0, -7], color: '#e0526b', npcId: 'harper',
     actions: [
       { icon: '👩‍🏫', label: 'Ms. Harper', overlay: { type: 'mentor' } },
       { icon: '🎓', label: 'Graduation', overlay: { type: 'exam' } },
     ],
   },
   {
-    id: 'home', name: 'My Room', icon: '🛏️', pos: [0, 20], color: '#8e7cc3',
+    id: 'home', name: 'My Room', icon: '🛏️', pos: [-27, 1], color: '#8e7cc3',
     actions: [{ icon: '🌙', label: 'Bedtime Listening', overlay: { type: 'bedtime' } }],
   },
 ];

@@ -120,6 +120,11 @@ export const useGame = create<GameState>()(
       });
 
       const today = () => localDayKey(new Date());
+      /** 오늘의 퀘스트 카운터 올리기 (날짜가 바뀌면 0부터) */
+      const bumpDaily = (s: SaveData, key: 'listens' | 'words'): SaveData['daily'] => {
+        const base = s.daily.day === today() ? s.daily : { day: today(), listens: 0, words: 0 };
+        return { ...base, [key]: base[key] + 1 };
+      };
 
       return {
         save: defaultSave(),
@@ -185,6 +190,7 @@ export const useGame = create<GameState>()(
             (s) => ({
               ...withStory(s, packId, (sp) => ({ ...sp, listenCount: count, medal: upgradeMedal(sp.medal, speed) })),
               xp: s.xp + xp,
+              daily: bumpDaily(s, 'listens'),
               streak: touchStreak(s.streak, today()),
               skills: { ...s.skills, listening: { done: s.skills.listening.done + 1 } },
             }),
@@ -205,7 +211,7 @@ export const useGame = create<GameState>()(
               const prev = s.dictionary[key];
               const card = prev ? { ...prev, kind, value, packId } : newCard({ word: key, packId, kind, value, today: today(), now: Date.now() });
               const next = withStory(s, packId, (sp) => (sp.dictWords.includes(key) ? sp : { ...sp, dictWords: [...sp.dictWords, key] }));
-              return { ...next, dictionary: { ...s.dictionary, [key]: card }, xp: s.xp + xp };
+              return { ...next, dictionary: { ...s.dictionary, [key]: card }, xp: s.xp + xp, daily: isNew ? bumpDaily(s, 'words') : s.daily };
             },
             xp ? [{ kind: 'xp', amount: xp }] : [],
           );
