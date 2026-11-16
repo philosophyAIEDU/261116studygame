@@ -1,9 +1,14 @@
 name: Package installers and website
 
+# Netlify 배포: 웹 게임(PWA) + 설치·사용 안내 페이지(/guide/) + PC 설치 파일(/downloads/)을 한 번에 올린다.
+#  · v* 태그를 push 하면 자동 실행 (예: git tag v0.2.0 && git push origin v0.2.0)
+#  · Actions 탭 → "Package installers and website" → Run workflow 로 언제든 수동 실행
+# 필요한 설정(docs/NETLIFY.md): Secret NETLIFY_AUTH_TOKEN, Variable NETLIFY_SITE_ID, (선택) Variable SITE_URL
 on:
   workflow_dispatch:
   push:
     branches: ['codex/package-release', 'codex/festival-adventure']
+    tags: ['v*']
 
 permissions:
   contents: read
@@ -22,6 +27,14 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Tag must match package.json version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          VERSION="v$(node -p "require('./package.json').version")"
+          if [ "$VERSION" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package.json ($VERSION). Run: npm run version:set -- <version>"
+            exit 1
+          fi
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
@@ -54,6 +67,8 @@ jobs:
       - run: npm ci
       # 키를 새로 만들거나 검증을 우회하지 않는다. 이 묶음은 수동 설치용이다.
       - name: Build manually installable desktop app
+        env:
+          VITE_SITE_URL: ${{ vars.SITE_URL }}
         run: npm run tauri -- build --target ${{ matrix.target }} --bundles ${{ matrix.bundles }} --config '{"bundle":{"createUpdaterArtifacts":false}}'
       - uses: actions/upload-artifact@v4
         with:
@@ -79,6 +94,8 @@ jobs:
           pattern: desktop-*
           path: work/desktop-artifacts
       - run: npm run build
+        env:
+          VITE_SITE_URL: ${{ vars.SITE_URL }}
       - run: npm run release:downloads -- work/desktop-artifacts
       # 수동 업로드에도 업데이트 캐시 정책이 유지되도록 publish 폴더에 둔다.
       - run: cp public/_headers dist/_headers
@@ -103,4 +120,17 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ vars.NETLIFY_SITE_ID }}
-        run: npx --yes netlify-cli@23 deploy --prod --dir dist --no-build
+        run: npx --yes netlify-cli@23 deploy --prod --dir dist --no-build --message "${GITHUB_REF_NAME} (${GITHUB_SHA::7})"
+      - name: Summary
+        if: steps.netlify.outputs.enabled == 'true'
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          {
+            echo "### Netlify 배포 완료"
+            if [ -n "$SITE_URL" ]; then
+              echo "- 게임: $SITE_URL/"
+              echo "- 설치·사용 안내: $SITE_URL/guide/"
+              echo "- 설치 파일 목록: $SITE_URL/downloads/"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

@@ -1,16 +1,11 @@
+# Netlify 설정.
+# PC 설치 파일까지 함께 올리는 배포는 GitHub Actions 의 "Package installers and website"(.github/workflows/package.yml)가 한다.
+# 이 파일의 build 설정은 Netlify 가 직접 빌드할 때(웹 게임만) 쓰인다.
+# 응답 헤더와 짧은 주소 규칙은 public/_headers, public/_redirects 에 있다(어떤 배포 방식이든 dist/ 에 함께 들어간다).
+
 [build]
   command = "npm run build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "22"
-
-[[headers]]
-  for = "/downloads/latest.json"
-  [headers.values]
-    Cache-Control = "no-store"
-
-[[headers]]
-  for = "/sw.js"
-  [headers.values]
-    Cache-Control = "no-cache"

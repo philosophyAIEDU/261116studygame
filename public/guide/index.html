@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6b352" />
+  <meta name="description" content="My American School Quest 설치와 사용법 안내 — 보호자용" />
+  <link rel="icon" type="image/svg+xml" href="../icon.svg" />
+  <title>School Quest 설치·사용 안내</title>
+  <style>
+    /* 아트 바이블(docs/ART_BIBLE.md)의 색 토큰 */
+    :root {
+      --honey: #f6b352; --maple: #e8743b; --meadow: #7cc36a; --sky: #7ec8e3;
+      --night: #1d2440; --lilac: #8e7cc3; --paper: #fff6e5; --ink: #2b2440; --berry: #e0526b;
+      --card: #ffffff; --line: #f0dfc0; --muted: #5c5470;
+      --font: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.7; }
+    a { color: #b2541f; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+    .emoji { font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; }
+
+    header.hero { background: linear-gradient(180deg, #f79a6b 0%, var(--honey) 100%); color: var(--ink); padding: 40px 0 32px; }
+    .hero h1 { margin: 8px 0 4px; font-size: clamp(28px, 6vw, 40px); line-height: 1.25; }
+    .hero p { margin: 0 0 20px; font-size: 18px; }
+    .hero .logo { width: 72px; height: 72px; border-radius: 18px; box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 10px 18px; border-radius: 16px; font-weight: 800; font-size: 17px; text-decoration: none; border: 0; cursor: pointer; }
+    .btn.primary { background: var(--night); color: var(--paper); }
+    .btn.light { background: var(--paper); color: var(--ink); border-bottom: 4px solid #e9c98e; }
+    .btn.green { background: var(--meadow); color: var(--ink); border-bottom: 4px solid #4f8f40; }
+    .btn:focus-visible, a:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
+
+    nav.toc { position: sticky; top: 0; z-index: 5; background: rgba(255,246,229,.96); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+    nav.toc .wrap { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+    nav.toc a { flex: none; padding: 6px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-size: 15px; font-weight: 700; }
+
+    section { padding: 28px 0 8px; }
+    h2 { font-size: 24px; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+    h3 { font-size: 19px; margin: 18px 0 8px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 18px; margin: 12px 0; }
+    .card.recommended { border: 3px solid var(--honey); box-shadow: 0 6px 18px rgba(246,179,82,.25); }
+    .badge[hidden] { display: none; }
+    .badge { display: inline-block; font-size: 13px; font-weight: 800; padding: 2px 10px; border-radius: 999px; background: var(--honey); color: var(--ink); vertical-align: middle; }
+    .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    ol.steps { counter-reset: step; list-style: none; padding: 0; margin: 8px 0; }
+    ol.steps > li { counter-increment: step; position: relative; padding-left: 42px; margin: 10px 0; }
+    ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--honey); font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .note { background: #fff1d6; border-left: 5px solid var(--honey); padding: 10px 14px; border-radius: 10px; margin: 10px 0; }
+    .warn { background: #fde8ec; border-left: 5px solid var(--berry); padding: 10px 14px; border-radius: 10px; margin: 10px 0; }
+    .muted { color: var(--muted); font-size: 15px; }
+    kbd, code { font-family: ui-monospace, Menlo, Consolas, monospace; background: #f3ead8; padding: 1px 6px; border-radius: 6px; font-size: 15px; word-break: break-all; }
+    .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+    .flow span.step { background: var(--card); border: 2px solid var(--honey); border-radius: 14px; padding: 6px 12px; font-weight: 800; }
+    table { width: 100%; border-collapse: collapse; font-size: 16px; }
+    th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    details { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px; margin: 10px 0; }
+    summary { font-weight: 800; cursor: pointer; }
+    .dl-list { display: flex; flex-direction: column; gap: 10px; margin: 10px 0; }
+    .dl-item { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; justify-content: space-between; }
+    .dl-item .name { font-size: 14px; color: var(--muted); word-break: break-all; }
+    footer { margin-top: 32px; padding: 24px 0 40px; background: var(--night); color: var(--paper); }
+    footer a { color: var(--honey); }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <img class="logo" src="../icons/icon-192.png" alt="" width="72" height="72" />
+      <h1>My American School Quest</h1>
+      <p>아이가 모국어를 배우듯 영어를 배우는 3D 학교 게임 — <b>설치와 사용법 안내 (보호자용)</b></p>
+      <div class="actions">
+        <a class="btn primary" href="../"><span class="emoji">🎮</span> 바로 시작하기 (설치 없이)</a>
+        <a class="btn light" href="#phone"><span class="emoji">📱</span> 휴대폰·태블릿</a>
+        <a class="btn light" href="#pc"><span class="emoji">💻</span> PC 설치 파일</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="목차">
+    <div class="wrap">
+      <a href="#which">어떻게 설치할까?</a>
+      <a href="#phone">휴대폰</a>
+      <a href="#pc">PC 설치</a>
+      <a href="#first">처음 시작</a>
+      <a href="#play">하루 학습</a>
+      <a href="#guardian">보호자 설정</a>
+      <a href="#ai">AI 대화</a>
+      <a href="#update">업데이트·백업</a>
+      <a href="#privacy">개인정보</a>
+      <a href="#faq">자주 묻는 질문</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="which">
+      <h2><span class="emoji">🧭</span> 어떻게 설치할까요?</h2>
+      <p>세 가지 방법이 있습니다. 모두 같은 게임입니다. 휴대폰·브라우저는 새 버전을 자동으로 받고, PC 설치 프로그램은 이 페이지에서 새 파일을 받아 다시 설치하면 됩니다.</p>
+      <div class="grid">
+        <div class="card" data-os="mobile">
+          <h3><span class="emoji">📱</span> 휴대폰·태블릿 <span class="badge" hidden>이 기기 추천</span></h3>
+          <p>이 사이트를 <b>홈 화면에 추가</b>하면 앱처럼 열립니다. 별도 다운로드가 없습니다.</p>
+          <a href="#phone">설치 방법 보기 →</a>
+        </div>
+        <div class="card" data-os="desktop-pwa">
+          <h3><span class="emoji">🌐</span> PC 브라우저 <span class="badge">가장 간단</span></h3>
+          <p>Chrome·Edge에서 게임을 열고 주소창의 <b>설치</b> 아이콘을 누릅니다. 말하기(음성 인식)가 가장 잘 됩니다.</p>
+          <a href="../">게임 열기 →</a>
+        </div>
+        <div class="card" data-os="desktop">
+          <h3><span class="emoji">💻</span> PC 설치 프로그램 <span class="badge" hidden>이 기기 추천</span></h3>
+          <p>Windows·Mac용 설치 파일입니다. 브라우저 없이 바탕화면 아이콘으로 실행합니다.</p>
+          <a href="#pc">내려받기 →</a>
+        </div>
+      </div>
+      <p class="muted">기기마다 진행 기록이 따로 저장됩니다. 기기를 바꿀 때는 <a href="#update">백업 파일</a>로 옮기세요.</p>
+    </section>
+
+    <section id="phone">
+      <h2><span class="emoji">📱</span> 휴대폰·태블릿에 설치하기</h2>
+      <div class="card" data-os="android">
+        <h3><span class="emoji">🤖</span> 안드로이드 (Chrome)</h3>
+        <ol class="steps">
+          <li>Chrome으로 <a href="../">게임 주소</a>를 엽니다.</li>
+          <li>오른쪽 위 메뉴 <b>⋮</b> → <b>앱 설치</b>(또는 <b>홈 화면에 추가</b>)를 누릅니다.</li>
+          <li>홈 화면에 생긴 <b>School Quest</b> 아이콘으로 실행합니다.</li>
+        </ol>
+      </div>
+      <div class="card" data-os="ios">
+        <h3><span class="emoji">🍎</span> 아이폰·아이패드 (Safari)</h3>
+        <ol class="steps">
+          <li><b>Safari</b>로 <a href="../">게임 주소</a>를 엽니다. (다른 브라우저 앱에서는 홈 화면 추가가 안 될 수 있습니다)</li>
+          <li>아래쪽 <b>공유 버튼</b>(네모에서 화살표가 위로 나오는 모양)을 누릅니다.</li>
+          <li>목록을 내려 <b>홈 화면에 추가</b> → 오른쪽 위 <b>추가</b>를 누릅니다.</li>
+        </ol>
+        <p class="note">아이폰은 저장 공간이 제한될 수 있어, 녹음된 이야기 소리는 필요할 때만 내려받습니다. 화면을 끈 채 이야기를 듣는 기능은 녹음 오디오가 있는 이야기에서 가장 안정적입니다.</p>
+      </div>
+      <p class="muted">한 번 설치하면 인터넷이 없어도 플레이할 수 있습니다. (AI 대화는 인터넷이 필요합니다)</p>
+    </section>
+
+    <section id="pc">
+      <h2><span class="emoji">💻</span> PC 설치 프로그램 (Windows · Mac)</h2>
+      <div id="downloads" class="card recommended" aria-live="polite">
+        <h3>내려받기 <span id="dl-version" class="muted"></span></h3>
+        <div id="dl-list" class="dl-list"><p class="muted">설치 파일 목록을 불러오는 중…</p></div>
+      </div>
+
+      <div class="card" data-os="windows">
+        <h3><span class="emoji">🪟</span> Windows 10·11</h3>
+        <ol class="steps">
+          <li>위에서 <b>Windows 설치 프로그램 (.exe)</b>을 내려받아 실행합니다. (회사·학교 PC처럼 관리되는 컴퓨터라면 <b>.msi</b>를 쓰세요)</li>
+          <li>파란 창 <b>"Windows의 PC 보호"</b>가 뜨면 <b>추가 정보</b> → <b>실행</b>을 누릅니다.</li>
+          <li>설치가 끝나면 바탕화면·시작 메뉴의 <b>My American School Quest</b>로 실행합니다.</li>
+        </ol>
+        <p class="note">아직 코드 서명 인증서가 없는 프로그램이라 처음 실행할 때 위 경고가 나옵니다. 이 사이트에서 받은 파일이라면 안전하게 진행해도 됩니다. 설치 중 화면 구성 요소(WebView2)를 내려받을 수 있으니 인터넷에 연결해 두세요.</p>
+      </div>
+
+      <div class="card" data-os="mac">
+        <h3><span class="emoji">🍏</span> macOS (Apple Silicon·Intel 공용)</h3>
+        <ol class="steps">
+          <li>위에서 <b>Mac 설치 파일 (.dmg)</b>을 내려받아 엽니다.</li>
+          <li>열린 창에서 앱 아이콘을 <b>응용 프로그램(Applications)</b> 폴더로 끌어 놓습니다.</li>
+          <li>앱을 처음 열 때 "확인되지 않은 개발자" 경고가 나오면 <b>완료</b>를 누르고,
+            <b>시스템 설정 → 개인정보 보호 및 보안</b> 아래쪽의 <b>그래도 열기</b>를 누른 뒤 다시 엽니다.</li>
+        </ol>
+        <details>
+          <summary>"손상되었기 때문에 열 수 없습니다"라고 나올 때</summary>
+          <p>인터넷에서 받은 서명 없는 앱에 macOS가 붙이는 표시 때문입니다. <b>터미널</b> 앱을 열고 아래 한 줄을 붙여 넣은 뒤 Enter를 누르세요.</p>
+          <p><code>xattr -cr "/Applications/My American School Quest.app"</code></p>
+          <p>그다음 앱을 다시 엽니다.</p>
+        </details>
+      </div>
+      <p class="muted">PC 설치 프로그램에서는 말하기 연습이 "녹음 후 다시 듣기"나 글자 입력으로 동작합니다. 음성 인식으로 말하기를 하려면 Chrome·Edge 브라우저에서 게임을 여세요.</p>
+    </section>
+
+    <section id="first">
+      <h2><span class="emoji">🚀</span> 처음 시작하기</h2>
+      <ol class="steps">
+        <li><b>보호자 안내</b>(한국어)를 읽고 <b>아이에게 넘겨주기</b>를 누릅니다. 이 화면과 설정 화면만 한국어이고, 게임 화면은 영어와 그림으로만 되어 있습니다.</li>
+        <li><b>캐릭터 만들기</b>: 영어 닉네임(실명 대신 별명), 성별, 머리·옷 색을 고릅니다.</li>
+        <li><b>학습 스타일</b>(MBTI)을 고릅니다. 모르면 <b>I don't know. Help me!</b>를 눌러 그림 4문항으로 정합니다. 추천과 보너스에만 쓰이고 언제든 바꿀 수 있습니다.</li>
+        <li>짧은 <b>프롤로그</b>를 보면 학교에 도착합니다. (<b>Skip</b>으로 건너뛸 수 있습니다)</li>
+      </ol>
+      <h3>움직이는 방법</h3>
+      <table>
+        <tr><th>PC</th><td><kbd>W A S D</kbd> 또는 방향키로 걷기 · 마우스를 끌어 카메라 돌리기 · 땅을 클릭하면 그곳으로 이동</td></tr>
+        <tr><th>휴대폰</th><td>왼쪽 아래 <b>조이스틱</b>을 끌어 걷기 · 땅을 탭하면 그곳으로 이동</td></tr>
+        <tr><th>어디서나</th><td>📜 <b>퀘스트 로그</b>에서 할 일을 누르면 그 장소로 바로 이동 · 왼쪽 아래 <b>미니맵</b>을 누르면 큰 지도</td></tr>
+      </table>
+      <p>건물 가까이 가면 화면 아래에 할 수 있는 활동 버튼이 나옵니다. 머리 위 <b>❗</b>는 지금 할 메인 퀘스트가 있는 곳입니다.</p>
+    </section>
+
+    <section id="play">
+      <h2><span class="emoji">📖</span> 하루 학습 흐름 — Story Quest</h2>
+      <p><b>교실(📖 Classroom) → Story Quest</b>에서 이야기 한 편을 고르면, 다섯 단계가 순서대로 열립니다.</p>
+      <div class="flow" aria-label="다섯 단계">
+        <span class="step">① 👀 듣고 보기</span><span>→</span>
+        <span class="step">② 📖 따라 읽기</span><span>→</span>
+        <span class="step">③ 🖍️ 그림 사전</span><span>→</span>
+        <span class="step">④ 🌙 잠들기 전 듣기</span><span>→</span>
+        <span class="step">⑤ 🎤 말하고 쓰기</span>
+      </div>
+      <table>
+        <tr><th>① Look &amp; Listen</th><td>글자 없이 그림과 소리만 나옵니다. 그림 속 물건을 누르면 그 단어를 들려줍니다.</td></tr>
+        <tr><th>② Read Along</th><td>문장을 들으며 글자를 따라 읽습니다. 🐢 느리게 · 🚶 보통 · 🚀 원어민 속도를 고를 수 있습니다. 모르는 단어를 누르면 그림과 쉬운 영어로 뜻을 보여 줍니다.</td></tr>
+        <tr><th>③ Picture Dictionary</th><td>새 단어의 뜻을 <b>직접 그리거나</b>, 그림 카드를 고르거나, 쉬운 영어로 적습니다. 한글은 저장되지 않습니다.</td></tr>
+        <tr><th>④ Bedtime Listening</th><td>밤 장면에서 이야기를 편하게 듣습니다. 글자·퀴즈·점수가 없고, <b>수면 타이머</b>(10·20·30·45분)가 있습니다.</td></tr>
+        <tr><th>⑤ Use It!</th><td>이야기에서 모은 표현으로 말하고 씁니다. 그 이야기를 <b>3번 이상</b> 들어야 열립니다.</td></tr>
+      </table>
+      <div class="note"><b>왜 한국어 뜻이 없나요?</b> 한국어로 해석하며 들으면 원어민 속도를 따라가기 어렵기 때문입니다. 그림·상황·쉬운 영어로 뜻을 잡도록 설계했습니다.<br />
+        <b>말하기가 잠겨 있어요.</b> 고장이 아니라 "귀에 영어가 쌓이는 중"입니다. 듣기·읽기를 충분히 하면 열립니다.</div>
+      <h3>이렇게 쓰면 좋아요</h3>
+      <ul>
+        <li>낮에는 이야기 한 편의 ①~③을, 잠들기 전에는 <b>🌙 Bedtime Listening</b>을 틀어 주세요. 저녁 7시 이후에는 게임이 먼저 제안합니다.</li>
+        <li>같은 이야기를 여러 번 들을수록 좋습니다. 5번·10번째에는 보너스 경험치가 있습니다.</li>
+        <li>오른쪽 위 <b>👂 숫자</b>는 지금까지 들은 시간입니다. 졸업에는 레벨과 함께 듣기 시간(초등 10시간)이 필요합니다.</li>
+      </ul>
+    </section>
+
+    <section id="guardian">
+      <h2><span class="emoji">⚙️</span> 보호자 설정</h2>
+      <p>게임 화면 오른쪽 아래 <b>⚙️</b>를 누르면 한국어 설정 화면이 열립니다.</p>
+      <table>
+        <tr><th>일반</th><td>학습 스타일(MBTI), 소리 크기(배경 음악·효과음·이야기 음성), 기본 듣기 속도, 그래픽 품질(느린 휴대폰은 <b>낮음</b> 권장)</td></tr>
+        <tr><th>AI · Talk Time</th><td>Gemini 키, 오늘 사용량, 하루 Talk Time 최대 횟수, 음성 전송 동의 (<a href="#ai">아래 설명</a>)</td></tr>
+        <tr><th>오디오 팩</th><td>녹음된 이야기 소리를 미리 내려받아 오프라인에서 듣기</td></tr>
+        <tr><th>데이터 · 앱</th><td>진행 기록 백업·가져오기, 버전과 업데이트 확인, 변경 내역, <b>학습 리포트</b></td></tr>
+      </table>
+      <h3><span class="emoji">📊</span> 학습 리포트</h3>
+      <p><b>⚙️ → 데이터 · 앱 → 학습 리포트 보기</b>. 처음 열 때 4자리 PIN을 정합니다. 누적 듣기 시간, 이야기별 반복 횟수, 그림 사전 단어 수, 입력(듣기·읽기) : 출력(말하기·쓰기) 비율을 볼 수 있습니다. 입력이 출력보다 훨씬 많은 것이 정상입니다.</p>
+    </section>
+
+    <section id="ai">
+      <h2><span class="emoji">🤖</span> AI 선생님과 대화 (선택)</h2>
+      <p>Google Gemini <b>무료 키</b>를 넣으면 AI 선생님 Ms. Harper와 영어로 묻고 답하고, 친구 캐릭터와 <b>Talk Time</b> 음성 대화를 할 수 있습니다. <b>키가 없어도 나머지 게임은 모두 됩니다.</b></p>
+      <ol class="steps">
+        <li><a href="https://aistudio.google.com" rel="noopener" target="_blank">Google AI Studio</a>에 구글 계정으로 로그인합니다.</li>
+        <li><b>Get API key → Create API key</b>로 키를 만듭니다.</li>
+        <li>게임의 <b>⚙️ → AI · Talk Time</b>에 키를 붙여 넣고 <b>저장</b>합니다.</li>
+      </ol>
+      <div class="warn"><b>결제(Billing)가 연결된 구글 프로젝트의 키는 쓰지 마세요.</b> 게임은 무료 한도 안에서만 호출하고 한도에 닿으면 멈추지만, 실제 과금 여부는 구글 계정 설정에 따라 달라집니다.</div>
+      <ul>
+        <li>오른쪽 위 <b>🤖 Flash-Lite 0/500 · Flash 0/20</b>이 오늘 사용 횟수입니다. 한국 시간 오후 4~5시(미국 태평양 시간 자정)에 초기화됩니다.</li>
+        <li>Talk Time 한 번은 최대 6번 호출합니다. <b>하루 Talk Time 최대 횟수</b>(기본 10번)로 아이 혼자 한도를 다 쓰지 않게 정할 수 있습니다.</li>
+        <li>키는 그 기기에만 저장되고 백업 파일에도 들어가지 않습니다. 같은 화면에서 언제든 지울 수 있습니다.</li>
+      </ul>
+    </section>
+
+    <section id="update">
+      <h2><span class="emoji">🔄</span> 업데이트와 백업</h2>
+      <h3>새 버전 받기</h3>
+      <ul>
+        <li><b>휴대폰·브라우저</b>: 새 버전이 나오면 학교 화면 위쪽에 <b>✨ New update! [Update now]</b>가 뜹니다. 이야기를 듣는 중에는 방해하지 않고, 학교 화면으로 돌아왔을 때만 뜹니다.</li>
+        <li><b>PC 설치 프로그램</b>: 이 페이지에서 새 설치 파일을 받아 그대로 설치하면 됩니다. 진행 기록은 유지됩니다. <span class="muted">(지금 버전과 날짜는 위 <a href="#pc">내려받기</a>에 표시됩니다)</span></li>
+        <li>지금 버전은 <b>⚙️ → 데이터 · 앱</b>에서 확인합니다.</li>
+      </ul>
+      <h3>기기 바꾸기·백업</h3>
+      <ol class="steps">
+        <li>쓰던 기기에서 <b>⚙️ → 데이터 · 앱 → 내보내기</b>를 누르면 진행 기록 파일(JSON)이 저장됩니다. 아이가 그린 그림도 들어갑니다.</li>
+        <li>새 기기에서 게임을 열고 <b>⚙️ → 데이터 · 앱 → 가져오기</b>로 그 파일을 고릅니다.</li>
+      </ol>
+      <p class="muted">휴대폰 앱과 PC 설치 프로그램, 브라우저는 기록을 따로 저장하므로 옮길 때 이 방법을 쓰세요.</p>
+    </section>
+
+    <section id="privacy">
+      <h2><span class="emoji">🔒</span> 개인정보와 안전</h2>
+      <ul>
+        <li>광고·추적·회원가입이 없습니다. 진행 기록은 그 기기 안에만 저장됩니다.</li>
+        <li>닉네임에는 실명 대신 별명을 쓰세요.</li>
+        <li>마이크는 말하기 활동을 시작할 때만 요청합니다.</li>
+        <li>AI 대화에는 기본적으로 <b>인식된 글자만</b> 보냅니다. 아이의 목소리 녹음은 보호자가 설정에서 따로 동의했을 때만 Google Gemini로 보내며, 기기에 저장하지 않습니다.</li>
+        <li>브라우저의 음성 인식 기능은 브라우저 회사(구글·애플 등)의 서버를 거칠 수 있습니다.</li>
+        <li>AI 대화 내용은 저장하지 않고, 대화 횟수 같은 통계만 남깁니다.</li>
+      </ul>
+    </section>
+
+    <section id="faq">
+      <h2><span class="emoji">💬</span> 자주 묻는 질문</h2>
+      <details>
+        <summary>소리가 안 나요.</summary>
+        <p>휴대폰의 무음 스위치와 볼륨을 확인하고, <b>⚙️ → 일반 → 소리</b>에서 "이야기 음성"이 0이 아닌지 보세요. 녹음 파일이 없는 이야기는 기기의 음성으로 읽어 주므로, 기기 설정의 "텍스트 음성 변환(TTS)"에 영어 음성이 있어야 합니다.</p>
+      </details>
+      <details>
+        <summary>말하기·쓰기 버튼이 잠겨 있어요.</summary>
+        <p>일부러 그렇게 만들었습니다. 듣기 → 읽기 → (듣기 시간 10분 이상) → 말하기 → 쓰기 순서로 열리고, 이야기의 ⑤ 단계는 그 이야기를 3번 이상 들어야 열립니다.</p>
+      </details>
+      <details>
+        <summary>마이크를 눌러도 글자가 안 나와요.</summary>
+        <p>음성 인식은 Chrome·Edge·Safari에서 됩니다. Firefox나 PC 설치 프로그램에서는 녹음 후 다시 듣기나 글자 입력으로 대신합니다. 브라우저가 마이크 권한을 물으면 <b>허용</b>을 눌러 주세요.</p>
+      </details>
+      <details>
+        <summary>게임이 느리거나 휴대폰이 뜨거워요.</summary>
+        <p><b>⚙️ → 일반 → 그래픽 품질</b>을 <b>낮음</b>으로 바꾸세요.</p>
+      </details>
+      <details>
+        <summary>AI 대화가 안 돼요.</summary>
+        <p>키가 저장되어 있는지, 오른쪽 위 🤖 숫자가 하루 한도에 닿지 않았는지 확인하세요. 한도에 닿으면 다음 날 오후 4~5시(한국 시간)에 다시 열립니다. 하루 Talk Time 최대 횟수를 다 썼을 때도 잠깁니다.</p>
+      </details>
+      <details>
+        <summary>업데이트 후에도 예전 화면이 보여요.</summary>
+        <p>학교 화면의 <b>Update now</b>를 누르거나, 앱을 완전히 닫았다가 다시 여세요. <b>⚙️ → 데이터 · 앱 → 업데이트 확인</b>으로 직접 확인할 수도 있습니다.</p>
+      </details>
+      <details>
+        <summary>처음부터 다시 하고 싶어요.</summary>
+        <p><b>⚙️ → 데이터 · 앱 → 처음부터 다시 시작</b>. 지우기 전에 <b>내보내기</b>로 백업해 두는 것을 권합니다.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><b>My American School Quest</b> · 이야기·인물·학교는 모두 이 게임의 오리지널입니다.</p>
+      <p><a href="../">🎮 게임 열기</a> · <a href="#pc">💻 PC 설치 파일</a> · <a href="#faq">💬 자주 묻는 질문</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // 접속한 기기에 맞는 설치 방법을 강조하고, Netlify 에 올라간 설치 파일 목록을 보여준다.
+    (function () {
+      var ua = navigator.userAgent;
+      var ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.maxTouchPoints > 1 && /Mac/i.test(ua));
+      var android = /Android/i.test(ua);
+      var windows = /Windows/i.test(ua);
+      var mac = !ios && /Mac/i.test(ua);
+      var mobile = ios || android;
+
+      function recommend(selector) {
+        var el = document.querySelector(selector);
+        if (!el) return;
+        el.classList.add('recommended');
+        var badge = el.querySelector('.badge');
+        if (badge) badge.hidden = false;
+      }
+      if (mobile) { recommend('[data-os="mobile"]'); recommend(ios ? '[data-os="ios"]' : '[data-os="android"]'); }
+      else { recommend('[data-os="desktop"]'); if (windows) recommend('[data-os="windows"]'); if (mac) recommend('[data-os="mac"]'); }
+
+      var KINDS = [
+        { test: /-setup\.exe$|\.exe$/i, os: 'windows', icon: '🪟', label: 'Windows 설치 프로그램 (.exe)', order: 1 },
+        { test: /\.msi$/i, os: 'windows', icon: '🪟', label: 'Windows 설치 프로그램 — 관리용 (.msi)', order: 2 },
+        { test: /\.dmg$/i, os: 'mac', icon: '🍏', label: 'Mac 설치 파일 (.dmg)', order: 3 },
+      ];
+      var list = document.getElementById('dl-list');
+      var versionEl = document.getElementById('dl-version');
+
+      function empty() {
+        list.innerHTML = '';
+        var p = document.createElement('p');
+        p.textContent = 'PC 설치 파일을 준비하고 있습니다. 지금은 ';
+        var a = document.createElement('a');
+        a.href = '../';
+        a.textContent = '브라우저에서 바로 시작';
+        p.appendChild(a);
+        p.appendChild(document.createTextNode('하거나, Chrome·Edge 주소창의 설치 아이콘으로 PC에 설치할 수 있습니다.'));
+        list.appendChild(p);
+      }
+
+      fetch('../downloads/index.json', { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+        .then(function (items) {
+          if (!Array.isArray(items)) return empty();
+          var rows = [];
+          items.forEach(function (item) {
+            if (!item || typeof item.name !== 'string') return;
+            var kind = KINDS.filter(function (k) { return k.test.test(item.name); })[0];
+            if (kind) rows.push({ name: item.name, kind: kind });
+          });
+          if (rows.length === 0) return empty();
+          var version = rows.map(function (r) { return (r.name.match(/_(\d+\.\d+\.\d+)_/) || [])[1]; }).filter(Boolean)[0];
+          if (version) versionEl.textContent = '· 버전 ' + version;
+          var mine = windows ? 'windows' : mac ? 'mac' : '';
+          rows.sort(function (a, b) {
+            var am = a.kind.os === mine ? 0 : 1, bm = b.kind.os === mine ? 0 : 1;
+            return am - bm || a.kind.order - b.kind.order;
+          });
+          list.innerHTML = '';
+          var highlighted = false;
+          rows.forEach(function (row) {
+            // 이 컴퓨터에 맞는 첫 파일 하나만 강조한다 (Windows 는 .exe)
+            var best = !highlighted && row.kind.os === mine;
+            if (best) highlighted = true;
+            var wrap = document.createElement('div');
+            wrap.className = 'dl-item';
+            var left = document.createElement('div');
+            var title = document.createElement('div');
+            title.innerHTML = '<span class="emoji">' + row.kind.icon + '</span> <b></b>' + (best ? ' <span class="badge">이 컴퓨터</span>' : '');
+            title.querySelector('b').textContent = row.kind.label;
+            var name = document.createElement('div');
+            name.className = 'name';
+            name.textContent = row.name;
+            left.appendChild(title);
+            left.appendChild(name);
+            var a = document.createElement('a');
+            a.className = best ? 'btn green' : 'btn light';
+            a.href = '../downloads/' + encodeURIComponent(row.name);
+            a.setAttribute('download', row.name);
+            a.textContent = '⬇️ 내려받기';
+            wrap.appendChild(left);
+            wrap.appendChild(a);
+            list.appendChild(wrap);
+          });
+        })
+        .catch(empty);
+    })();
+  </script>
+</body>
+</html>

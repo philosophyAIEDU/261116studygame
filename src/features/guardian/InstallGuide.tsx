@@ -9,6 +9,9 @@ import { Btn, Modal } from '@/ui/kit';
 
 const t = ko.install;
 
+/** 빌드할 때 VITE_SITE_URL(예: https://school-quest.netlify.app)을 주면 그 주소의 안내 페이지를 가리킨다. */
+const siteGuideUrl = import.meta.env.VITE_SITE_URL ? `${String(import.meta.env.VITE_SITE_URL).replace(/\/+$/, '')}/guide/` : null;
+
 function Steps({ title, icon, steps }: { title: string; icon: string; steps: readonly string[] }) {
   return (
     <section className="mb-4 rounded-2xl bg-white/10 p-4">
@@ -55,6 +58,12 @@ export function InstallGuide({ onClose }: { onClose: () => void }) {
       <section className="rounded-2xl bg-white/10 p-4">
         <h3 className="mb-2 text-lg font-extrabold text-honey"><span className="emoji">💻</span> {t.pcTitle}</h3>
         <p className="text-base leading-relaxed">{t.pcBody}</p>
+        {/* PC 설치형 앱 안에서는 외부 링크가 열리지 않을 수 있어 주소를 글자로 보여준다. */}
+        {installed && isTauri() ? (
+          siteGuideUrl ? <p className="mt-2 text-sm" aria-label={t.guideAddress}>🔗 {siteGuideUrl}</p> : null
+        ) : (
+          <a href={siteGuideUrl ?? './guide/'} target="_blank" rel="noopener" className="mt-3 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-honey px-4 font-bold text-ink">📖 {t.guideLink}</a>
+        )}
       </section>
     </Modal>
   );
