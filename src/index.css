@@ -78,3 +78,8 @@ button:disabled { cursor: not-allowed; }
 .parcel-choice:hover { transform: translateY(-5px) rotate(-3deg); }
 .festival-found { background: radial-gradient(ellipse at center, #f3bd6133, transparent 75%); }
 @media (max-width: 640px) { .adventure-tracker { top: 102px; left: 8px; width: 242px; padding: 12px; } .adventure-tracker h2 { font-size: 16px; } .adventure-next { font-size: 14px; } }
+@media (max-width: 640px) {
+  .festival-banner { padding: 12px; gap: 10px; margin-bottom: 12px; }
+  .festival-banner p:first-child { font-size: 9px; letter-spacing: .1em; }
+  .festival-banner p:last-child { font-size: 11px; }
+}
