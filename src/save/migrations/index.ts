@@ -1,4 +1,5 @@
 import { CURRENT_SCHEMA_VERSION, defaultSave, defaultSettings, type SaveData } from '../schema';
+import { migrateV3ToV4 } from './v3ToV4';
 import { migrateV2ToV3 } from './v2ToV3';
 import { migrateV1ToV2, type SaveV1 } from './v1ToV2';
 
@@ -8,7 +9,7 @@ import { migrateV1ToV2, type SaveV1 } from './v1ToV2';
 
 type Migration = { from: number; run: (data: unknown) => unknown };
 
-const MIGRATIONS: readonly Migration[] = [{ from: 1, run: (data) => migrateV1ToV2(data as SaveV1) }, { from: 2, run: migrateV2ToV3 }];
+const MIGRATIONS: readonly Migration[] = [{ from: 1, run: (data) => migrateV1ToV2(data as SaveV1) }, { from: 2, run: migrateV2ToV3 }, { from: 3, run: migrateV3ToV4 }];
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);

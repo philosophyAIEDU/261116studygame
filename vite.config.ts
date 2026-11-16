@@ -71,9 +71,9 @@ export default defineConfig(({ mode }) => ({
             manifest: {
               name: 'My American School Quest',
               short_name: 'School Quest',
-              description: 'Learn English like your first language: listen, read, draw, sleep, speak.',
-              theme_color: '#f6b352',
-              background_color: '#1d2440',
+              description: 'Find your level, hear English words and explore your own word trail.',
+              theme_color: '#a58abb',
+              background_color: '#fcf8f1',
               display: 'standalone',
               orientation: 'any',
               start_url: './',
@@ -120,7 +120,7 @@ export default defineConfig(({ mode }) => ({
       include: [
         'src/features/progression/**', 'src/features/gemini/**', 'src/features/talktime/*.ts',
         'src/features/dictionary/*.ts', 'src/features/story/*.ts', 'src/save/**', 'src/audio/speedLadder.ts',
-        'src/features/mbti/*.ts', 'src/features/adventure/rules.ts',
+        'src/features/mbti/*.ts', 'src/features/adventure/rules.ts', 'src/features/vocabulary/rules.ts', 'src/audio/wordVoice.ts',
       ],
       exclude: ['**/*.test.*', '**/*.tsx'],
       thresholds: { lines: 80 },
