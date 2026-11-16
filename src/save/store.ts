@@ -1,3 +1,5 @@
+import { answerPlacement, startWordMission, answerWordMission, continueWordMission, claimWordMission, buyWordItem } from '@/features/vocabulary/rules';
+import type { VocabularyState } from '@/features/vocabulary/rules';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CareerId, DayPhase, DictKind, LifeStage, Profile, Speed, StoryStep, Tier } from '@/types';
@@ -31,6 +33,15 @@ interface GameState {
   shiftFx: () => void;
   pushFx: (fx: GameFx) => void;
 
+  vocabularyPlacementAnswer: (picked: string, heard: string) => void;
+  vocabularyStart: (seed: number, review?: boolean) => void;
+  vocabularyBuy: (id: CharacterAccessory) => void;
+  vocabularyAnswer: (picked: string, heard: string) => void;
+  vocabularyContinue: () => void;
+  vocabularyClaim: () => void;
+  vocabularyVoice: (uri: string) => void;
+  vocabularyLook: (look: VocabularyState['look']) => void;
+  vocabularyRetest: () => void;
   beginAdventure: () => void;
   collectAdventureParcel: (id: string, answer: string, position: { x: number; z: number }) => boolean;
   finishAdventureTask: (task: string, answer: string) => boolean;
@@ -140,6 +151,15 @@ export const useGame = create<GameState>()(
         shiftFx: () => set((s) => ({ fx: s.fx.slice(1) })),
         pushFx: (fx) => set((s) => ({ fx: [...s.fx, fx] })),
 
+        vocabularyPlacementAnswer: (picked, heard) => apply((s) => ({ ...s, vocabulary: answerPlacement(s.vocabulary, picked, heard) })),
+        vocabularyStart: (seed, review = false) => apply((s) => ({ ...s, vocabulary: startWordMission(s.vocabulary, Date.now(), seed, review) })),
+        vocabularyBuy: (id) => apply((s) => ({ ...s, vocabulary: buyWordItem(s.vocabulary, id) })),
+        vocabularyAnswer: (picked, heard) => apply((s) => ({ ...s, vocabulary: answerWordMission(s.vocabulary, picked, heard, Date.now()) })),
+        vocabularyContinue: () => apply((s) => ({ ...s, vocabulary: continueWordMission(s.vocabulary) })),
+        vocabularyClaim: () => apply((s) => ({ ...s, vocabulary: claimWordMission(s.vocabulary) })),
+        vocabularyVoice: (uri) => apply((s) => ({ ...s, vocabulary: { ...s.vocabulary, voiceURI: uri } })),
+        vocabularyLook: (look) => apply((s) => ({ ...s, vocabulary: { ...s.vocabulary, look } })),
+        vocabularyRetest: () => apply((s) => s.vocabulary.mission && !s.vocabulary.mission.claimed ? s : ({ ...s, vocabulary: { ...s.vocabulary, placement: null, assessment: [], recentScores: [] } })),
         beginAdventure: () => apply((s) => ({ ...s, adventure: { ...s.adventure, started: true } })),
         collectAdventureParcel: (id, answer, position) => {
           const prev = get().save.adventure;

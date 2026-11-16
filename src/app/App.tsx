@@ -4,6 +4,7 @@ import { setInputListener, setVoiceVolume } from '@/audio/player';
 import { setBgmVolume, setSfxVolume } from '@/audio/sfx';
 import { GuardianIntro } from '@/features/onboarding/GuardianIntro';
 import { CharacterCreate } from '@/features/onboarding/CharacterCreate';
+import { WordQuestGame } from '@/features/vocabulary/WordQuestGame';
 import { Prologue } from '@/features/onboarding/Prologue';
 
 const Game = lazy(() => import('./Game').then((m) => ({ default: m.Game })));
@@ -22,7 +23,7 @@ function useAudioWiring() {
 }
 
 /** 첫 실행 순서: 보호자 안내(한국어) → 캐릭터 만들기 → 프롤로그 → 게임 */
-export function App() {
+export function LegacyApp() {
   const guardianIntroSeen = useGame((s) => s.save.guardianIntroSeen);
   const hasProfile = useGame((s) => s.save.profile !== null);
   const prologueSeen = useGame((s) => s.save.prologueSeen);
@@ -38,4 +39,10 @@ export function App() {
       <Game />
     </Suspense>
   );
+}
+
+/** 기본 앱은 수준 진단 → 단어 듣기 RPG로 바로 시작한다. 기존 이야기는 저장 데이터를 보존한다. */
+export function App() {
+  useAudioWiring();
+  return <WordQuestGame />;
 }

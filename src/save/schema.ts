@@ -1,3 +1,4 @@
+import { emptyVocabulary, type VocabularyState } from '@/features/vocabulary/rules';
 import { emptyAdventure, type AdventureState } from '@/features/adventure/rules';
 import type { CareerId, DayPhase, LifeStage, Profile, Skill, Speed } from '@/types';
 import type { StoryProgress } from '@/features/story/unlock';
@@ -8,7 +9,7 @@ import { DEFAULT_GEMINI_LIMITS, DEFAULT_TALK_SESSIONS_PER_DAY, type ModelKey, ty
 // schemaVersion 을 올릴 때는 반드시 migrations/ 에 순차 변환 함수를 추가한다.
 // (업데이트 때문에 아이의 진행 데이터가 사라지면 안 된다)
 
-export const CURRENT_SCHEMA_VERSION = 3;
+export const CURRENT_SCHEMA_VERSION = 4;
 
 export type ModelMode = 'auto' | ModelKey;
 export type QualitySetting = 'auto' | 'low' | 'medium' | 'high';
@@ -40,6 +41,7 @@ export interface SaveData {
   schemaVersion: typeof CURRENT_SCHEMA_VERSION;
   profile: Profile | null;
   adventure: AdventureState;
+  vocabulary: VocabularyState;
   guardianIntroSeen: boolean;
   prologueSeen: boolean;
   xp: number;
@@ -81,6 +83,7 @@ export function defaultSave(): SaveData {
     schemaVersion: CURRENT_SCHEMA_VERSION,
     profile: null,
     adventure: emptyAdventure(),
+    vocabulary: emptyVocabulary(),
     guardianIntroSeen: false,
     prologueSeen: false,
     xp: 0,

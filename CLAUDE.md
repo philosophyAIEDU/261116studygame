@@ -1,7 +1,14 @@
 # My American School Quest — 프로젝트 안내 (Claude Code용)
 
-"아이가 모국어를 배우듯" 영어를 배우는 3D RPG. 한국인 전학생이 미국 초등학교에서 시작해
-그림책을 **듣고 → 읽고 → 그림으로 이해하고 → 잠들기 전 듣고 → 말하고 쓰는** 루프를 반복한다.
+## 현재 기본 학습 방식 (0.3.0, 사용자 요청으로 변경)
+- 기본 진입점: `WordQuestGame`. 소리 확인 → 짧은 적응형 단어 듣기 진단 → 수준에 맞는 5단어 RPG.
+- 정답을 맞히면 안개를 걷고, 오답은 두 문제 뒤에 다시 만난다. 첫 정답과 재시도 정답을 구분하며 복습 시점을 기록한다.
+- 사용자 선택에 따라 조작 안내도 영어·아이콘으로 유지하며 `src/i18n/wordQuest.ts`에서 관리한다. 단어·문제 보기·뜻 설명은 영어/그림만 사용하며 한국어 뜻 필드는 추가하지 않는다.
+- 음성은 영어 voice 목록 로딩을 기다리고 pitch=1로 재생한다. 실제 onend 없이 듣기 완료를 만들지 않는다.
+- 레벨은 게임 안 단어 듣기의 시작 단계이며 공인 영어 등급이 아니다. 모험 성적에 따라 계속 조정한다.
+- 이전 이야기/축제 기능과 저장 데이터는 보존하지만 신규 사용자의 기본 흐름으로 안내하지 않는다.
+
+아래 학습 철학은 이전 이야기 모드의 기준이며, 기본 모드와 충돌하면 위의 최신 요청을 우선한다.
 
 ## 학습 철학 6원칙 (기능이 충돌하면 이 원칙이 우선)
 1. **한국어를 거치지 않는다.** 학습 콘텐츠에 한국어 뜻·번역 금지. 뜻은 그림·쉬운 영어·상황으로 전달.
@@ -13,7 +20,7 @@
 
 ## 절대 규칙
 - `content/packs/**/story.json` 과 게임 화면 문자열에 **한글 금지** (`src/test/noKorean.test.ts` 가 검사).
-  한국어는 `src/i18n/ko.ts`(보호자·설정·설치 안내 전용)와 주석, 문서에만 쓴다.
+  한국어는 `src/i18n/ko*.ts`(조작 안내·보호자·설정·설치 안내)와 주석, 문서에만 쓴다. 영어 단어의 한국어 번역은 넣지 않는다.
 - 스키마에 한국어 뜻 필드를 만들지 않는다.
 - Gemini 는 무료 등급만. 한도 도달 시 무조건 차단. API 키 하드코딩 금지. 키가 없어도 게임 전체가 돌아가야 한다.
 - 녹음 오디오는 보호자 동의(`settings.sendAudioToGemini`) 없이는 절대 전송하지 않는다.
@@ -55,7 +62,7 @@ src-tauri/        PC 설치형 (Tauri 2 + updater)
 | `npm run audio:todo -- <packId\|all>` | 오디오가 없는 문장 목록 → `scripts/audio/audio-todo.json` |
 | `npm run audio:import -- <packId>` | 오디오 검사·정규화(ffmpeg)·`audio-manifest.json` 생성 |
 | `npm run audio:check` | 모든 팩 오디오 누락 리포트 (누락은 경고, 오류만 실패) |
-| `npm run version:set -- 0.2.0` | package.json / tauri.conf.json / Cargo.toml 버전 맞추기 |
+| `npm run version:set -- 0.3.0` | package.json / tauri.conf.json / Cargo.toml 버전 맞추기 |
 
 ## 콘텐츠 팩 규칙 (`content/packs/<packId>/`)
 - `pack.json`(메타) · `story.json`(장면·문장·단어·Phrase Pocket) · `images/` · `audio/` · `audio-manifest.json`(자동 생성, 손으로 편집 X)

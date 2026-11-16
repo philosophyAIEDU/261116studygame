@@ -11,13 +11,13 @@ export interface VoiceProfile {
 
 export const SPEAKER_VOICES: Record<string, VoiceProfile> = {
   narrator: { prefer: 'female', pitch: 1.0, rate: 1.0 },
-  girl: { prefer: 'female', pitch: 1.45, rate: 1.02 },
-  boy: { prefer: 'male', pitch: 1.5, rate: 1.04 },
-  friend: { prefer: 'female', pitch: 1.6, rate: 1.05 },
-  teacher: { prefer: 'female', pitch: 1.1, rate: 0.97 },
-  woman: { prefer: 'female', pitch: 0.95, rate: 0.98 },
-  man: { prefer: 'male', pitch: 0.85, rate: 0.98 },
-  creature: { prefer: 'male', pitch: 1.8, rate: 1.08 },
+  girl: { prefer: 'female', pitch: 1.0, rate: 1.02 },
+  boy: { prefer: 'male', pitch: 1.0, rate: 1.04 },
+  friend: { prefer: 'female', pitch: 1.0, rate: 1.05 },
+  teacher: { prefer: 'female', pitch: 1.0, rate: 0.97 },
+  woman: { prefer: 'female', pitch: 1.05, rate: 0.98 },
+  man: { prefer: 'male', pitch: 1.0, rate: 0.98 },
+  creature: { prefer: 'male', pitch: 1.0, rate: 1.08 },
 };
 
 export interface NpcDef {
@@ -31,19 +31,19 @@ export interface NpcDef {
 
 export const NPCS: Record<string, NpcDef> = {
   harper: {
-    id: 'harper', name: 'Ms. Harper', portrait: '👩‍🏫', voice: { prefer: 'female', pitch: 1.1, rate: 0.97 },
+    id: 'harper', name: 'Ms. Harper', portrait: '👩‍🏫', voice: { prefer: 'female', pitch: 1.0, rate: 0.97 },
     persona: 'Ms. Harper, a warm and patient homeroom teacher who loves picture books.',
   },
   leo: {
-    id: 'leo', name: 'Leo', portrait: '👦', voice: { prefer: 'male', pitch: 1.5, rate: 1.04 },
+    id: 'leo', name: 'Leo', portrait: '👦', voice: { prefer: 'male', pitch: 1.0, rate: 1.04 },
     persona: 'Leo, a cheerful 8-year-old classmate who loves pizza, rockets, and playing tag.',
   },
   ava: {
-    id: 'ava', name: 'Ava', portrait: '👱‍♀️', voice: { prefer: 'female', pitch: 1.6, rate: 1.05 },
+    id: 'ava', name: 'Ava', portrait: '👱‍♀️', voice: { prefer: 'female', pitch: 1.0, rate: 1.05 },
     persona: 'Ava, a playful and kind 8-year-old classmate who loves games and drawing.',
   },
   mrbooks: {
-    id: 'mrbooks', name: 'Mr. Page', portrait: '🧓', voice: { prefer: 'male', pitch: 0.9, rate: 0.95 },
+    id: 'mrbooks', name: 'Mr. Page', portrait: '🧓', voice: { prefer: 'male', pitch: 1.0, rate: 0.95 },
     persona: 'Mr. Page, a gentle school librarian who speaks softly and loves dragon stories.',
   },
   boss: {

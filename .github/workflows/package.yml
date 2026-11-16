@@ -7,7 +7,7 @@ name: Package installers and website
 on:
   workflow_dispatch:
   push:
-    branches: ['codex/package-release', 'codex/festival-adventure']
+    branches: ['codex/package-release', 'codex/festival-adventure', 'codex/word-listening-rpg']
     tags: ['v*']
 
 permissions:
