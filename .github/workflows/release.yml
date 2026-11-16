@@ -1,0 +1,113 @@
+name: Release
+
+# v* 태그를 push 하면: ① 테스트 ② PWA 를 GitHub Pages 에 배포 ③ PC 설치 파일(Windows·macOS) 빌드
+# ④ GitHub Release 에 설치 파일과 업데이트 매니페스트(latest.json) 업로드.
+# 자세한 준비 과정은 docs/RELEASE.md 참고.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Tag must match package.json version
+        run: |
+          VERSION="v$(node -p "require('./package.json').version")"
+          if [ "$VERSION" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match package.json ($VERSION). Run: npm run version:set -- <version>"
+            exit 1
+          fi
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run audio:check
+
+  pwa:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+  desktop:
+    needs: test
+    # 업데이트 서명 공개 키(저장소 변수)가 등록된 경우에만 PC 설치 파일을 만든다.
+    if: ${{ vars.TAURI_UPDATER_PUBKEY != '' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            args: ''
+          - os: macos-latest
+            args: '--target universal-apple-darwin'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.os == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - run: npm ci
+      - name: Put the updater public key into tauri.conf.json
+        shell: bash
+        env:
+          PUBKEY: ${{ vars.TAURI_UPDATER_PUBKEY }}
+        run: |
+          node -e "
+            const fs = require('fs');
+            const file = 'src-tauri/tauri.conf.json';
+            const conf = JSON.parse(fs.readFileSync(file, 'utf8'));
+            conf.plugins.updater.pubkey = process.env.PUBKEY;
+            fs.writeFileSync(file, JSON.stringify(conf, null, 2));
+          "
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: 'My American School Quest ${{ github.ref_name }}'
+          releaseBody: 'CHANGELOG.md 에서 변경 내역을 확인하세요. Windows 는 .exe/.msi, macOS 는 .dmg 를 내려받으면 됩니다.'
+          releaseDraft: false
+          prerelease: false
+          includeUpdaterJson: true
+          args: ${{ matrix.args }}

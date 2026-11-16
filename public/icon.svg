@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F79A6B"/><stop offset="1" stop-color="#F6B352"/></linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#sky)"/>
+  <circle cx="392" cy="120" r="46" fill="#FFF6E5" opacity="0.9"/>
+  <!-- school -->
+  <path d="M256 96 L400 196 H112 Z" fill="#E0526B"/>
+  <rect x="136" y="196" width="240" height="170" rx="10" fill="#FFF6E5"/>
+  <rect x="226" y="270" width="60" height="96" rx="8" fill="#9B6B4A"/>
+  <rect x="160" y="226" width="46" height="46" rx="8" fill="#7EC8E3"/>
+  <rect x="306" y="226" width="46" height="46" rx="8" fill="#7EC8E3"/>
+  <circle cx="256" cy="158" r="20" fill="#FFF6E5"/>
+  <!-- open book -->
+  <path d="M96 382 Q176 350 256 382 Q336 350 416 382 V436 Q336 404 256 436 Q176 404 96 436 Z" fill="#1D2440"/>
+  <path d="M112 386 Q184 360 250 388 V424 Q184 398 112 420 Z" fill="#FFF6E5"/>
+  <path d="M400 386 Q328 360 262 388 V424 Q328 398 400 420 Z" fill="#FFF6E5"/>
+</svg>
