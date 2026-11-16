@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { MBTI_TYPES, type Gender, type Mbti, type Profile } from '@/types';
 import { HAIR_COLORS, HAIR_STYLES, OUTFIT_COLORS } from '@/config/appearance';
 import { containsHangul } from '@/features/dictionary/hangul';
@@ -7,6 +7,8 @@ import { Avatar2D } from '@/ui/Avatar2D';
 import { CHARACTER_DESIGNS } from '@/config/characters';
 import { Btn, Paper } from '@/ui/kit';
 import { playSfx } from '@/audio/sfx';
+
+const CharacterPreview = lazy(() => import('@/world/CharacterPreview'));
 
 // 캐릭터 만들기: 닉네임 → 성별·외형 → MBTI(모르면 그림 4문항)
 // 글을 못 읽는 아이도 할 수 있게 그림·색 버튼 위주로 구성한다.
@@ -31,6 +33,7 @@ function Swatches({ colors, value, onChange, label }: { colors: readonly string[
 }
 
 export function CharacterCreate({ onDone }: { onDone: (p: Profile) => void }) {
+  const [preview3d, setPreview3d] = useState(false);
   const [step, setStep] = useState<0 | 1 | 2>(0);
   const [nickname, setNickname] = useState('');
   const [gender, setGender] = useState<Gender>('girl');
@@ -61,10 +64,11 @@ export function CharacterCreate({ onDone }: { onDone: (p: Profile) => void }) {
           <h1 className="text-4xl font-black tracking-tight text-ink sm:text-5xl">A little hero.<br /><span className="text-[#a95b65]">A big adventure.</span></h1>
           <div className="hero-stage relative mx-auto mt-5 flex h-64 max-w-sm items-end justify-center sm:h-80">
             <span className="hero-spark hero-spark-one" aria-hidden="true">✦</span><span className="hero-spark hero-spark-two" aria-hidden="true">✧</span>
-            <div className="hero-figure relative z-10"><Avatar2D look={look} size={210} /></div>
+            {preview3d ? <div className="relative z-10 h-full w-full"><Suspense fallback={<div className="flex h-full items-center justify-center"><Avatar2D look={look} size={210} /></div>}><CharacterPreview look={look} /></Suspense></div> : <div className="hero-figure relative z-10"><Avatar2D look={look} size={210} /></div>}
             <span className="hero-nameplate">{name || 'Your next adventure'}</span>
           </div>
-          <div className="mt-8 flex items-center justify-center gap-2">
+          <button type="button" className="relative z-10 mt-8 min-h-11 rounded-full border border-[#d5c2dc] bg-white/60 px-5 text-sm font-extrabold text-[#76518b]" aria-pressed={preview3d} onClick={() => setPreview3d((v) => !v)}>{preview3d ? '✧ Back to illustration' : '↻ See my hero in 3D'}</button>
+          <div className="mt-3 flex items-center justify-center gap-2">
             {['leo', 'ava', 'harper'].map((id) => <div key={id} className="character-portrait h-12 w-12 overflow-hidden rounded-full border-2 border-white"><Avatar2D look={CHARACTER_DESIGNS[id]!} size={48} bust /></div>)}
             <p className="ml-2 text-left text-sm font-bold text-[#76618d]">New friends.<br />A place to belong.</p>
           </div>
