@@ -69,7 +69,7 @@ describe('guardian settings (Korean)', () => {
     fireEvent.click(screen.getByRole('radio', { name: '낮음' }));
     expect(game().save.settings.quality).toBe('low');
     fireEvent.click(screen.getByRole('tab', { name: '데이터 · 앱' }));
-    expect(screen.getByText(/현재 버전/)).toHaveTextContent('v0.1.0');
+    expect(screen.getByText(/현재 버전/)).toHaveTextContent(`v${__APP_VERSION__}`);
     expect(screen.getByText('0.1.0 — 첫 버전')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('tab', { name: '오디오 팩' }));
     expect(screen.getAllByText('녹음 파일 없음 (기기 음성 사용)')).toHaveLength(6);
