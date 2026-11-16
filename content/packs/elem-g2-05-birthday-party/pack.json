@@ -1,0 +1,15 @@
+{
+  "id": "elem-g2-05-birthday-party",
+  "title": "Leo's Birthday",
+  "stage": "elementary",
+  "level": 2,
+  "order": 5,
+  "theme": "daily",
+  "version": 1,
+  "speeds": [
+    "slow",
+    "natural",
+    "native"
+  ],
+  "cover": "🎂"
+}

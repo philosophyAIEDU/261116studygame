@@ -1,0 +1,350 @@
+{
+  "packId": "elem-g1-03-playground-friends",
+  "title": "Can I Play?",
+  "level": 1,
+  "scenes": [
+    {
+      "id": "sc01",
+      "image": "images/sc01.svg",
+      "place": "playground",
+      "objects": [
+        {
+          "word": "slide",
+          "emoji": "🛝",
+          "x": 22,
+          "y": 52,
+          "size": 28
+        },
+        {
+          "word": "ball",
+          "emoji": "⚽",
+          "x": 52,
+          "y": 76,
+          "size": 14
+        },
+        {
+          "word": "kids",
+          "emoji": "🧒",
+          "x": 66,
+          "y": 54,
+          "size": 22
+        },
+        {
+          "word": "sun",
+          "emoji": "☀️",
+          "x": 86,
+          "y": 16,
+          "size": 14
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "image": "images/sc02.svg",
+      "place": "playground",
+      "objects": [
+        {
+          "word": "tree",
+          "emoji": "🌳",
+          "x": 18,
+          "y": 44,
+          "size": 36
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 34,
+          "y": 62,
+          "size": 20
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 62,
+          "y": 58,
+          "size": 20
+        },
+        {
+          "word": "friend",
+          "emoji": "👱‍♀️",
+          "x": 80,
+          "y": 58,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "id": "sc03",
+      "image": "images/sc03.svg",
+      "place": "playground",
+      "objects": [
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 26,
+          "y": 56,
+          "size": 24
+        },
+        {
+          "word": "friend",
+          "emoji": "👱‍♀️",
+          "x": 54,
+          "y": 56,
+          "size": 24
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 82,
+          "y": 60,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "image": "images/sc04.svg",
+      "place": "playground",
+      "objects": [
+        {
+          "word": "knee",
+          "emoji": "🦵",
+          "x": 50,
+          "y": 68,
+          "size": 20
+        },
+        {
+          "word": "friend",
+          "emoji": "👱‍♀️",
+          "x": 50,
+          "y": 44,
+          "size": 22
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 24,
+          "y": 56,
+          "size": 22
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 78,
+          "y": 56,
+          "size": 22
+        }
+      ]
+    },
+    {
+      "id": "sc05",
+      "image": "images/sc05.svg",
+      "place": "playground",
+      "objects": [
+        {
+          "word": "swing",
+          "emoji": "🎠",
+          "x": 50,
+          "y": 40,
+          "size": 30
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 26,
+          "y": 66,
+          "size": 20
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 50,
+          "y": 70,
+          "size": 20
+        },
+        {
+          "word": "friend",
+          "emoji": "👱‍♀️",
+          "x": 74,
+          "y": 66,
+          "size": 20
+        }
+      ]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "s001",
+      "sceneId": "sc01",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "It is recess. The playground is loud and fun."
+    },
+    {
+      "id": "s002",
+      "sceneId": "sc01",
+      "speaker": "narrator",
+      "voiceStyle": "excited",
+      "text": "Kids run, jump, and climb."
+    },
+    {
+      "id": "s003",
+      "sceneId": "sc02",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Mina stands by the tree. She watches a game."
+    },
+    {
+      "id": "s004",
+      "sceneId": "sc02",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Leo and Ava are playing tag."
+    },
+    {
+      "id": "s005",
+      "sceneId": "sc03",
+      "speaker": "girl",
+      "voiceStyle": "curious",
+      "text": "Can I play with you?"
+    },
+    {
+      "id": "s006",
+      "sceneId": "sc03",
+      "speaker": "friend",
+      "voiceStyle": "excited",
+      "text": "Sure! You're it!"
+    },
+    {
+      "id": "s007",
+      "sceneId": "sc03",
+      "speaker": "narrator",
+      "voiceStyle": "excited",
+      "text": "Mina runs fast. She tags Leo."
+    },
+    {
+      "id": "s008",
+      "sceneId": "sc04",
+      "speaker": "boy",
+      "voiceStyle": "excited",
+      "text": "You're so fast!"
+    },
+    {
+      "id": "s009",
+      "sceneId": "sc04",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Then Ava falls down. Her knee hurts."
+    },
+    {
+      "id": "s010",
+      "sceneId": "sc04",
+      "speaker": "girl",
+      "voiceStyle": "curious",
+      "text": "Are you okay?"
+    },
+    {
+      "id": "s011",
+      "sceneId": "sc04",
+      "speaker": "friend",
+      "voiceStyle": "warm",
+      "text": "I'm okay. Thanks, Mina."
+    },
+    {
+      "id": "s012",
+      "sceneId": "sc05",
+      "speaker": "narrator",
+      "voiceStyle": "warm",
+      "text": "They sit on the swings and laugh."
+    },
+    {
+      "id": "s013",
+      "sceneId": "sc05",
+      "speaker": "friend",
+      "voiceStyle": "excited",
+      "text": "Let's play again tomorrow!"
+    },
+    {
+      "id": "s014",
+      "sceneId": "sc05",
+      "speaker": "narrator",
+      "voiceStyle": "warm",
+      "text": "Mina cannot wait."
+    }
+  ],
+  "words": [
+    {
+      "word": "recess",
+      "easyEnglish": "play time at school",
+      "imageKey": "recess",
+      "emoji": "🤸"
+    },
+    {
+      "word": "playground",
+      "easyEnglish": "a place outside to play",
+      "imageKey": "playground",
+      "emoji": "🛝"
+    },
+    {
+      "word": "loud",
+      "easyEnglish": "a big sound",
+      "imageKey": "loud",
+      "emoji": "📢"
+    },
+    {
+      "word": "climb",
+      "easyEnglish": "go up with your hands and feet",
+      "imageKey": "climb",
+      "emoji": "🧗"
+    },
+    {
+      "word": "tag",
+      "easyEnglish": "a running game: you touch a friend",
+      "imageKey": "tag",
+      "emoji": "🏃"
+    },
+    {
+      "word": "fast",
+      "easyEnglish": "not slow",
+      "imageKey": "fast",
+      "emoji": "⚡"
+    },
+    {
+      "word": "fall down",
+      "easyEnglish": "go down to the ground: ouch!",
+      "imageKey": "fall-down",
+      "emoji": "🤕"
+    },
+    {
+      "word": "knee",
+      "easyEnglish": "the middle of your leg",
+      "imageKey": "knee",
+      "emoji": "🦵"
+    },
+    {
+      "word": "swing",
+      "easyEnglish": "you sit on it and go up and down",
+      "imageKey": "swing",
+      "emoji": "🎠"
+    },
+    {
+      "word": "laugh",
+      "easyEnglish": "ha ha ha!",
+      "imageKey": "laugh",
+      "emoji": "😂"
+    }
+  ],
+  "phrasePocket": [
+    "Can I play with you?",
+    "You're it!",
+    "You're so fast!",
+    "Are you okay?",
+    "I'm okay.",
+    "Let's play again tomorrow!"
+  ],
+  "talk": {
+    "npc": "ava",
+    "scene": "Recess on the playground. Ava wants to play a game with you.",
+    "opener": "Hi! Do you want to play with us?"
+  }
+}

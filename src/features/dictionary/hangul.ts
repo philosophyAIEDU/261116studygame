@@ -3,7 +3,7 @@
 // 그래서 그림 사전과 쓰기 입력에는 한글이 한 글자라도 있으면 저장하지 않는다.
 
 // /[ㄱ-ㆎ가-힣]/ 과 같은 범위. (게임 코드에 한글 리터럴을 두지 않으려고 유니코드 이스케이프로 적는다)
-const HANGUL = /[ㄱ-ㆎ가-힣]/;
+const HANGUL = /[\u3131-\u318E\uAC00-\uD7A3]/;
 
 export function containsHangul(text: string): boolean {
   return HANGUL.test(text);

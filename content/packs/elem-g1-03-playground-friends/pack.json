@@ -1,0 +1,15 @@
+{
+  "id": "elem-g1-03-playground-friends",
+  "title": "Can I Play?",
+  "stage": "elementary",
+  "level": 1,
+  "order": 3,
+  "theme": "daily",
+  "version": 1,
+  "speeds": [
+    "slow",
+    "natural",
+    "native"
+  ],
+  "cover": "⚽"
+}

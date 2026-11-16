@@ -1,0 +1,394 @@
+{
+  "packId": "elem-g2-05-birthday-party",
+  "title": "Leo's Birthday",
+  "level": 2,
+  "scenes": [
+    {
+      "id": "sc01",
+      "image": "images/sc01.svg",
+      "place": "home",
+      "objects": [
+        {
+          "word": "present",
+          "emoji": "🎁",
+          "x": 50,
+          "y": 62,
+          "size": 26
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 26,
+          "y": 54,
+          "size": 22
+        },
+        {
+          "word": "calendar",
+          "emoji": "📅",
+          "x": 80,
+          "y": 26,
+          "size": 14
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "image": "images/sc02.svg",
+      "place": "home",
+      "objects": [
+        {
+          "word": "door",
+          "emoji": "🚪",
+          "x": 50,
+          "y": 46,
+          "size": 30
+        },
+        {
+          "word": "doorbell",
+          "emoji": "🔔",
+          "x": 70,
+          "y": 44,
+          "size": 10
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 24,
+          "y": 62,
+          "size": 22
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 78,
+          "y": 62,
+          "size": 22
+        }
+      ]
+    },
+    {
+      "id": "sc03",
+      "image": "images/sc03.svg",
+      "place": "party",
+      "objects": [
+        {
+          "word": "balloon",
+          "emoji": "🎈",
+          "x": 18,
+          "y": 28,
+          "size": 22
+        },
+        {
+          "word": "cake",
+          "emoji": "🎂",
+          "x": 50,
+          "y": 62,
+          "size": 28
+        },
+        {
+          "word": "balloon",
+          "emoji": "🎈",
+          "x": 82,
+          "y": 26,
+          "size": 22
+        },
+        {
+          "word": "kids",
+          "emoji": "🧒",
+          "x": 78,
+          "y": 66,
+          "size": 18
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "image": "images/sc04.svg",
+      "place": "party",
+      "objects": [
+        {
+          "word": "candle",
+          "emoji": "🕯️",
+          "x": 50,
+          "y": 40,
+          "size": 18
+        },
+        {
+          "word": "cake",
+          "emoji": "🎂",
+          "x": 50,
+          "y": 68,
+          "size": 24
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 24,
+          "y": 54,
+          "size": 24
+        },
+        {
+          "word": "mom",
+          "emoji": "👩",
+          "x": 78,
+          "y": 52,
+          "size": 24
+        }
+      ]
+    },
+    {
+      "id": "sc05",
+      "image": "images/sc05.svg",
+      "place": "party",
+      "objects": [
+        {
+          "word": "cake",
+          "emoji": "🍰",
+          "x": 22,
+          "y": 66,
+          "size": 18
+        },
+        {
+          "word": "box",
+          "emoji": "🎁",
+          "x": 50,
+          "y": 62,
+          "size": 22
+        },
+        {
+          "word": "rocket",
+          "emoji": "🚀",
+          "x": 74,
+          "y": 40,
+          "size": 24
+        },
+        {
+          "word": "mom",
+          "emoji": "👩",
+          "x": 22,
+          "y": 40,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "id": "sc06",
+      "image": "images/sc06.svg",
+      "place": "party",
+      "objects": [
+        {
+          "word": "rocket",
+          "emoji": "🚀",
+          "x": 50,
+          "y": 30,
+          "size": 28
+        },
+        {
+          "word": "moon",
+          "emoji": "🌙",
+          "x": 84,
+          "y": 18,
+          "size": 14
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 30,
+          "y": 64,
+          "size": 22
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 68,
+          "y": 64,
+          "size": 22
+        }
+      ]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "s001",
+      "sceneId": "sc01",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Today is Leo's birthday. He is eight years old."
+    },
+    {
+      "id": "s002",
+      "sceneId": "sc01",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Mina has a present. It is in a blue box."
+    },
+    {
+      "id": "s003",
+      "sceneId": "sc02",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "She rings the doorbell. Leo opens the door."
+    },
+    {
+      "id": "s004",
+      "sceneId": "sc02",
+      "speaker": "girl",
+      "voiceStyle": "excited",
+      "text": "Happy birthday, Leo! This is for you."
+    },
+    {
+      "id": "s005",
+      "sceneId": "sc02",
+      "speaker": "boy",
+      "voiceStyle": "excited",
+      "text": "Wow, thank you! Come in!"
+    },
+    {
+      "id": "s006",
+      "sceneId": "sc03",
+      "speaker": "narrator",
+      "voiceStyle": "excited",
+      "text": "There are balloons everywhere. The cake has eight candles."
+    },
+    {
+      "id": "s007",
+      "sceneId": "sc03",
+      "speaker": "narrator",
+      "voiceStyle": "warm",
+      "text": "Everyone sings the birthday song."
+    },
+    {
+      "id": "s008",
+      "sceneId": "sc04",
+      "speaker": "woman",
+      "voiceStyle": "warm",
+      "text": "Make a wish, Leo!"
+    },
+    {
+      "id": "s009",
+      "sceneId": "sc04",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Leo closes his eyes and blows out the candles."
+    },
+    {
+      "id": "s010",
+      "sceneId": "sc05",
+      "speaker": "woman",
+      "voiceStyle": "warm",
+      "text": "Would you like some cake, Mina?"
+    },
+    {
+      "id": "s011",
+      "sceneId": "sc05",
+      "speaker": "girl",
+      "voiceStyle": "calm",
+      "text": "Yes, please. Just a little."
+    },
+    {
+      "id": "s012",
+      "sceneId": "sc05",
+      "speaker": "narrator",
+      "voiceStyle": "excited",
+      "text": "Leo opens the blue box. It is a toy rocket!"
+    },
+    {
+      "id": "s013",
+      "sceneId": "sc06",
+      "speaker": "boy",
+      "voiceStyle": "excited",
+      "text": "I love it! How did you know?"
+    },
+    {
+      "id": "s014",
+      "sceneId": "sc06",
+      "speaker": "girl",
+      "voiceStyle": "warm",
+      "text": "You told me. You want to go to the moon!",
+      "nativeText": "You told me. You wanna go to the moon!"
+    },
+    {
+      "id": "s015",
+      "sceneId": "sc06",
+      "speaker": "narrator",
+      "voiceStyle": "warm",
+      "text": "They laugh and fly the rocket around the room."
+    }
+  ],
+  "words": [
+    {
+      "word": "birthday",
+      "easyEnglish": "the day you were born; you get a cake",
+      "imageKey": "birthday",
+      "emoji": "🎂"
+    },
+    {
+      "word": "present",
+      "easyEnglish": "a nice thing you give to a friend",
+      "imageKey": "present",
+      "emoji": "🎁"
+    },
+    {
+      "word": "doorbell",
+      "easyEnglish": "you push it at the door: ding dong!",
+      "imageKey": "doorbell",
+      "emoji": "🔔"
+    },
+    {
+      "word": "balloon",
+      "easyEnglish": "it is round and full of air",
+      "imageKey": "balloon",
+      "emoji": "🎈"
+    },
+    {
+      "word": "everywhere",
+      "easyEnglish": "in all places",
+      "imageKey": "everywhere",
+      "emoji": "🌍"
+    },
+    {
+      "word": "candle",
+      "easyEnglish": "a little fire on a cake",
+      "imageKey": "candle",
+      "emoji": "🕯️"
+    },
+    {
+      "word": "wish",
+      "easyEnglish": "something you want very much",
+      "imageKey": "wish",
+      "emoji": "🌠"
+    },
+    {
+      "word": "blow out",
+      "easyEnglish": "push air to stop the fire",
+      "imageKey": "blow-out",
+      "emoji": "💨"
+    },
+    {
+      "word": "rocket",
+      "easyEnglish": "it flies up to space",
+      "imageKey": "rocket",
+      "emoji": "🚀"
+    },
+    {
+      "word": "moon",
+      "easyEnglish": "the big light in the night sky",
+      "imageKey": "moon",
+      "emoji": "🌙"
+    }
+  ],
+  "phrasePocket": [
+    "Happy birthday",
+    "This is for you.",
+    "Come in!",
+    "Make a wish",
+    "Just a little.",
+    "I love it!",
+    "How did you know?"
+  ],
+  "talk": {
+    "npc": "leo",
+    "scene": "Leo's birthday party at his house. You give him a present.",
+    "opener": "Hi! Thank you for coming to my party!"
+  }
+}

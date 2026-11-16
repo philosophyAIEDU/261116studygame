@@ -1,0 +1,339 @@
+{
+  "packId": "elem-g1-01-new-school",
+  "title": "The New School",
+  "level": 1,
+  "scenes": [
+    {
+      "id": "sc01",
+      "image": "images/sc01.svg",
+      "place": "classroom",
+      "objects": [
+        {
+          "word": "door",
+          "emoji": "🚪",
+          "x": 14,
+          "y": 52,
+          "size": 26
+        },
+        {
+          "word": "teacher",
+          "emoji": "👩‍🏫",
+          "x": 40,
+          "y": 52,
+          "size": 24
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 68,
+          "y": 60,
+          "size": 20
+        },
+        {
+          "word": "clock",
+          "emoji": "🕗",
+          "x": 84,
+          "y": 18,
+          "size": 12
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "image": "images/sc02.svg",
+      "place": "classroom",
+      "objects": [
+        {
+          "word": "desk",
+          "emoji": "🪑",
+          "x": 34,
+          "y": 66,
+          "size": 22
+        },
+        {
+          "word": "window",
+          "emoji": "🖼️",
+          "x": 78,
+          "y": 30,
+          "size": 24
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 36,
+          "y": 46,
+          "size": 18
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 64,
+          "y": 60,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "id": "sc03",
+      "image": "images/sc03.svg",
+      "place": "classroom",
+      "objects": [
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 30,
+          "y": 54,
+          "size": 26
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 68,
+          "y": 54,
+          "size": 26
+        },
+        {
+          "word": "book",
+          "emoji": "📘",
+          "x": 50,
+          "y": 80,
+          "size": 12
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "image": "images/sc04.svg",
+      "place": "classroom",
+      "objects": [
+        {
+          "word": "pencil",
+          "emoji": "✏️",
+          "x": 50,
+          "y": 46,
+          "size": 22
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 24,
+          "y": 58,
+          "size": 22
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 76,
+          "y": 58,
+          "size": 22
+        },
+        {
+          "word": "paper",
+          "emoji": "📄",
+          "x": 50,
+          "y": 80,
+          "size": 12
+        }
+      ]
+    },
+    {
+      "id": "sc05",
+      "image": "images/sc05.svg",
+      "place": "classroom",
+      "objects": [
+        {
+          "word": "bell",
+          "emoji": "🔔",
+          "x": 50,
+          "y": 20,
+          "size": 18
+        },
+        {
+          "word": "backpack",
+          "emoji": "🎒",
+          "x": 22,
+          "y": 70,
+          "size": 16
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 42,
+          "y": 60,
+          "size": 22
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 66,
+          "y": 60,
+          "size": 22
+        }
+      ]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "s001",
+      "sceneId": "sc01",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Mina walks into a big, bright classroom."
+    },
+    {
+      "id": "s002",
+      "sceneId": "sc01",
+      "speaker": "teacher",
+      "voiceStyle": "warm",
+      "text": "Hi! I'm going to show you your desk.",
+      "nativeText": "Hi! I'm gonna show you your desk."
+    },
+    {
+      "id": "s003",
+      "sceneId": "sc02",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Mina sits down. Her desk is by the window."
+    },
+    {
+      "id": "s004",
+      "sceneId": "sc02",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "A boy looks at her and smiles."
+    },
+    {
+      "id": "s005",
+      "sceneId": "sc03",
+      "speaker": "boy",
+      "voiceStyle": "excited",
+      "text": "Hi! I'm Leo. What's your name?"
+    },
+    {
+      "id": "s006",
+      "sceneId": "sc03",
+      "speaker": "girl",
+      "voiceStyle": "calm",
+      "text": "Hi! I'm Mina. I'm new here."
+    },
+    {
+      "id": "s007",
+      "sceneId": "sc04",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Mina has no pencil. She feels a little shy."
+    },
+    {
+      "id": "s008",
+      "sceneId": "sc04",
+      "speaker": "girl",
+      "voiceStyle": "curious",
+      "text": "Can I use your pencil?"
+    },
+    {
+      "id": "s009",
+      "sceneId": "sc04",
+      "speaker": "boy",
+      "voiceStyle": "warm",
+      "text": "Sure! Here you go."
+    },
+    {
+      "id": "s010",
+      "sceneId": "sc04",
+      "speaker": "girl",
+      "voiceStyle": "warm",
+      "text": "Thank you!"
+    },
+    {
+      "id": "s011",
+      "sceneId": "sc05",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "The bell rings. It is time to go home."
+    },
+    {
+      "id": "s012",
+      "sceneId": "sc05",
+      "speaker": "boy",
+      "voiceStyle": "excited",
+      "text": "See you tomorrow, Mina!",
+      "nativeText": "See ya tomorrow, Mina!"
+    },
+    {
+      "id": "s013",
+      "sceneId": "sc05",
+      "speaker": "narrator",
+      "voiceStyle": "warm",
+      "text": "Mina smiles. She has a new friend."
+    }
+  ],
+  "words": [
+    {
+      "word": "bright",
+      "easyEnglish": "full of light",
+      "imageKey": "sun-window",
+      "emoji": "☀️"
+    },
+    {
+      "word": "classroom",
+      "easyEnglish": "a room at school where you learn",
+      "imageKey": "classroom",
+      "emoji": "🏫"
+    },
+    {
+      "word": "desk",
+      "easyEnglish": "a small table for a student",
+      "imageKey": "desk",
+      "emoji": "🪑"
+    },
+    {
+      "word": "window",
+      "easyEnglish": "you can see outside through it",
+      "imageKey": "window",
+      "emoji": "🖼️"
+    },
+    {
+      "word": "smile",
+      "easyEnglish": "a happy face",
+      "imageKey": "smile",
+      "emoji": "😊"
+    },
+    {
+      "word": "shy",
+      "easyEnglish": "a little afraid to talk to new people",
+      "imageKey": "shy",
+      "emoji": "😳"
+    },
+    {
+      "word": "pencil",
+      "easyEnglish": "you write with it",
+      "imageKey": "pencil",
+      "emoji": "✏️"
+    },
+    {
+      "word": "bell",
+      "easyEnglish": "it rings: ding, ding!",
+      "imageKey": "bell",
+      "emoji": "🔔"
+    },
+    {
+      "word": "friend",
+      "easyEnglish": "a person you like and play with",
+      "imageKey": "friend",
+      "emoji": "🤝"
+    }
+  ],
+  "phrasePocket": [
+    "I'm new here.",
+    "What's your name?",
+    "Can I use your pencil?",
+    "Here you go.",
+    "Thank you!",
+    "See you tomorrow"
+  ],
+  "talk": {
+    "npc": "leo",
+    "scene": "First day at school. Leo sits next to you in the classroom.",
+    "opener": "Hi! I'm Leo. What's your name?"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "elem-g2-06-rainy-day",
+  "title": "Puddle Pirates",
+  "stage": "elementary",
+  "level": 2,
+  "order": 6,
+  "theme": "adventure",
+  "version": 1,
+  "speeds": [
+    "slow",
+    "natural",
+    "native"
+  ],
+  "cover": "🌧️"
+}

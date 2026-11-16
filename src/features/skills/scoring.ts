@@ -5,7 +5,7 @@
 export function toWords(text: string): string[] {
   return text
     .toLowerCase()
-    .replace(/[’`]/g, "'")
+    .replace(/[\u2019\u0060]/g, "'")
     .replace(/\bgonna\b/g, 'going to')
     .replace(/\bwanna\b/g, 'want to')
     .replace(/\bi'm\b/g, 'i am')

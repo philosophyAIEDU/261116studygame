@@ -1,0 +1,404 @@
+{
+  "packId": "elem-g2-06-rainy-day",
+  "title": "Puddle Pirates",
+  "level": 2,
+  "scenes": [
+    {
+      "id": "sc01",
+      "image": "images/sc01.svg",
+      "place": "home",
+      "objects": [
+        {
+          "word": "rain",
+          "emoji": "🌧️",
+          "x": 50,
+          "y": 24,
+          "size": 26
+        },
+        {
+          "word": "window",
+          "emoji": "🖼️",
+          "x": 50,
+          "y": 50,
+          "size": 20
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 24,
+          "y": 66,
+          "size": 22
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 76,
+          "y": 66,
+          "size": 22
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "image": "images/sc02.svg",
+      "place": "home",
+      "objects": [
+        {
+          "word": "raincoat",
+          "emoji": "🧥",
+          "x": 28,
+          "y": 50,
+          "size": 24
+        },
+        {
+          "word": "boots",
+          "emoji": "👢",
+          "x": 54,
+          "y": 70,
+          "size": 20
+        },
+        {
+          "word": "hat",
+          "emoji": "👒",
+          "x": 76,
+          "y": 40,
+          "size": 16
+        },
+        {
+          "word": "idea",
+          "emoji": "💡",
+          "x": 50,
+          "y": 20,
+          "size": 14
+        }
+      ]
+    },
+    {
+      "id": "sc03",
+      "image": "images/sc03.svg",
+      "place": "outside",
+      "objects": [
+        {
+          "word": "puddle",
+          "emoji": "💧",
+          "x": 40,
+          "y": 72,
+          "size": 24
+        },
+        {
+          "word": "leaf",
+          "emoji": "🍃",
+          "x": 58,
+          "y": 62,
+          "size": 16
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 20,
+          "y": 50,
+          "size": 22
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 80,
+          "y": 50,
+          "size": 22
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "image": "images/sc04.svg",
+      "place": "outside",
+      "objects": [
+        {
+          "word": "ship",
+          "emoji": "⛵",
+          "x": 46,
+          "y": 58,
+          "size": 24
+        },
+        {
+          "word": "wind",
+          "emoji": "🌬️",
+          "x": 18,
+          "y": 34,
+          "size": 20
+        },
+        {
+          "word": "splash",
+          "emoji": "💦",
+          "x": 72,
+          "y": 70,
+          "size": 22
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 80,
+          "y": 44,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "id": "sc05",
+      "image": "images/sc05.svg",
+      "place": "outside",
+      "objects": [
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 32,
+          "y": 52,
+          "size": 26
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 66,
+          "y": 52,
+          "size": 26
+        },
+        {
+          "word": "water",
+          "emoji": "💦",
+          "x": 50,
+          "y": 78,
+          "size": 16
+        }
+      ]
+    },
+    {
+      "id": "sc06",
+      "image": "images/sc06.svg",
+      "place": "outside",
+      "objects": [
+        {
+          "word": "rainbow",
+          "emoji": "🌈",
+          "x": 50,
+          "y": 26,
+          "size": 36
+        },
+        {
+          "word": "sun",
+          "emoji": "🌤️",
+          "x": 84,
+          "y": 18,
+          "size": 14
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 34,
+          "y": 66,
+          "size": 20
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 64,
+          "y": 66,
+          "size": 20
+        }
+      ]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "s001",
+      "sceneId": "sc01",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "It is raining. Mina and Leo cannot play outside."
+    },
+    {
+      "id": "s002",
+      "sceneId": "sc01",
+      "speaker": "boy",
+      "voiceStyle": "sad",
+      "text": "I'm bored. What should we do?"
+    },
+    {
+      "id": "s003",
+      "sceneId": "sc02",
+      "speaker": "girl",
+      "voiceStyle": "excited",
+      "text": "I have an idea! Let's be pirates."
+    },
+    {
+      "id": "s004",
+      "sceneId": "sc02",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "They put on raincoats and big yellow boots."
+    },
+    {
+      "id": "s005",
+      "sceneId": "sc03",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Outside, the puddles look like a wide blue sea."
+    },
+    {
+      "id": "s006",
+      "sceneId": "sc03",
+      "speaker": "boy",
+      "voiceStyle": "excited",
+      "text": "Look! A ship!"
+    },
+    {
+      "id": "s007",
+      "sceneId": "sc03",
+      "speaker": "narrator",
+      "voiceStyle": "warm",
+      "text": "It is only a little leaf, but today it is a pirate ship."
+    },
+    {
+      "id": "s008",
+      "sceneId": "sc04",
+      "speaker": "narrator",
+      "voiceStyle": "excited",
+      "text": "The leaf sails across the puddle. The wind pushes it fast."
+    },
+    {
+      "id": "s009",
+      "sceneId": "sc04",
+      "speaker": "girl",
+      "voiceStyle": "excited",
+      "text": "Don't let it sink!"
+    },
+    {
+      "id": "s010",
+      "sceneId": "sc04",
+      "speaker": "narrator",
+      "voiceStyle": "excited",
+      "text": "Splash! Leo jumps in. Water goes everywhere."
+    },
+    {
+      "id": "s011",
+      "sceneId": "sc05",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "They are wet from head to toe."
+    },
+    {
+      "id": "s012",
+      "sceneId": "sc05",
+      "speaker": "boy",
+      "voiceStyle": "excited",
+      "text": "That was so much fun!"
+    },
+    {
+      "id": "s013",
+      "sceneId": "sc06",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "The rain stops. A rainbow comes out."
+    },
+    {
+      "id": "s014",
+      "sceneId": "sc06",
+      "speaker": "girl",
+      "voiceStyle": "warm",
+      "text": "Let's do it again next time."
+    },
+    {
+      "id": "s015",
+      "sceneId": "sc06",
+      "speaker": "narrator",
+      "voiceStyle": "warm",
+      "text": "Rainy days are not boring anymore."
+    }
+  ],
+  "words": [
+    {
+      "word": "rain",
+      "easyEnglish": "water falling from the sky",
+      "imageKey": "rain",
+      "emoji": "🌧️"
+    },
+    {
+      "word": "bored",
+      "easyEnglish": "you have nothing fun to do",
+      "imageKey": "bored",
+      "emoji": "😑"
+    },
+    {
+      "word": "idea",
+      "easyEnglish": "a new thought in your head",
+      "imageKey": "idea",
+      "emoji": "💡"
+    },
+    {
+      "word": "pirate",
+      "easyEnglish": "a person on a ship who looks for gold",
+      "imageKey": "pirate",
+      "emoji": "🦜"
+    },
+    {
+      "word": "raincoat",
+      "easyEnglish": "a coat that keeps you dry",
+      "imageKey": "raincoat",
+      "emoji": "🧥"
+    },
+    {
+      "word": "boots",
+      "easyEnglish": "tall shoes for rain",
+      "imageKey": "boots",
+      "emoji": "👢"
+    },
+    {
+      "word": "puddle",
+      "easyEnglish": "a little water on the ground",
+      "imageKey": "puddle",
+      "emoji": "💧"
+    },
+    {
+      "word": "ship",
+      "easyEnglish": "a very big boat",
+      "imageKey": "ship",
+      "emoji": "⛵"
+    },
+    {
+      "word": "leaf",
+      "easyEnglish": "a small green part of a tree",
+      "imageKey": "leaf",
+      "emoji": "🍃"
+    },
+    {
+      "word": "sink",
+      "easyEnglish": "go down under the water",
+      "imageKey": "sink",
+      "emoji": "⬇️"
+    },
+    {
+      "word": "wet",
+      "easyEnglish": "with water on you; not dry",
+      "imageKey": "wet",
+      "emoji": "💦"
+    },
+    {
+      "word": "rainbow",
+      "easyEnglish": "many colors in the sky after rain",
+      "imageKey": "rainbow",
+      "emoji": "🌈"
+    }
+  ],
+  "phrasePocket": [
+    "I'm bored.",
+    "What should we do?",
+    "I have an idea!",
+    "Look!",
+    "That was so much fun!",
+    "Let's do it again"
+  ],
+  "talk": {
+    "npc": "ava",
+    "scene": "A rainy day. You and Ava are inside and want something fun to do.",
+    "opener": "It's raining again! What should we do?"
+  }
+}

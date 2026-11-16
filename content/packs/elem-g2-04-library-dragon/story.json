@@ -1,0 +1,378 @@
+{
+  "packId": "elem-g2-04-library-dragon",
+  "title": "The Quiet Dragon",
+  "level": 2,
+  "scenes": [
+    {
+      "id": "sc01",
+      "image": "images/sc01.svg",
+      "place": "library",
+      "objects": [
+        {
+          "word": "books",
+          "emoji": "📚",
+          "x": 22,
+          "y": 50,
+          "size": 28
+        },
+        {
+          "word": "teacher",
+          "emoji": "👩‍🏫",
+          "x": 52,
+          "y": 52,
+          "size": 22
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 76,
+          "y": 60,
+          "size": 20
+        },
+        {
+          "word": "lamp",
+          "emoji": "💡",
+          "x": 86,
+          "y": 18,
+          "size": 12
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "image": "images/sc02.svg",
+      "place": "library",
+      "objects": [
+        {
+          "word": "shelf",
+          "emoji": "📚",
+          "x": 24,
+          "y": 30,
+          "size": 26
+        },
+        {
+          "word": "book",
+          "emoji": "📗",
+          "x": 52,
+          "y": 44,
+          "size": 24
+        },
+        {
+          "word": "dragon",
+          "emoji": "🐉",
+          "x": 72,
+          "y": 34,
+          "size": 22
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 40,
+          "y": 70,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "id": "sc03",
+      "image": "images/sc03.svg",
+      "place": "library",
+      "objects": [
+        {
+          "word": "dragon",
+          "emoji": "🐉",
+          "x": 34,
+          "y": 46,
+          "size": 28
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 70,
+          "y": 56,
+          "size": 24
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "image": "images/sc04.svg",
+      "place": "library",
+      "objects": [
+        {
+          "word": "chair",
+          "emoji": "🪑",
+          "x": 22,
+          "y": 60,
+          "size": 22
+        },
+        {
+          "word": "table",
+          "emoji": "🛋️",
+          "x": 50,
+          "y": 62,
+          "size": 22
+        },
+        {
+          "word": "page",
+          "emoji": "📄",
+          "x": 78,
+          "y": 78,
+          "size": 16
+        },
+        {
+          "word": "dragon",
+          "emoji": "🐉",
+          "x": 64,
+          "y": 36,
+          "size": 16
+        }
+      ]
+    },
+    {
+      "id": "sc05",
+      "image": "images/sc05.svg",
+      "place": "library",
+      "objects": [
+        {
+          "word": "page",
+          "emoji": "📄",
+          "x": 38,
+          "y": 54,
+          "size": 20
+        },
+        {
+          "word": "dragon",
+          "emoji": "🐉",
+          "x": 62,
+          "y": 44,
+          "size": 26
+        },
+        {
+          "word": "book",
+          "emoji": "📗",
+          "x": 84,
+          "y": 66,
+          "size": 18
+        }
+      ]
+    },
+    {
+      "id": "sc06",
+      "image": "images/sc06.svg",
+      "place": "library",
+      "objects": [
+        {
+          "word": "teacher",
+          "emoji": "👩‍🏫",
+          "x": 26,
+          "y": 52,
+          "size": 24
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 62,
+          "y": 56,
+          "size": 24
+        },
+        {
+          "word": "book",
+          "emoji": "📗",
+          "x": 62,
+          "y": 76,
+          "size": 14
+        },
+        {
+          "word": "heart",
+          "emoji": "💚",
+          "x": 82,
+          "y": 26,
+          "size": 12
+        }
+      ]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "s001",
+      "sceneId": "sc01",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "On Friday, the class goes to the library."
+    },
+    {
+      "id": "s002",
+      "sceneId": "sc01",
+      "speaker": "teacher",
+      "voiceStyle": "whisper",
+      "text": "Shh. We use quiet voices here."
+    },
+    {
+      "id": "s003",
+      "sceneId": "sc02",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Mina finds a big green book on the top shelf."
+    },
+    {
+      "id": "s004",
+      "sceneId": "sc02",
+      "speaker": "narrator",
+      "voiceStyle": "excited",
+      "text": "She opens it, and a tiny dragon pops out!"
+    },
+    {
+      "id": "s005",
+      "sceneId": "sc03",
+      "speaker": "creature",
+      "voiceStyle": "curious",
+      "text": "Hello! I'm looking for my story. Can you help me?",
+      "nativeText": "Hello! I'm lookin' for my story. Can ya help me?"
+    },
+    {
+      "id": "s006",
+      "sceneId": "sc03",
+      "speaker": "girl",
+      "voiceStyle": "whisper",
+      "text": "I'm not sure. Let's look together."
+    },
+    {
+      "id": "s007",
+      "sceneId": "sc04",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "They look behind the chairs. They look under the table."
+    },
+    {
+      "id": "s008",
+      "sceneId": "sc04",
+      "speaker": "narrator",
+      "voiceStyle": "curious",
+      "text": "Then Mina sees a page on the floor."
+    },
+    {
+      "id": "s009",
+      "sceneId": "sc04",
+      "speaker": "girl",
+      "voiceStyle": "excited",
+      "text": "Is this yours?"
+    },
+    {
+      "id": "s010",
+      "sceneId": "sc05",
+      "speaker": "creature",
+      "voiceStyle": "excited",
+      "text": "Yes! That's my page! You found it!"
+    },
+    {
+      "id": "s011",
+      "sceneId": "sc05",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "The dragon jumps back into the book."
+    },
+    {
+      "id": "s012",
+      "sceneId": "sc06",
+      "speaker": "teacher",
+      "voiceStyle": "warm",
+      "text": "Mina, would you like to borrow that book?"
+    },
+    {
+      "id": "s013",
+      "sceneId": "sc06",
+      "speaker": "girl",
+      "voiceStyle": "warm",
+      "text": "Yes, please. It's a very good story."
+    },
+    {
+      "id": "s014",
+      "sceneId": "sc06",
+      "speaker": "narrator",
+      "voiceStyle": "warm",
+      "text": "Mina hugs the book. Inside, the dragon is smiling."
+    }
+  ],
+  "words": [
+    {
+      "word": "library",
+      "easyEnglish": "a place with many, many books",
+      "imageKey": "library",
+      "emoji": "📚"
+    },
+    {
+      "word": "quiet",
+      "easyEnglish": "no loud sound: shh",
+      "imageKey": "quiet",
+      "emoji": "🤫"
+    },
+    {
+      "word": "shelf",
+      "easyEnglish": "books sit on it",
+      "imageKey": "shelf",
+      "emoji": "🗄️"
+    },
+    {
+      "word": "tiny",
+      "easyEnglish": "very, very small",
+      "imageKey": "tiny",
+      "emoji": "🐜"
+    },
+    {
+      "word": "dragon",
+      "easyEnglish": "a big animal in stories; it can fly",
+      "imageKey": "dragon",
+      "emoji": "🐉"
+    },
+    {
+      "word": "pop out",
+      "easyEnglish": "come out fast",
+      "imageKey": "pop-out",
+      "emoji": "🎉"
+    },
+    {
+      "word": "together",
+      "easyEnglish": "with a friend, not alone",
+      "imageKey": "together",
+      "emoji": "🤝"
+    },
+    {
+      "word": "behind",
+      "easyEnglish": "at the back of something",
+      "imageKey": "behind",
+      "emoji": "🔙"
+    },
+    {
+      "word": "under",
+      "easyEnglish": "below; not on top",
+      "imageKey": "under",
+      "emoji": "⬇️"
+    },
+    {
+      "word": "page",
+      "easyEnglish": "one paper in a book",
+      "imageKey": "page",
+      "emoji": "📄"
+    },
+    {
+      "word": "borrow",
+      "easyEnglish": "take it now, and bring it back later",
+      "imageKey": "borrow",
+      "emoji": "🔁"
+    }
+  ],
+  "phrasePocket": [
+    "Can you help me?",
+    "I'm not sure.",
+    "Let's look together.",
+    "Is this yours?",
+    "You found it!",
+    "Yes, please."
+  ],
+  "talk": {
+    "npc": "mrbooks",
+    "scene": "In the school library. The librarian helps you find a book.",
+    "opener": "Hello! What kind of story do you like?"
+  }
+}

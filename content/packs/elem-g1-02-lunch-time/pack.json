@@ -1,0 +1,15 @@
+{
+  "id": "elem-g1-02-lunch-time",
+  "title": "Lunch Time",
+  "stage": "elementary",
+  "level": 1,
+  "order": 2,
+  "theme": "daily",
+  "version": 1,
+  "speeds": [
+    "slow",
+    "natural",
+    "native"
+  ],
+  "cover": "🍕"
+}

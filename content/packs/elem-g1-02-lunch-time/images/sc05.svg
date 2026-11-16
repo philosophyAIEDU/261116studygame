@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1D6"/><stop offset="1" stop-color="#FFD3B0"/></linearGradient></defs>
+<rect width="800" height="500" fill="url(#bg)"/>
+<circle cx="375" cy="85" r="60" fill="#ffffff" opacity="0.28"/>
+<circle cx="638" cy="56" r="74" fill="#ffffff" opacity="0.28"/>
+<circle cx="201" cy="187" r="46" fill="#ffffff" opacity="0.28"/>
+<rect x="0" y="350" width="800" height="150" fill="#C9B8A0"/>
+<rect x="0" y="350" width="800" height="10" fill="#E8743B" opacity="0.55"/>
+<g font-family="'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif">
+<ellipse cx="400" cy="138.98" rx="24.84" ry="5.5200000000000005" fill="#2B2440" opacity="0.14"/><text x="400" y="110" font-size="69" text-anchor="middle" dominant-baseline="central">⭐</text>
+<ellipse cx="272" cy="314.18" rx="46.44" ry="10.32" fill="#2B2440" opacity="0.14"/><text x="272" y="260" font-size="129" text-anchor="middle" dominant-baseline="central">👧</text>
+<ellipse cx="544" cy="314.18" rx="46.44" ry="10.32" fill="#2B2440" opacity="0.14"/><text x="544" y="260" font-size="129" text-anchor="middle" dominant-baseline="central">👦</text>
+</g>
+</svg>

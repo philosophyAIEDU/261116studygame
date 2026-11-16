@@ -1,0 +1,346 @@
+{
+  "packId": "elem-g1-02-lunch-time",
+  "title": "Lunch Time",
+  "level": 1,
+  "scenes": [
+    {
+      "id": "sc01",
+      "image": "images/sc01.svg",
+      "place": "cafeteria",
+      "objects": [
+        {
+          "word": "tray",
+          "emoji": "🍽️",
+          "x": 30,
+          "y": 66,
+          "size": 18
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 30,
+          "y": 46,
+          "size": 22
+        },
+        {
+          "word": "line",
+          "emoji": "🚶",
+          "x": 62,
+          "y": 56,
+          "size": 22
+        },
+        {
+          "word": "clock",
+          "emoji": "🕛",
+          "x": 84,
+          "y": 18,
+          "size": 12
+        }
+      ]
+    },
+    {
+      "id": "sc02",
+      "image": "images/sc02.svg",
+      "place": "cafeteria",
+      "objects": [
+        {
+          "word": "pizza",
+          "emoji": "🍕",
+          "x": 30,
+          "y": 60,
+          "size": 22
+        },
+        {
+          "word": "milk",
+          "emoji": "🥛",
+          "x": 54,
+          "y": 62,
+          "size": 18
+        },
+        {
+          "word": "apple",
+          "emoji": "🍎",
+          "x": 72,
+          "y": 64,
+          "size": 14
+        },
+        {
+          "word": "cook",
+          "emoji": "👩‍🍳",
+          "x": 50,
+          "y": 30,
+          "size": 24
+        }
+      ]
+    },
+    {
+      "id": "sc03",
+      "image": "images/sc03.svg",
+      "place": "cafeteria",
+      "objects": [
+        {
+          "word": "table",
+          "emoji": "🍱",
+          "x": 50,
+          "y": 68,
+          "size": 20
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 16,
+          "y": 56,
+          "size": 22
+        },
+        {
+          "word": "kids",
+          "emoji": "🧒",
+          "x": 60,
+          "y": 48,
+          "size": 20
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 80,
+          "y": 50,
+          "size": 22
+        }
+      ]
+    },
+    {
+      "id": "sc04",
+      "image": "images/sc04.svg",
+      "place": "cafeteria",
+      "objects": [
+        {
+          "word": "seat",
+          "emoji": "💺",
+          "x": 46,
+          "y": 66,
+          "size": 20
+        },
+        {
+          "word": "pizza",
+          "emoji": "🍕",
+          "x": 62,
+          "y": 72,
+          "size": 16
+        },
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 34,
+          "y": 48,
+          "size": 22
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 72,
+          "y": 48,
+          "size": 22
+        }
+      ]
+    },
+    {
+      "id": "sc05",
+      "image": "images/sc05.svg",
+      "place": "cafeteria",
+      "objects": [
+        {
+          "word": "girl",
+          "emoji": "👧",
+          "x": 34,
+          "y": 52,
+          "size": 26
+        },
+        {
+          "word": "boy",
+          "emoji": "👦",
+          "x": 68,
+          "y": 52,
+          "size": 26
+        },
+        {
+          "word": "star",
+          "emoji": "⭐",
+          "x": 50,
+          "y": 22,
+          "size": 14
+        }
+      ]
+    }
+  ],
+  "sentences": [
+    {
+      "id": "s001",
+      "sceneId": "sc01",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "It is lunch time. Mina is very hungry."
+    },
+    {
+      "id": "s002",
+      "sceneId": "sc01",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "She takes a tray and stands in line."
+    },
+    {
+      "id": "s003",
+      "sceneId": "sc02",
+      "speaker": "woman",
+      "voiceStyle": "warm",
+      "text": "What would you like?"
+    },
+    {
+      "id": "s004",
+      "sceneId": "sc02",
+      "speaker": "girl",
+      "voiceStyle": "calm",
+      "text": "Pizza, please."
+    },
+    {
+      "id": "s005",
+      "sceneId": "sc02",
+      "speaker": "woman",
+      "voiceStyle": "warm",
+      "text": "Do you want some milk?",
+      "nativeText": "Want some milk?"
+    },
+    {
+      "id": "s006",
+      "sceneId": "sc02",
+      "speaker": "girl",
+      "voiceStyle": "excited",
+      "text": "Yes, please!"
+    },
+    {
+      "id": "s007",
+      "sceneId": "sc03",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "Mina looks for a seat. The tables are full."
+    },
+    {
+      "id": "s008",
+      "sceneId": "sc03",
+      "speaker": "boy",
+      "voiceStyle": "excited",
+      "text": "Mina! Sit with us!"
+    },
+    {
+      "id": "s009",
+      "sceneId": "sc04",
+      "speaker": "girl",
+      "voiceStyle": "curious",
+      "text": "Can I sit here?"
+    },
+    {
+      "id": "s010",
+      "sceneId": "sc04",
+      "speaker": "boy",
+      "voiceStyle": "warm",
+      "text": "Of course!"
+    },
+    {
+      "id": "s011",
+      "sceneId": "sc04",
+      "speaker": "narrator",
+      "voiceStyle": "calm",
+      "text": "The pizza is hot and yummy."
+    },
+    {
+      "id": "s012",
+      "sceneId": "sc05",
+      "speaker": "boy",
+      "voiceStyle": "curious",
+      "text": "Do you like pizza?"
+    },
+    {
+      "id": "s013",
+      "sceneId": "sc05",
+      "speaker": "girl",
+      "voiceStyle": "excited",
+      "text": "I love it! It's my favorite."
+    },
+    {
+      "id": "s014",
+      "sceneId": "sc05",
+      "speaker": "narrator",
+      "voiceStyle": "warm",
+      "text": "Mina is not hungry now. She is happy."
+    }
+  ],
+  "words": [
+    {
+      "word": "hungry",
+      "easyEnglish": "you want to eat",
+      "imageKey": "hungry",
+      "emoji": "😋"
+    },
+    {
+      "word": "tray",
+      "easyEnglish": "a flat thing to carry food",
+      "imageKey": "tray",
+      "emoji": "🍽️"
+    },
+    {
+      "word": "line",
+      "easyEnglish": "people standing one by one",
+      "imageKey": "line",
+      "emoji": "🚶"
+    },
+    {
+      "word": "milk",
+      "easyEnglish": "a white drink",
+      "imageKey": "milk",
+      "emoji": "🥛"
+    },
+    {
+      "word": "seat",
+      "easyEnglish": "a place to sit",
+      "imageKey": "seat",
+      "emoji": "💺"
+    },
+    {
+      "word": "full",
+      "easyEnglish": "no more space",
+      "imageKey": "full",
+      "emoji": "🈵"
+    },
+    {
+      "word": "hot",
+      "easyEnglish": "not cold; it can burn",
+      "imageKey": "hot",
+      "emoji": "🔥"
+    },
+    {
+      "word": "yummy",
+      "easyEnglish": "it tastes very good",
+      "imageKey": "yummy",
+      "emoji": "😋"
+    },
+    {
+      "word": "favorite",
+      "easyEnglish": "the one you like best",
+      "imageKey": "favorite",
+      "emoji": "⭐"
+    }
+  ],
+  "phrasePocket": [
+    "What would you like?",
+    "Pizza, please.",
+    "Yes, please!",
+    "Can I sit here?",
+    "Of course!",
+    "Do you like pizza?",
+    "It's my favorite."
+  ],
+  "talk": {
+    "npc": "leo",
+    "scene": "Lunch time in the cafeteria. You sit with Leo and talk about food.",
+    "opener": "Hi! What do you like to eat?"
+  }
+}

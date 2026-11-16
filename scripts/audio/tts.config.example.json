@@ -1,0 +1,21 @@
+{
+  "$comment": "이 파일을 tts.config.json 으로 복사한 뒤 내 컴퓨터의 로컬 TTS 에 맞게 고치세요. (tts.config.json 은 git 에 올라가지 않습니다)",
+  "engine": "kokoro",
+  "command": "kokoro-tts --voice {voice} --speed {speedValue} --text-file {textFile} --out {outPath}",
+  "outputExt": "wav",
+  "voices": {
+    "narrator": "af_heart",
+    "girl": "af_nova",
+    "boy": "am_puck",
+    "friend": "af_sky",
+    "teacher": "af_bella",
+    "woman": "af_sarah",
+    "man": "am_michael",
+    "creature": "am_fenrir"
+  },
+  "speeds": { "slow": 0.8, "natural": 1.0, "native": 1.15 },
+  "useNativeText": true,
+  "styleHints": {
+    "calm": "", "warm": "", "excited": "", "whisper": "", "sad": "", "curious": ""
+  }
+}
