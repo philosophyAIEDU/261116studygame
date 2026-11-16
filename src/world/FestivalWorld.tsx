@@ -56,7 +56,7 @@ export function FestivalWorld() {
       <group ref={beacon}><mesh><octahedronGeometry args={[0.26]} /><meshStandardMaterial color="#ffdf88" emissive="#e5ad4b" emissiveIntensity={0.25} /></mesh></group>
       <mesh position={[0, 1.5, 0]}><cylinderGeometry args={[0.11, 0.55, 3, 16, 1, true]} /><meshBasicMaterial color="#ffe8a6" transparent opacity={0.12} depthWrite={false} /></mesh>
     </group>}
-    {target && <group ref={guide}><group ref={arrow}><mesh rotation={[-Math.PI / 2, 0, 0]}><circleGeometry args={[0.32, 3]} /><meshBasicMaterial color="#fff1b0" transparent opacity={0.9} /></mesh></group>{[2.3, 3.1, 3.9].map((z) => <mesh key={z} position={[0, 0, z]} rotation={[-Math.PI / 2, 0, 0]}><circleGeometry args={[0.075, 8]} /><meshBasicMaterial color="#fff1b0" transparent opacity={0.7} /></mesh>)}</group>}
+    {target && <group ref={guide}><group ref={arrow}><mesh rotation={[-Math.PI / 2, 0, -Math.PI / 2]}><circleGeometry args={[0.32, 3]} /><meshBasicMaterial color="#fff1b0" transparent opacity={0.9} /></mesh></group>{[2.3, 3.1, 3.9].map((z) => <mesh key={z} position={[0, 0, z]} rotation={[-Math.PI / 2, 0, 0]}><circleGeometry args={[0.075, 8]} /><meshBasicMaterial color="#fff1b0" transparent opacity={0.7} /></mesh>)}</group>}
   </>;
 }
 

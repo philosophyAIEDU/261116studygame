@@ -17,11 +17,15 @@ test('a clear first mission leads to listening parcels, friends, and a real outf
   const dialog = page.getByRole('dialog', { name: 'The Maple Festival' });
   await expect(dialog.getByText('The missing star stickers', { exact: true }).first()).toBeVisible();
   await dialog.getByRole('button', { name: /Find the glowing stars/ }).click();
-  for (const answer of ['☀️', '📖', '⚽']) {
+  for (const [answer, word] of [['☀️', 'sun'], ['📖', 'book'], ['⚽', 'ball']]) {
     await page.getByRole('button', { name: /Follow the stars/ }).click();
-    const open = page.getByRole('button', { name: /Open star parcel/ });
-    await expect(open).toBeVisible({ timeout: 30000 });
-    await open.click();
+    if (await page.getByRole('dialog', { name: 'School Map' }).isVisible()) {
+      await page.getByRole('button', { name: `Visit ${word} star parcel`, exact: true }).click();
+    } else {
+      const open = page.getByRole('button', { name: /Open star parcel/ });
+      await expect(open).toBeVisible({ timeout: 30000 });
+      await open.click();
+    }
     await expect(page.getByRole('button', { name: `Choose ${answer}`, exact: true })).toBeDisabled();
     await page.getByRole('button', { name: /Hear the clue/ }).click();
     await page.getByRole('button', { name: `Choose ${answer}`, exact: true }).click();

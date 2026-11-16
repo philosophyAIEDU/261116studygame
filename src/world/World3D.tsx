@@ -381,7 +381,7 @@ function Player({ look, shadows }: { look: CharacterLook; shadows: boolean }) {
   useFrame((_, rawDt) => {
     const g = group.current;
     if (!g) return;
-    const dt = Math.min(rawDt, 0.05);
+    const dt = Math.min(rawDt, 0.1);
     const blocked = useUi.getState().overlay !== null;
     let dx = 0;
     let dz = 0;

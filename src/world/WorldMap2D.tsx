@@ -18,7 +18,7 @@ export function WorldMap2D({ onPick, night }: { onPick?: (zoneId: string) => voi
   return (
     <nav aria-label="School map" className={`relative mx-auto aspect-square w-full max-w-xl overflow-hidden rounded-3xl border-4 border-honey ${night ? 'bg-night-2' : 'bg-meadow'}`}>
       <div className="absolute inset-[8%] rounded-[2rem] border-4 border-dashed border-white/30" aria-hidden="true" />
-      {activeFestivalQuest(adventure)?.id === 'lost-stars' && STAR_PARCELS.filter((p) => !adventure.collected.includes(p.id)).map((p) => <button key={p.id} type="button" aria-label="Visit star parcel" className="absolute z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-honey text-2xl shadow-lg" style={{ left: `${50 + p.pos[0] / 30 * 42}%`, top: `${46 + p.pos[1] / 30 * 46}%` }} onClick={() => { playerPos.x = p.pos[0]; playerPos.z = p.pos[1]; open({ type: 'adventure', nodeId: p.id }); }}>⭐</button>)}
+      {activeFestivalQuest(adventure)?.id === 'lost-stars' && STAR_PARCELS.filter((p) => !adventure.collected.includes(p.id)).map((p) => <button key={p.id} type="button" aria-label={`Visit ${p.word} star parcel`} className="absolute z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-honey text-2xl shadow-lg" style={{ left: `${50 + p.pos[0] / 30 * 42}%`, top: `${46 + p.pos[1] / 30 * 46}%` }} onClick={() => { playerPos.x = p.pos[0]; playerPos.z = p.pos[1]; open({ type: 'adventure', nodeId: p.id }); }}>⭐</button>)}
       {ZONES.map((z) => {
         const left = 50 + (z.pos[0] / 30) * 42;
         const top = 46 + (z.pos[1] / 30) * 46;
